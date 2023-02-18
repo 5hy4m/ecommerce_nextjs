@@ -1,0 +1,15 @@
+.categoryContainer > div {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: fit-content;
+}
+
+.categoryContainer > div:hover {
+  font-weight: 1000;
+  color: orange;
+}
+
+.categoryContainer {
+  display: flex;
+  justify-content: center;
+}
