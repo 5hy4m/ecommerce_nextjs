@@ -2,11 +2,14 @@ import Head from "next/head";
 import { Header } from "./components/Header/Header";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import styles from "./Home.module.css";
-import Breadcrumb from "react-bootstrap/Breadcrumb";
+import { getCategories } from "./services/notion/";
 
-export default function Home() {
+type HomeProps = {
+  categories: string[];
+};
+
+export default function Home({ categories }: HomeProps) {
   return (
     <>
       <Head>
@@ -20,22 +23,20 @@ export default function Home() {
         <Container>
           <hr />
           <Row className={styles.categoryContainer}>
-            <div>Video Games</div>
-            <div>Video Games</div>
-            <div>Video Games</div>
-            <div>Video Games</div>
-            <div>Video Games</div>
-            <div>Video Games</div>
-            <div>Video Games</div>
-            <div>Video Games</div>
-            <div>Video Games</div>
-            <div>Video Games</div>
-            <div>Video Games</div>
-            <div>Video Games</div>
-            <div>Video Games</div>
+            {categories.map((category: string, i) => (
+              <div key={`Categories_${i}`}>{category}</div>
+            ))}
           </Row>
         </Container>
       </main>
     </>
   );
+}
+
+export async function getStaticProps() {
+  const categories = await getCategories();
+
+  return {
+    props: { categories },
+  };
 }
