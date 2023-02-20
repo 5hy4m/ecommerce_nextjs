@@ -4,10 +4,15 @@ import styles from "./Header.module.css";
 
 export const Header = () => {
   return (
-    <Navbar className={styles.navbar}>
+    <>
+      <Navbar className={styles.navbar}>
+        <Container className={styles.container}>
+          <Navbar.Brand>Uniq Goods</Navbar.Brand>
+        </Container>
+      </Navbar>
       <Container className={styles.container}>
-        <Navbar.Brand>Uniq Goods</Navbar.Brand>
+        <hr />
       </Container>
-    </Navbar>
+    </>
   );
 };

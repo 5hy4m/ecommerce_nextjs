@@ -1,9 +1,10 @@
 import Head from "next/head";
-import { Header } from "./components/Header/Header";
+import { Header } from "../components/Header";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import styles from "./Home.module.css";
-import { getCategories } from "./services/notion/";
+import { getCategories } from "../services/notion";
+import Link from "next/link";
 
 type HomeProps = {
   categories: string[];
@@ -21,10 +22,11 @@ export default function Home({ categories }: HomeProps) {
       <main>
         <Header />
         <Container>
-          <hr />
           <Row className={styles.categoryContainer}>
-            {categories.map((category: string, i) => (
-              <div key={`Categories_${i}`}>{category}</div>
+            {categories.map((name: string, i) => (
+              <Link href={`/category/${name}`} key={`Categories_${i}`}>
+                {name}
+              </Link>
             ))}
           </Row>
         </Container>
@@ -34,7 +36,9 @@ export default function Home({ categories }: HomeProps) {
 }
 
 export async function getStaticProps() {
+  console.time("getCategories");
   const categories = await getCategories();
+  console.timeEnd("getCategories");
 
   return {
     props: { categories },

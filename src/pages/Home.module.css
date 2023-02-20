@@ -1,10 +1,12 @@
-.categoryContainer > div {
+.categoryContainer > a {
   padding-left: 10px;
   padding-right: 10px;
   width: fit-content;
+  color: black;
+  text-decoration: none;
 }
 
-.categoryContainer > div:hover {
+.categoryContainer > a:hover {
   font-weight: 1000;
   color: orange;
 }

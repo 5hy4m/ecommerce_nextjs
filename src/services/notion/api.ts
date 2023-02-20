@@ -1,7 +1,15 @@
 import { Client } from "@notionhq/client";
-import { GetDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
+
+type SELECT_TYPE = {
+  type: "select";
+  select: {
+    options: any;
+  };
+  id: string;
+  name: string;
+};
 
 export const getCategories = async (): Promise<string[]> => {
   if (!process.env.NOTION_DATABASE_ID || !process.env.NOTION_SECRET) {
@@ -10,7 +18,7 @@ export const getCategories = async (): Promise<string[]> => {
   }
 
   try {
-    const response: GetDatabaseResponse = await notion.databases.retrieve({
+    const response: any = await notion.databases.retrieve({
       database_id: process.env.NOTION_DATABASE_ID,
     });
 
@@ -30,7 +38,7 @@ export const getProducts = async (): Promise<string[]> => {
   }
 
   try {
-    const response: GetDatabaseResponse = await notion.databases.retrieve({
+    const response: any = await notion.databases.retrieve({
       database_id: process.env.NOTION_DATABASE_ID,
     });
 
