@@ -1,1 +1,1 @@
-export { getCategories } from "./api";
+export { getCategories, getProductsByCategory } from "./api";

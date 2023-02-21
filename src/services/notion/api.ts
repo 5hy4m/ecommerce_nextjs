@@ -1,6 +1,8 @@
 import { Client } from "@notionhq/client";
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
+const databaseId = process.env.NOTION_DATABASE_ID;
+const secret = process.env.NOTION_SECRET;
 
 type SELECT_TYPE = {
   type: "select";
@@ -12,17 +14,17 @@ type SELECT_TYPE = {
 };
 
 export const getCategories = async (): Promise<string[]> => {
-  if (!process.env.NOTION_DATABASE_ID || !process.env.NOTION_SECRET) {
+  if (!databaseId || !secret) {
     console.error("Can't find notion env variable");
     return [];
   }
 
   try {
     const response: any = await notion.databases.retrieve({
-      database_id: process.env.NOTION_DATABASE_ID,
+      database_id: databaseId,
     });
 
-    return response.properties.Class.select.options.map(
+    return response.properties.Category.select.options.map(
       (option: Partial<{ name: string }>) => option.name
     );
   } catch (err) {
@@ -31,20 +33,26 @@ export const getCategories = async (): Promise<string[]> => {
   }
 };
 
-export const getProducts = async (): Promise<string[]> => {
-  if (!process.env.NOTION_DATABASE_ID || !process.env.NOTION_SECRET) {
+export const getProductsByCategory = async (
+  category: string
+): Promise<string[]> => {
+  if (!databaseId || !secret) {
     console.error("Can't find notion env variable");
     return [];
   }
 
   try {
-    const response: any = await notion.databases.retrieve({
-      database_id: process.env.NOTION_DATABASE_ID,
+    const response = await notion.databases.query({
+      database_id: databaseId,
+      filter: {
+        property: "Category",
+        select: {
+          equals: category,
+        },
+      },
     });
 
-    return response.properties.Class.select.options.map(
-      (option: Partial<{ name: string }>) => option.name
-    );
+    return response.results.map((products) => products.properties);
   } catch (err) {
     console.error("Fetch categories from notion failed: ", err);
     throw err;
