@@ -1,17 +1,9 @@
 import { Client } from "@notionhq/client";
+import { Product, parseProduct } from "./parser";
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
 const databaseId = process.env.NOTION_DATABASE_ID;
 const secret = process.env.NOTION_SECRET;
-
-type SELECT_TYPE = {
-  type: "select";
-  select: {
-    options: any;
-  };
-  id: string;
-  name: string;
-};
 
 export const getCategories = async (): Promise<string[]> => {
   if (!databaseId || !secret) {
@@ -35,7 +27,7 @@ export const getCategories = async (): Promise<string[]> => {
 
 export const getProductsByCategory = async (
   category: string
-): Promise<string[]> => {
+): Promise<Product[]> => {
   if (!databaseId || !secret) {
     console.error("Can't find notion env variable");
     return [];
@@ -52,7 +44,7 @@ export const getProductsByCategory = async (
       },
     });
 
-    return response.results.map((products) => products.properties);
+    return response.results.map((product) => parseProduct(product));
   } catch (err) {
     console.error("Fetch categories from notion failed: ", err);
     throw err;
