@@ -2,35 +2,44 @@ export type Product = {
   [key in string]: string | URL[] | number;
 };
 
+type PropertyMapper = {
+  [key in string]: string;
+};
+
+const propertyMapper: PropertyMapper = {
+  Stock: "stock",
+  Category: "category",
+  Rupees: "rupees",
+  Name: "name",
+  Description: "description",
+  "Image Urls": "imageUrls",
+};
+
 export const parseProduct = ({ properties }: any): any => {
-  console.log("PRODUCT: ", properties);
   const propNames = Object.keys(properties);
-  console.log("PROPS: ", propNames);
 
   let parsedProduct = {} as any;
 
   propNames.forEach((name: string) => {
     const prop = properties[name];
     const content = prop[prop.type];
+    const propName = propertyMapper[name];
 
     if (name === "Category") {
-      return (parsedProduct[name] = content.name);
+      return (parsedProduct[propName] = content.name);
     }
 
+    // handles Stock, Rupees fields
     if (!Array.isArray(content)) {
-      return (parsedProduct[name] = content);
+      return (parsedProduct[propName] = content);
     }
 
     if (name.toLowerCase() === "image urls") {
-      return (parsedProduct[name.toLowerCase().trim()] = content.map(
-        (item) => item
-      ));
+      return (parsedProduct[propName] = content.map((item) => item.name));
     }
 
-    console.log("content: ", content);
-    console.log("NAME: ", name);
-
-    return (parsedProduct[name] = content
+    // handles Name and Description fields
+    return (parsedProduct[propName] = content
       .map((item) => item[item.type].content)
       .join(""));
   });
