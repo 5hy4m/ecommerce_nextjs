@@ -21,7 +21,7 @@ export default function Document() {
           crossOrigin="anonymous"
         />
       </Head>
-      <body>
+      <body style={{ height: "100vh" }}>
         <Main />
         <NextScript />
       </body>
