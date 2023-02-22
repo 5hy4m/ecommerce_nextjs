@@ -15,12 +15,14 @@ type CategoryProps = {
 };
 
 export default function Category({ category, products }: CategoryProps) {
+  // products.push(products[0]);
+  // products.push(products[1]);
   return (
     <Container>
       <Header />
       <div className={styles.category_container}>
         <h1>{category}</h1>
-        <div>
+        <div className={styles.cards_layout}>
           {products.map((product: any, i) => (
             <Card className={styles.card} key={`Products_${i}`}>
               {/* <Link href={`/product/${product.Rupees}`} key={`Products_${i}`}> */}

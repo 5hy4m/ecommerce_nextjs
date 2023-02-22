@@ -27,3 +27,18 @@
   width: 50%;
   align-self: center;
 }
+.card {
+  width: 320px;
+}
+
+.cards_layout {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+@media only screen and (max-width: 426px) {
+  .card {
+    width: 100%;
+  }
+}
