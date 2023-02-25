@@ -7,7 +7,8 @@ import Container from "react-bootstrap/Container";
 import styles from "./Category.module.css";
 import Card from "react-bootstrap/Card";
 import Image from "next/image";
-import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 type CategoryProps = {
   category: string;
@@ -15,41 +16,38 @@ type CategoryProps = {
 };
 
 export default function Category({ category, products }: CategoryProps) {
-  // products.push(products[0]);
-  // products.push(products[1]);
+  const maxTitleCharPerRow = 45;
+  const maxDescCharPerRow = 18;
   return (
     <Container>
       <Header />
-      <div className={styles.category_container}>
-        <h1>{category}</h1>
-        <div className={styles.cards_layout}>
-          {products.map((product: any, i) => (
-            <Card className={styles.card} key={`Products_${i}`}>
-              {/* <Link href={`/product/${product.Rupees}`} key={`Products_${i}`}> */}
-              <div className={styles.img_container}>
-                <Image
-                  className="card-img"
-                  src={product.imageUrls[0]}
-                  alt={product.name}
-                  fill
-                />
-              </div>
-              <Card.Body className={styles.card_body}>
-                <Card.Title>{product.name}</Card.Title>
-                <Card.Text>{product.description}</Card.Text>
-                <div>₹{product.rupees}</div>
-                <Button
-                  className={styles.details_button}
-                  variant="outline-primary"
-                >
-                  Details
-                </Button>
-              </Card.Body>
-              {/* </Link> */}
-            </Card>
-          ))}
-        </div>
-      </div>
+      <Row>
+        <Col>
+          <h1 className={styles.h1}>{category}</h1>
+          <div className={styles.cards_layout}>
+            {products.map((product: any, i) => (
+              <Card className={styles.card} key={`Products_${i}`}>
+                {/* <Link href={`/product/${product.Rupees}`} key={`Products_${i}`}> */}
+                <div className={styles.img_container}>
+                  <Image
+                    className="card-img"
+                    src={product.imageUrls[0]}
+                    alt={product.name}
+                    fill
+                  />
+                </div>
+                <Card.Body className={styles.card_body}>
+                  <h2>₹{product.rupees}</h2>
+                  <span>
+                    {product.name.slice(0, maxTitleCharPerRow)}
+                    {product.name.length > maxTitleCharPerRow && "..."}
+                  </span>
+                </Card.Body>
+              </Card>
+            ))}
+          </div>
+        </Col>
+      </Row>
     </Container>
   );
 }
