@@ -19,35 +19,33 @@ export default function Category({ category, products }: CategoryProps) {
   return (
     <Container>
       <Header />
-      <Row>
-        <Col>
-          <h1 className={styles.h1}>{category}</h1>
-          <div className={styles.cards_layout}>
-            {products.map((product: any, i) => (
-              <Card className={styles.card} key={`Products_${i}`}>
-                {/* <Link href={`/product/${product.Rupees}`} key={`Products_${i}`}> */}
-                <div className={styles.img_container}>
-                  <Image
-                    className="card-img"
-                    src={product.imageUrls[0]}
-                    alt={product.name}
-                    fill
-                  />
-                </div>
-                <Card.Body className={styles.card_body}>
-                  <h2>
-                    ₹{" "}
-                    {new Intl.NumberFormat("en-IN", {
-                      maximumSignificantDigits: 3,
-                    }).format(product.rupees)}
-                  </h2>
-                  <span>{product.name}</span>
-                </Card.Body>
-              </Card>
-            ))}
+      <h1 className={styles.h1}>{category}</h1>
+      <Col className={styles.cards_layout}>
+        {products.map((product: any, i) => (
+          <div className={styles.card_container} key={`Products_${i}`}>
+            <Card className={styles.card}>
+              {/* <Link href={`/product/${product.Rupees}`} key={`Products_${i}`}> */}
+              <div className={styles.img_container}>
+                <Image
+                  className="card-img"
+                  src={product.imageUrls[0]}
+                  alt={product.name}
+                  fill
+                />
+              </div>
+              <Card.Body className={styles.card_body}>
+                <h2>
+                  ₹{" "}
+                  {new Intl.NumberFormat("en-IN", {
+                    maximumSignificantDigits: 3,
+                  }).format(product.rupees)}
+                </h2>
+                <span>{product.name}</span>
+              </Card.Body>
+            </Card>
           </div>
-        </Col>
-      </Row>
+        ))}
+      </Col>
     </Container>
   );
 }
