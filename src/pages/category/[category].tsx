@@ -16,8 +16,6 @@ type CategoryProps = {
 };
 
 export default function Category({ category, products }: CategoryProps) {
-  const maxTitleCharPerRow = 45;
-  const maxDescCharPerRow = 18;
   return (
     <Container>
       <Header />
@@ -38,10 +36,7 @@ export default function Category({ category, products }: CategoryProps) {
                 </div>
                 <Card.Body className={styles.card_body}>
                   <h2>₹{product.rupees}</h2>
-                  <span>
-                    {product.name.slice(0, maxTitleCharPerRow)}
-                    {product.name.length > maxTitleCharPerRow && "..."}
-                  </span>
+                  <span>{product.name}</span>
                 </Card.Body>
               </Card>
             ))}
