@@ -35,7 +35,12 @@ export default function Category({ category, products }: CategoryProps) {
                   />
                 </div>
                 <Card.Body className={styles.card_body}>
-                  <h2>₹{product.rupees}</h2>
+                  <h2>
+                    ₹{" "}
+                    {new Intl.NumberFormat("en-IN", {
+                      maximumSignificantDigits: 3,
+                    }).format(product.rupees)}
+                  </h2>
                   <span>{product.name}</span>
                 </Card.Body>
               </Card>
