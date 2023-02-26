@@ -7,6 +7,7 @@ import {
   getProduct,
 } from "../../services/notion";
 import { ProductType } from "../../services/notion";
+import { Dispatch, SetStateAction, useState } from "react";
 
 type ProductProps = {
   product: ProductType;
@@ -16,33 +17,69 @@ type ProductProps = {
 type SecondaryImagesProps = {
   images: string[];
   productName: string;
+  selectedIndex: number;
+  setSelectedIndex: Dispatch<SetStateAction<number>>;
 };
 
-const SecondaryImages = ({ images, productName }: SecondaryImagesProps) => {
+type ImageSelector = {
+  product: ProductType;
+};
+
+const SecondaryImages = ({
+  images,
+  selectedIndex,
+  productName,
+  setSelectedIndex,
+}: SecondaryImagesProps) => {
+  const handleOnSelect = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.target as HTMLElement;
+    const index = parseInt(target.id);
+
+    setSelectedIndex(index);
+  };
+
   const jsx = [...images].map((image: string, i: number) => (
     <div
-      className={styles.secondary_image_container}
+      className={
+        selectedIndex === i
+          ? styles.secondary_image_container_active
+          : styles.secondary_image_container
+      }
       key={`${i}_secondaryImages`}
+      onClick={(e) => handleOnSelect(e)}
     >
-      <Image src={image} alt={productName} fill></Image>
+      <Image id={`${i}`} src={image} alt={productName} fill></Image>
     </div>
   ));
+
   return <div className={styles.secondary_images_container}>{jsx}</div>;
+};
+
+const ImageSelector = ({ product }: ImageSelector) => {
+  const images = product.imageUrls;
+  const name = product.name;
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  return (
+    <div className={styles.images_container}>
+      <div className={styles.primary_image_container}>
+        <Image src={images[selectedIndex]} alt={name} fill></Image>
+      </div>
+      <SecondaryImages
+        images={images}
+        selectedIndex={selectedIndex}
+        productName={name}
+        setSelectedIndex={setSelectedIndex}
+      />
+    </div>
+  );
 };
 
 export default function Product({ product }: ProductProps) {
   return (
     <Container className={styles.container}>
       <section className={styles.images_section}>
-        <div className={styles.images_container}>
-          <div className={styles.primary_image_container}>
-            <Image src={product.imageUrls[0]} alt={product.name} fill></Image>
-          </div>
-          <SecondaryImages
-            images={product.imageUrls}
-            productName={product.name}
-          />
-        </div>
+        <ImageSelector product={product} />
       </section>
       <section className={styles.details_section}></section>
     </Container>
