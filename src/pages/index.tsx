@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { Header } from "../components/Header";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import styles from "./Home.module.css";

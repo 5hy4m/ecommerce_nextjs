@@ -5,11 +5,7 @@
 }
 
 .images_section {
-  border: solid 1px black;
-}
-
-.details_section {
-  /* border: solid 10px orange; */
+  /* border: solid 1px black; */
 }
 
 .images_container {
@@ -70,4 +66,24 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+.details_section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: solid 1px orange; */
+}
+
+.details {
+  width: 90%;
+}
+
+.name {
+  font-weight: 700;
+}
+
+.price {
+  font-size: calc(1.375rem + 1.5vw);
+  font-weight: 700;
 }

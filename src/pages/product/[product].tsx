@@ -81,7 +81,14 @@ export default function Product({ product }: ProductProps) {
       <section className={styles.images_section}>
         <ImageSelector product={product} />
       </section>
-      <section className={styles.details_section}></section>
+      <section className={styles.details_section}>
+        <div className={styles.details}>
+          <h1 className={styles.name}>{product.name}</h1>
+          <span className={styles.description}>{product.description}</span>
+          <div className={styles.price}>₹ {product.rupees}</div>
+          <h4 className={styles.stock}>Stocks available: {product.stock}</h4>
+        </div>
+      </section>
     </Container>
   );
 }

@@ -4,5 +4,5 @@ export type ProductType = {
   rupees: number;
   name: string;
   description: string;
-  imageUrls: IntrinsicAttributes & string[];
+  imageUrls: string[];
 };
