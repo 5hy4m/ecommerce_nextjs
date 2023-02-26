@@ -86,3 +86,12 @@ body {
   overflow-x: hidden;
   font-family: "Kumbh Sans", sans-serif;
 }
+
+/* Header */
+nav {
+  height: 100px;
+}
+
+nav > div {
+  justify-content: center !important;
+}

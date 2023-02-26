@@ -1,3 +1,4 @@
+import { Header } from "@/components/Header";
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
@@ -22,6 +23,7 @@ export default function Document() {
         />
       </Head>
       <body style={{ height: "100vh" }}>
+        <Header />
         <Main />
         <NextScript />
       </body>

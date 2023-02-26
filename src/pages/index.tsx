@@ -20,7 +20,6 @@ export default function Home({ categories }: HomeProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Header />
         <Container>
           <Row className={styles.categoryContainer}>
             {categories.map((name: string, i) => (
