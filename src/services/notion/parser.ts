@@ -1,7 +1,3 @@
-export type Product = {
-  [key in string]: string | URL[] | number;
-};
-
 type PropertyMapper = {
   [key in string]: string;
 };
@@ -13,17 +9,21 @@ const propertyMapper: PropertyMapper = {
   Name: "name",
   Description: "description",
   "Image Urls": "imageUrls",
+  URL: "url",
 };
 
 export const parseProduct = ({ properties }: any): any => {
   const propNames = Object.keys(properties);
-
   let parsedProduct = {} as any;
 
   propNames.forEach((name: string) => {
     const prop = properties[name];
     const content = prop[prop.type];
     const propName = propertyMapper[name];
+
+    if (name === "URL") {
+      return (parsedProduct[propName] = `${content.string}`.toLowerCase());
+    }
 
     if (name === "Category") {
       return (parsedProduct[propName] = content.name);

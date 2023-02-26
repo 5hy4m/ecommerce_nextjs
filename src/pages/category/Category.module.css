@@ -36,6 +36,11 @@
   grid-row-gap: 15px;
 }
 
+.cards_layout > a {
+  text-decoration: none;
+  color: rgb(65, 65, 65);
+}
+
 .card_container {
   display: flex;
   justify-content: center;

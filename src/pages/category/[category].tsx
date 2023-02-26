@@ -1,49 +1,48 @@
 import { Header } from "@/components/Header";
 import { getCategories, getProductsByCategory } from "@/services/notion";
-import { Product } from "@/services/notion/parser";
+import { ProductType } from "@/services/notion";
 import Link from "next/link";
 import React from "react";
 import Container from "react-bootstrap/Container";
 import styles from "./Category.module.css";
 import Card from "react-bootstrap/Card";
 import Image from "next/image";
-import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 type CategoryProps = {
   category: string;
-  products: Product[];
+  products: ProductType[];
 };
 
 export default function Category({ category, products }: CategoryProps) {
   return (
     <Container>
-      <Header />
       <h1 className={styles.h1}>{category}</h1>
       <Col className={styles.cards_layout}>
         {products.map((product: any, i) => (
-          <div className={styles.card_container} key={`Products_${i}`}>
-            <Card className={styles.card}>
-              {/* <Link href={`/product/${product.Rupees}`} key={`Products_${i}`}> */}
-              <div className={styles.img_container}>
-                <Image
-                  className="card-img"
-                  src={product.imageUrls[0]}
-                  alt={product.name}
-                  fill
-                />
-              </div>
-              <Card.Body className={styles.card_body}>
-                <h2>
-                  ₹{" "}
-                  {new Intl.NumberFormat("en-IN", {
-                    maximumSignificantDigits: 3,
-                  }).format(product.rupees)}
-                </h2>
-                <span>{product.name}</span>
-              </Card.Body>
-            </Card>
-          </div>
+          <Link href={`/product/${product.url}`} key={`Products_${i}`}>
+            <div className={styles.card_container}>
+              <Card className={styles.card}>
+                <div className={styles.img_container}>
+                  <Image
+                    className="card-img"
+                    src={product.imageUrls[0]}
+                    alt={product.name}
+                    fill
+                  />
+                </div>
+                <Card.Body className={styles.card_body}>
+                  <h2>
+                    ₹{" "}
+                    {new Intl.NumberFormat("en-IN", {
+                      maximumSignificantDigits: 3,
+                    }).format(product.rupees)}
+                  </h2>
+                  <span>{product.name}</span>
+                </Card.Body>
+              </Card>
+            </div>
+          </Link>
         ))}
       </Col>
     </Container>
