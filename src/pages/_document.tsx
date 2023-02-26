@@ -1,3 +1,4 @@
+import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header";
 import { Html, Head, Main, NextScript } from "next/document";
 
@@ -22,9 +23,10 @@ export default function Document() {
           crossOrigin="anonymous"
         />
       </Head>
-      <body style={{ height: "100vh" }}>
+      <body>
         <Header />
         <Main />
+        <Footer />
         <NextScript />
       </body>
     </Html>

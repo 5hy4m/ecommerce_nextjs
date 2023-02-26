@@ -3,15 +3,10 @@ import Container from "react-bootstrap/Container";
 
 export const Header = () => {
   return (
-    <>
+    <Container className="header_container">
       <Navbar>
-        <Container className="nav_container">
-          <Navbar.Brand>Uniq Goods</Navbar.Brand>
-        </Container>
+        <Navbar.Brand>Uniq Goods</Navbar.Brand>
       </Navbar>
-      <Container>
-        <hr />
-      </Container>
-    </>
+    </Container>
   );
 };

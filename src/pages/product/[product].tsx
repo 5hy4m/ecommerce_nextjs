@@ -1,3 +1,6 @@
+import Container from "react-bootstrap/Container";
+import styles from "./Product.module.css";
+import Image from "next/image";
 import {
   getCategories,
   getProductsByCategory,
@@ -10,7 +13,16 @@ type ProductProps = {
 };
 
 export default function Product({ product }: ProductProps) {
-  return <h1>First Product {product.name}</h1>;
+  return (
+    <Container className={styles.container}>
+      <section className={styles.images_section}>
+        <div className={styles.primary_image_container}>
+          {/* <Image src={product.imageUrls[0]} alt={product.name} fill></Image> */}
+        </div>
+      </section>
+      <section className={styles.details_section}></section>
+    </Container>
+  );
 }
 
 export async function getStaticProps(props: any) {

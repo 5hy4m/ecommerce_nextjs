@@ -1,0 +1,18 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.images_section {
+  height: 100%;
+  border: solid 1px black;
+}
+
+.details_section {
+  height: 100%;
+  border: solid 1px orange;
+}
+
+.primary_image_container {
+  border: solid 1px orange;
+}
