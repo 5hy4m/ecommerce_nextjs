@@ -8,6 +8,7 @@ import {
 } from "../../services/notion";
 import { ProductType } from "../../services/notion";
 import { Dispatch, SetStateAction, useState } from "react";
+import Button from "react-bootstrap/Button";
 
 type ProductProps = {
   product: ProductType;
@@ -84,9 +85,13 @@ export default function Product({ product }: ProductProps) {
       <section className={styles.details_section}>
         <div className={styles.details}>
           <h1 className={styles.name}>{product.name}</h1>
+          <div className={styles.stock_price_container}>
+            <div className={styles.price}>₹ {product.rupees}</div>
+            <Button variant="outline-warning" className={styles.stock}>
+              Stocks available: {product.stock}
+            </Button>
+          </div>
           <span className={styles.description}>{product.description}</span>
-          <div className={styles.price}>₹ {product.rupees}</div>
-          <h4 className={styles.stock}>Stocks available: {product.stock}</h4>
         </div>
       </section>
     </Container>
