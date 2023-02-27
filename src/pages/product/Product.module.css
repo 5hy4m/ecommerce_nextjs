@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 100%;
+  padding: 0;
 }
 
 .images_section {
@@ -21,6 +22,28 @@
   /* border: solid 5px orange; */
   border-radius: 15px;
   background-color: whitesmoke;
+}
+
+.zoom_overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  backdrop-filter: blur(4px);
+  background: inherit;
+  box-shadow: inset 0 0 100px black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.zoomed_image_container {
+  height: 70%;
+  width: 70%;
+  background: inherit;
+  position: relative;
 }
 
 .secondary_image_container,
@@ -48,6 +71,7 @@
 
 .primary_image_container > img,
 .secondary_image_container > img,
+.zoomed_image_container > img,
 .secondary_image_container_active > img {
   object-fit: contain;
 }

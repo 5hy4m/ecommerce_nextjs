@@ -63,6 +63,11 @@ const ImageSelector = ({ product }: ImageSelector) => {
 
   return (
     <div className={styles.images_container}>
+      <div className={styles.zoom_overlay}>
+        <div className={styles.zoomed_image_container}>
+          <Image src={images[selectedIndex]} alt={name} fill></Image>
+        </div>
+      </div>
       <div className={styles.primary_image_container}>
         <Image src={images[selectedIndex]} alt={name} fill></Image>
       </div>
