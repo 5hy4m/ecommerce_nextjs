@@ -113,7 +113,7 @@
 
 .price {
   font-size: calc(1.375rem + 1.5vw);
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .stock_price_container {

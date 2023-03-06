@@ -9,6 +9,7 @@ import {
 import { ProductType } from "../../services/notion";
 import { Dispatch, SetStateAction, useState } from "react";
 import Button from "react-bootstrap/Button";
+import Close from "public/icon-close.svg";
 
 type ProductProps = {
   product: ProductType;
@@ -60,15 +61,22 @@ const ImageSelector = ({ product }: ImageSelector) => {
   const images = product.imageUrls;
   const name = product.name;
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [showOverlay, setOverlay] = useState(false);
 
   return (
     <div className={styles.images_container}>
-      <div className={styles.zoom_overlay}>
-        <div className={styles.zoomed_image_container}>
-          <Image src={images[selectedIndex]} alt={name} fill></Image>
+      {showOverlay && (
+        <div className={styles.zoom_overlay}>
+          <Close />
+          <div className={styles.zoomed_image_container}>
+            <Image src={images[selectedIndex]} alt={name} fill></Image>
+          </div>
         </div>
-      </div>
-      <div className={styles.primary_image_container}>
+      )}
+      <div
+        className={styles.primary_image_container}
+        onClick={() => setOverlay(true)}
+      >
         <Image src={images[selectedIndex]} alt={name} fill></Image>
       </div>
       <SecondaryImages
