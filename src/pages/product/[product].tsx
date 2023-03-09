@@ -9,7 +9,6 @@ import {
 import { ProductType } from "../../services/notion";
 import { Dispatch, SetStateAction, useState } from "react";
 import Button from "react-bootstrap/Button";
-import Close from "public/icon-close.svg";
 
 type ProductProps = {
   product: ProductType;
@@ -67,9 +66,16 @@ const ImageSelector = ({ product }: ImageSelector) => {
     <div className={styles.images_container}>
       {showOverlay && (
         <div className={styles.zoom_overlay}>
-          <Close />
           <div className={styles.zoomed_image_container}>
             <Image src={images[selectedIndex]} alt={name} fill></Image>
+            <Image
+              onClick={() => setOverlay(false)}
+              alt="closeButton"
+              height="30"
+              width="30"
+              src="/close.png"
+              className={styles.close_overlay}
+            />
           </div>
         </div>
       )}

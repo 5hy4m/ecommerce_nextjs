@@ -46,6 +46,13 @@
   position: relative;
 }
 
+.close_overlay {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
 .secondary_image_container,
 .secondary_image_container_active {
   border-radius: 15px;
