@@ -58,9 +58,20 @@ const SecondaryImages = ({
 
 const ImageSelector = ({ product }: ImageSelector) => {
   const images = product.imageUrls;
+  const imagesCount = images.length;
   const name = product.name;
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [showOverlay, setOverlay] = useState(false);
+
+  const handleNextImage = () =>
+    selectedIndex + 1 >= imagesCount
+      ? setSelectedIndex(0)
+      : setSelectedIndex(selectedIndex + 1);
+
+  const handlePreviousImage = () =>
+    selectedIndex - 1 < 0
+      ? setSelectedIndex(imagesCount - 1)
+      : setSelectedIndex(selectedIndex - 1);
 
   return (
     <div className={styles.images_container}>
@@ -70,11 +81,27 @@ const ImageSelector = ({ product }: ImageSelector) => {
             <Image src={images[selectedIndex]} alt={name} fill></Image>
             <Image
               onClick={() => setOverlay(false)}
-              alt="closeButton"
+              alt="Close"
               height="30"
               width="30"
               src="/close.png"
               className={styles.close_overlay}
+            />
+            <Image
+              onClick={handleNextImage}
+              alt="Next"
+              height="30"
+              width="30"
+              src="/next.png"
+              className={styles.next_overlay}
+            />
+            <Image
+              onClick={handlePreviousImage}
+              alt="Previous"
+              height="30"
+              width="30"
+              src="/back.png"
+              className={styles.prev_overlay}
             />
           </div>
         </div>

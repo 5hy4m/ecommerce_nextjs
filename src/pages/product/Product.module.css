@@ -39,6 +39,7 @@
   align-items: center;
 }
 
+/* Overlay Styles */
 .zoomed_image_container {
   height: 70%;
   width: 70%;
@@ -52,6 +53,21 @@
   right: 0;
   top: 0;
 }
+
+.next_overlay {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 0;
+}
+
+.prev_overlay {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 0;
+}
+/* Overlay Styles */
 
 .secondary_image_container,
 .secondary_image_container_active {
