@@ -9,6 +9,7 @@ import {
 import { ProductType } from "../../services/notion";
 import { Dispatch, SetStateAction, useState } from "react";
 import Button from "react-bootstrap/Button";
+import { useRouter } from "next/router";
 
 type ProductProps = {
   product: ProductType;
@@ -90,16 +91,16 @@ const ImageSelector = ({ product }: ImageSelector) => {
             <Image
               onClick={handleNextImage}
               alt="Next"
-              height="30"
-              width="30"
+              height="40"
+              width="40"
               src="/next.png"
               className={styles.next_overlay}
             />
             <Image
               onClick={handlePreviousImage}
               alt="Previous"
-              height="30"
-              width="30"
+              height="40"
+              width="40"
               src="/back.png"
               className={styles.prev_overlay}
             />
@@ -123,23 +124,40 @@ const ImageSelector = ({ product }: ImageSelector) => {
 };
 
 export default function Product({ product }: ProductProps) {
+  const { asPath } = useRouter();
+
+  const fullProductUrl = `${window.location.origin}${asPath}`;
+  const whatsAppShareMessage = `whatsapp://send?text=${product.name} Please click on the below link\n ${fullProductUrl}`;
+
   return (
     <Container className={styles.container}>
       <section className={styles.images_section}>
         <ImageSelector product={product} />
       </section>
+
       <section className={styles.details_section}>
-        <div className={styles.details}>
-          <h1 className={styles.name}>{product.name}</h1>
-          <div className={styles.stock_price_container}>
-            <div className={styles.price}>₹ {product.rupees}</div>
-            <Button variant="outline-warning" className={styles.stock}>
-              Stocks available: {product.stock}
-            </Button>
-          </div>
-          <span className={styles.description}>{product.description}</span>
+        <h1 className={styles.name}>{product.name}</h1>
+
+        <div className={styles.stock_price_container}>
+          <div className={styles.price}>₹ {product.rupees}</div>
+
+          <Button variant="outline-warning" className={styles.stock}>
+            Stocks available: {product.stock}
+          </Button>
         </div>
+
+        <span className={styles.description}>{product.description}</span>
+
+        <Button className={styles.contact_button} variant="outline-success">
+          <b>Contact us on </b>
+          <Image alt="whatsapp" height={25} width={25} src="/whatsapp.png" />
+        </Button>
       </section>
+
+      <a href={whatsAppShareMessage} className={styles.whatsapp_share}>
+        Share
+        <Image alt="whatsapp" height={25} width={25} src="/whatsapp.png" />
+      </a>
     </Container>
   );
 }
