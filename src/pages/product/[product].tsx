@@ -11,6 +11,8 @@ import { Dispatch, SetStateAction, useState } from "react";
 import Button from "react-bootstrap/Button";
 import { useRouter } from "next/router";
 
+const domain = process.env.NEXT_PUBLIC_DOMAIN;
+
 type ProductProps = {
   product: ProductType;
   url: string;
@@ -126,8 +128,10 @@ const ImageSelector = ({ product }: ImageSelector) => {
 export default function Product({ product }: ProductProps) {
   const { asPath } = useRouter();
 
-  const fullProductUrl = `${window.location.origin}${asPath}`;
-  const whatsAppShareMessage = `whatsapp://send?text=${product.name} Please click on the below link\n ${fullProductUrl}`;
+  const handleShareButton = () => {
+    const whatsAppShareMessage = `whatsapp://send?text=${product.name} Please click on the below link\n ${domain}${asPath}`;
+    window.location.href = whatsAppShareMessage;
+  };
 
   return (
     <Container className={styles.container}>
@@ -154,10 +158,10 @@ export default function Product({ product }: ProductProps) {
         </Button>
       </section>
 
-      <a href={whatsAppShareMessage} className={styles.whatsapp_share}>
+      <div onClick={handleShareButton} className={styles.whatsapp_share}>
         Share
         <Image alt="whatsapp" height={25} width={25} src="/whatsapp.png" />
-      </a>
+      </div>
     </Container>
   );
 }
