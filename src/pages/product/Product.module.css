@@ -6,8 +6,8 @@
 }
 
 .whatsapp_share {
-  position: absolute;
-  top: 50%;
+  position: fixed;
+  top: 50vh;
   right: -30px;
   -webkit-transform: rotate(270deg);
   cursor: pointer;
@@ -28,7 +28,7 @@
 
 /* Overlay Styles */
 .zoom_overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -89,8 +89,8 @@
 }
 
 .primary_image_container {
-  width: 400px;
-  height: 420px;
+  width: 100%;
+  height: 100%;
   /* border: solid 5px orange; */
   border-radius: 15px;
   background-color: whitesmoke;
@@ -100,8 +100,8 @@
 .secondary_image_container_active {
   border-radius: 15px;
   background-color: whitesmoke;
-  width: 80px;
-  height: 80px;
+  width: 20%;
+  height: 100%;
 }
 
 .images_container,
@@ -136,18 +136,13 @@
 }
 
 .secondary_images_container {
-  margin-top: 30px;
+  margin-top: 5%;
   width: 100%;
+  height: 20%;
   display: flex;
   justify-content: space-between;
 }
 
-@media only screen and (max-width: 700px) {
-  .images_container {
-    height: 400px;
-    width: 300px;
-  }
-}
 /* Images Section */
 
 /* Details Section */
@@ -172,7 +167,7 @@
 }
 
 .price {
-  font-size: calc(1.375rem + 1.5vw);
+  font-size: 40px;
   font-weight: 500;
 }
 
@@ -182,3 +177,96 @@
   align-items: center;
 }
 /* Details Section */
+
+@media only screen and (max-width: 1200px) {
+  .images_container {
+    height: 400px;
+    width: 300px;
+  }
+
+  .whatsapp_share {
+    height: 31px;
+    right: -35px;
+  }
+
+  .name {
+    font-weight: 650;
+    font-size: 30px;
+  }
+
+  .price {
+    font-size: 30px;
+    font-weight: 450;
+  }
+
+  .description {
+    font-size: 14px;
+  }
+}
+
+/* Tablet */
+@media only screen and (max-width: 1000px) {
+  .images_container {
+    height: 350px;
+    width: 250px;
+  }
+
+  .whatsapp_share {
+    height: 31px;
+    right: -35px;
+  }
+
+  .name {
+    font-size: 25px;
+  }
+
+  .price {
+    font-size: 25px;
+    font-weight: 450;
+  }
+
+  .description {
+    font-size: 13px;
+  }
+}
+
+/* Mobile */
+@media only screen and (max-width: 767px) {
+  .container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .images_section {
+    height: 400px;
+  }
+
+  .secondary_images_container {
+    display: none;
+  }
+
+  .images_container {
+    height: 100%;
+    width: 100%;
+  }
+
+  .whatsapp_share {
+    height: 31px;
+    right: -35px;
+  }
+
+  .name {
+    font-size: 25px;
+  }
+
+  .price {
+    font-size: 25px;
+    font-weight: 450;
+  }
+
+  .description {
+    font-size: 13px;
+  }
+}
