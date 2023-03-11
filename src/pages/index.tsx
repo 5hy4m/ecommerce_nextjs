@@ -22,15 +22,7 @@ export default function Home({ categories }: HomeProps) {
       </Head>
       <main>
         <Header categories={categories} />
-        <Container>
-          <Row className={styles.categoryContainer}>
-            {categories.map((name: string, i) => (
-              <Link href={`/category/${name}`} key={`Categories_${i}`}>
-                {name}
-              </Link>
-            ))}
-          </Row>
-        </Container>
+        <Container></Container>
         <Footer />
       </main>
     </>
