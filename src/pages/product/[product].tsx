@@ -12,6 +12,7 @@ import Button from "react-bootstrap/Button";
 import { useRouter } from "next/router";
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
+const contactNumber = process.env.NEXT_PUBLIC_CONTACT_NUMBER;
 
 type ProductProps = {
   product: ProductType;
@@ -28,6 +29,36 @@ type SecondaryImagesProps = {
 type ImageSelector = {
   product: ProductType;
 };
+
+type PrevButtonProps = {
+  handler: () => void;
+};
+
+type NextButtonProps = {
+  handler: () => void;
+};
+
+const PrevButton = ({ handler }: PrevButtonProps) => (
+  <Image
+    onClick={handler}
+    alt="Previous"
+    height="40"
+    width="40"
+    src="/back.png"
+    className={styles.prev_overlay}
+  />
+);
+
+const NextButton = ({ handler }: NextButtonProps) => (
+  <Image
+    onClick={handler}
+    alt="Next"
+    height="40"
+    width="40"
+    src="/next.png"
+    className={styles.next_overlay}
+  />
+);
 
 const SecondaryImages = ({
   images,
@@ -82,6 +113,7 @@ const ImageSelector = ({ product }: ImageSelector) => {
         <div className={styles.zoom_overlay}>
           <div className={styles.zoomed_image_container}>
             <Image src={images[selectedIndex]} alt={name} fill></Image>
+
             <Image
               onClick={() => setOverlay(false)}
               alt="Close"
@@ -90,30 +122,25 @@ const ImageSelector = ({ product }: ImageSelector) => {
               src="/close.png"
               className={styles.close_overlay}
             />
-            <Image
-              onClick={handleNextImage}
-              alt="Next"
-              height="40"
-              width="40"
-              src="/next.png"
-              className={styles.next_overlay}
-            />
-            <Image
-              onClick={handlePreviousImage}
-              alt="Previous"
-              height="40"
-              width="40"
-              src="/back.png"
-              className={styles.prev_overlay}
-            />
+
+            <NextButton handler={handleNextImage} />
+
+            <PrevButton handler={handlePreviousImage} />
           </div>
         </div>
       )}
-      <div
-        className={styles.primary_image_container}
-        onClick={() => setOverlay(true)}
-      >
-        <Image src={images[selectedIndex]} alt={name} fill></Image>
+      <div className={styles.primary_image_container}>
+        <Image
+          onClick={() => setOverlay(true)}
+          className={styles.primary_image}
+          src={images[selectedIndex]}
+          alt={name}
+          fill
+        ></Image>
+
+        <PrevButton handler={handlePreviousImage} />
+
+        <NextButton handler={handleNextImage} />
       </div>
       <SecondaryImages
         images={images}
@@ -131,6 +158,11 @@ export default function Product({ product }: ProductProps) {
   const handleShareButton = () => {
     const whatsAppShareMessage = `whatsapp://send?text=${product.name} Please click on the below link\n ${domain}${asPath}`;
     window.location.href = whatsAppShareMessage;
+  };
+
+  const handleContact = () => {
+    const message = `whatsapp://send?phone=${contactNumber}&text=Hi, I would like to buy this product \n ${domain}${asPath}`;
+    window.location.href = message;
   };
 
   return (
@@ -152,7 +184,11 @@ export default function Product({ product }: ProductProps) {
 
         <span className={styles.description}>{product.description}</span>
 
-        <Button className={styles.contact_button} variant="outline-success">
+        <Button
+          onClick={handleContact}
+          className={styles.contact_button}
+          variant="outline-success"
+        >
           <b>Contact us on </b>
           <Image alt="whatsapp" height={25} width={25} src="/whatsapp.png" />
         </Button>

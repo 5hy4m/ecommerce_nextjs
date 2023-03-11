@@ -63,7 +63,7 @@
   border-radius: 30px;
   background: white;
   padding: 5px;
-  top: 50%;
+  top: 42%;
 }
 
 .next_overlay {
@@ -126,7 +126,7 @@
   object-fit: contain;
 }
 
-.primary_image_container > img:hover,
+.primary_image:hover,
 .secondary_image_container > img:hover,
 .secondary_image_container_active > img {
   color: #fff;
@@ -236,11 +236,9 @@
     padding-top: 20px;
     padding-bottom: 20px;
     display: flex;
+    padding-left: 30px;
+    padding-right: 30px;
     flex-direction: column;
-  }
-
-  .images_section {
-    height: 400px;
   }
 
   .secondary_images_container {
@@ -257,6 +255,10 @@
     right: -35px;
   }
 
+  .contact_button {
+    align-self: center;
+  }
+
   .name {
     font-size: 25px;
   }
@@ -268,5 +270,10 @@
 
   .description {
     font-size: 13px;
+  }
+
+  .primary_image {
+    position: relative !important;
+    max-height: 250px;
   }
 }
