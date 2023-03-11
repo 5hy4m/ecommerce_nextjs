@@ -1,4 +1,9 @@
 /* Header */
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
 .navbar {
   height: 100px;
 }
@@ -19,4 +24,45 @@
   align-items: center;
   justify-content: center;
 }
+
+.categoryContainer > a {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: fit-content;
+  color: black;
+  text-decoration: none;
+}
+
+.categoryContainer > a:hover {
+  font-weight: 1000;
+  color: orange;
+}
+
+.categoryContainer {
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 767px) {
+  .container {
+    justify-content: center;
+  }
+  .container > button {
+    position: absolute;
+    right: 15px;
+    height: 30px;
+    width: 30px;
+    top: 25px;
+  }
+
+  .offcanvas_header {
+    box-shadow: 0px 0px 10px 0px;
+  }
+
+  .categoryContainer > a {
+    padding: 10px;
+    font-size: 20px;
+  }
+}
+
 /* end Header */
