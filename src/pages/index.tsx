@@ -4,6 +4,8 @@ import Row from "react-bootstrap/Row";
 import styles from "./Home.module.css";
 import { getCategories } from "../services/notion";
 import Link from "next/link";
+import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
 
 type HomeProps = {
   categories: string[];
@@ -19,6 +21,7 @@ export default function Home({ categories }: HomeProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        <Header categories={categories} />
         <Container>
           <Row className={styles.categoryContainer}>
             {categories.map((name: string, i) => (
@@ -28,6 +31,7 @@ export default function Home({ categories }: HomeProps) {
             ))}
           </Row>
         </Container>
+        <Footer />
       </main>
     </>
   );

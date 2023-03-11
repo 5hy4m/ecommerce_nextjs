@@ -1,9 +1,8 @@
-import Navbar from "react-bootstrap/Navbar";
-import Container from "react-bootstrap/Container";
+import styles from "./footer.module.css";
 
 export const Footer = () => {
   return (
-    <div className="footer">
+    <div className={styles.footer}>
       <div>Footer</div>
     </div>
   );

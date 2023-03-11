@@ -10,6 +10,8 @@ import { ProductType } from "../../services/notion";
 import { Dispatch, SetStateAction, useState } from "react";
 import Button from "react-bootstrap/Button";
 import { useRouter } from "next/router";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
 const contactNumber = process.env.NEXT_PUBLIC_CONTACT_NUMBER;
@@ -17,6 +19,7 @@ const contactNumber = process.env.NEXT_PUBLIC_CONTACT_NUMBER;
 type ProductProps = {
   product: ProductType;
   url: string;
+  categories: string[];
 };
 
 type SecondaryImagesProps = {
@@ -152,7 +155,7 @@ const ImageSelector = ({ product }: ImageSelector) => {
   );
 };
 
-export default function Product({ product }: ProductProps) {
+export default function Product({ product, categories }: ProductProps) {
   const { asPath } = useRouter();
 
   const handleShareButton = () => {
@@ -166,39 +169,44 @@ export default function Product({ product }: ProductProps) {
   };
 
   return (
-    <Container className={styles.container}>
-      <section className={styles.images_section}>
-        <ImageSelector product={product} />
-      </section>
+    <main>
+      <Header categories={categories} />
 
-      <section className={styles.details_section}>
-        <h1 className={styles.name}>{product.name}</h1>
+      <Container className={styles.container}>
+        <section className={styles.images_section}>
+          <ImageSelector product={product} />
+        </section>
 
-        <div className={styles.stock_price_container}>
-          <div className={styles.price}>₹ {product.rupees}</div>
+        <section className={styles.details_section}>
+          <h1 className={styles.name}>{product.name}</h1>
 
-          <Button variant="outline-warning" className={styles.stock}>
-            Stocks available: {product.stock}
+          <div className={styles.stock_price_container}>
+            <div className={styles.price}>₹ {product.rupees}</div>
+
+            <Button variant="outline-warning" className={styles.stock}>
+              Stocks available: {product.stock}
+            </Button>
+          </div>
+
+          <span className={styles.description}>{product.description}</span>
+
+          <Button
+            onClick={handleContact}
+            className={styles.contact_button}
+            variant="outline-success"
+          >
+            <b>Contact us on </b>
+            <Image alt="whatsapp" height={25} width={25} src="/whatsapp.png" />
           </Button>
-        </div>
+        </section>
 
-        <span className={styles.description}>{product.description}</span>
-
-        <Button
-          onClick={handleContact}
-          className={styles.contact_button}
-          variant="outline-success"
-        >
-          <b>Contact us on </b>
+        <div onClick={handleShareButton} className={styles.whatsapp_share}>
+          Share
           <Image alt="whatsapp" height={25} width={25} src="/whatsapp.png" />
-        </Button>
-      </section>
-
-      <div onClick={handleShareButton} className={styles.whatsapp_share}>
-        Share
-        <Image alt="whatsapp" height={25} width={25} src="/whatsapp.png" />
-      </div>
-    </Container>
+        </div>
+      </Container>
+      <Footer />
+    </main>
   );
 }
 
@@ -207,27 +215,31 @@ export async function getStaticProps(props: any) {
     params: { product },
   } = props;
 
-  console.time("getProduct");
+  console.time("[Product] getCategories");
+  const categories = await getCategories();
+  console.timeEnd("[Product] getCategories");
+
+  console.time("[Product] getProduct");
   const productObject = await getProduct(product);
-  console.timeEnd("getProduct");
+  console.timeEnd("[Product] getProduct");
 
   return {
-    props: { product: productObject },
+    props: { product: productObject, categories },
   };
 }
 
 export async function getStaticPaths() {
-  console.time("getCategoriesPaths");
+  console.time("[Product] getCategoriesPaths");
   const categories: string[] = await getCategories();
-  console.timeEnd("getCategoriesPaths");
+  console.timeEnd("[Product] getCategoriesPaths");
 
   const productPromises = categories.map((category) =>
     getProductsByCategory(category)
   );
 
-  console.time("getAllProducts");
+  console.time("[Product] getAllProducts");
   const settledPromises: any = await Promise.allSettled(productPromises);
-  console.timeEnd("getAllProducts");
+  console.timeEnd("[Product] getAllProducts");
 
   let products = [] as any;
   settledPromises.forEach((promise: any) => {
