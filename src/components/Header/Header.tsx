@@ -5,7 +5,7 @@ export const Header = () => {
   return (
     <Container className="header_container">
       <Navbar>
-        <Navbar.Brand>Uniq Goods</Navbar.Brand>
+        <Navbar.Brand href="/">Uniq Goods</Navbar.Brand>
       </Navbar>
     </Container>
   );

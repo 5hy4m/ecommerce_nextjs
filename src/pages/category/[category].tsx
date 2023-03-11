@@ -1,4 +1,3 @@
-import { Header } from "@/components/Header";
 import { getCategories, getProductsByCategory } from "@/services/notion";
 import { ProductType } from "@/services/notion";
 import Link from "next/link";
