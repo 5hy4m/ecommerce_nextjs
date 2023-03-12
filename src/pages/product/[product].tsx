@@ -12,7 +12,7 @@ import Button from 'react-bootstrap/Button';
 import { useRouter } from 'next/router';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { NextIcon } from '@/icons';
+import { CloseIcon, NextIcon, PrevIcon } from '@/icons';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
 const contactNumber = process.env.NEXT_PUBLIC_CONTACT_NUMBER;
@@ -42,20 +42,25 @@ type NextButtonProps = {
     handler: () => void;
 };
 
+type CloseButtonProps = {
+    handler: (bool: boolean) => void;
+};
+
 const PrevButton = ({ handler }: PrevButtonProps) => (
-    <Image
-        onClick={handler}
-        alt='Previous'
-        height='40'
-        width='40'
-        src='/back.png'
-        className={styles.prev_overlay}
-    />
+    <div onClick={handler} className={styles.prev_overlay}>
+        <PrevIcon height='40px' width='40px' />
+    </div>
 );
 
 const NextButton = ({ handler }: NextButtonProps) => (
     <div onClick={handler} className={styles.next_overlay}>
         <NextIcon height='40px' width='40px' />
+    </div>
+);
+
+const CloseButton = ({ handler }: CloseButtonProps) => (
+    <div onClick={() => handler(false)} className={styles.close_overlay}>
+        <CloseIcon height='40px' width='40px' />
     </div>
 );
 
@@ -117,14 +122,7 @@ const ImageSelector = ({ product }: ImageSelector) => {
                             fill
                         ></Image>
 
-                        <Image
-                            onClick={() => setOverlay(false)}
-                            alt='Close'
-                            height='30'
-                            width='30'
-                            src='/close.png'
-                            className={styles.close_overlay}
-                        />
+                        <CloseButton handler={setOverlay} />
 
                         <NextButton handler={handleNextImage} />
 
