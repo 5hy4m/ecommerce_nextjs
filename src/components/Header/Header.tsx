@@ -6,42 +6,51 @@ import Image from "next/image";
 import styles from "./Header.module.css";
 import Nav from "react-bootstrap/Nav";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import { useState } from "react";
 
 type HeaderProps = { categories: string[] };
 
 export const Header = ({ categories }: HeaderProps) => {
+  const [show, setShow] = useState(false);
+
   return (
-    <>
-      <Navbar bg="light" expand={"md"} className="mb-3">
-        <Container className={styles.container} fluid>
-          <Navbar.Brand href="#">Uniq Goods</Navbar.Brand>
-          <Navbar.Toggle aria-controls={`offcanvasNavbar-'md'-${"md"}`}>
-            <Image alt="categories" fill src="/category.png" />
-          </Navbar.Toggle>
-          <Navbar.Offcanvas
-            id={`offcanvasNavbar-'md'-${"md"}`}
-            aria-labelledby={`offcanvasNavbarLabel-'md'-${"md"}`}
-            placement="end"
-          >
-            <Offcanvas.Header className={styles.offcanvas_header} closeButton>
-              <Offcanvas.Title id={`offcanvasNavbarLabel-'md'-${"md"}`}>
-                Categories
-              </Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-              <Nav className="me-auto">
-                <Row className={styles.categoryContainer}>
-                  {categories.map((name: string, i) => (
-                    <Link href={`/category/${name}`} key={`Categories_${i}`}>
-                      {name}
-                    </Link>
-                  ))}
-                </Row>
-              </Nav>
-            </Offcanvas.Body>
-          </Navbar.Offcanvas>
-        </Container>
-      </Navbar>
-    </>
+    <Navbar bg="light" expand={"sm"} className="mb-3">
+      <Container className={styles.container} fluid>
+        <Navbar.Brand href="/">Uniq Goods</Navbar.Brand>
+        <Navbar.Toggle
+          onClick={() => setShow(true)}
+          aria-controls={`offcanvasNavbar-'md'-${"sm"}`}
+        >
+          <Image alt="categories" fill src="/category.png" />
+        </Navbar.Toggle>
+        <Navbar.Offcanvas
+          onHide={() => setShow(false)}
+          show={show}
+          id={`offcanvasNavbar-'md'-${"sm"}`}
+          aria-labelledby={`offcanvasNavbarLabel-'md'-${"sm"}`}
+          placement="end"
+        >
+          <Offcanvas.Header className={styles.offcanvas_header} closeButton>
+            <Offcanvas.Title id={`offcanvasNavbarLabel-'md'-${"sm"}`}>
+              Categories
+            </Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <Nav className="me-auto">
+              <Row
+                onClick={() => setShow(false)}
+                className={styles.categoryContainer}
+              >
+                {categories.map((name: string, i) => (
+                  <Link href={`/category/${name}`} key={`Categories_${i}`}>
+                    <u>{name}</u>
+                  </Link>
+                ))}
+              </Row>
+            </Nav>
+          </Offcanvas.Body>
+        </Navbar.Offcanvas>
+      </Container>
+    </Navbar>
   );
 };
