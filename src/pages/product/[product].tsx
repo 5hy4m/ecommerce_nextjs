@@ -208,12 +208,7 @@ export default function Product({ product, categories }: ProductProps) {
                     className={styles.whatsapp_share}
                 >
                     Share
-                    <Image
-                        alt='whatsapp'
-                        height={25}
-                        width={25}
-                        src='/whatsapp.png'
-                    />
+                    <WhatsAppIcon height='25px' width='25px' />
                 </div>
             </Container>
             <Footer />
