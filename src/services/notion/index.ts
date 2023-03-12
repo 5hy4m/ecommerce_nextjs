@@ -1,2 +1,2 @@
-export { getCategories, getProductsByCategory, getProduct } from "./api";
-export type { ProductType } from "./types";
+export { getCategories, getProductsByCategory, getProduct } from './api';
+export type { ProductType } from './types';
