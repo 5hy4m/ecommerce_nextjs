@@ -1,0 +1,71 @@
+.homepage {
+    color: white;
+}
+/* Introduction Section */
+.introduction {
+    width: 100%;
+    background-color: black;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.introduction > h1 {
+    font-size: 70px;
+}
+
+.red_gradient {
+    background: -webkit-linear-gradient(#eee, rgb(253, 94, 9));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.yellow_gradient {
+    background: -webkit-linear-gradient(#eee, rgb(255, 192, 57));
+    /* background: -webkit-linear-gradient(#eee, rgb(254, 201, 89)); */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.purple_gradient {
+    background: -webkit-linear-gradient(#eee, rgb(255, 61, 197));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.green_gradient {
+    background: -webkit-linear-gradient(#eee, rgb(73, 254, 133));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.introduction > b {
+    font-size: 90px;
+    background: -webkit-linear-gradient(#eee, #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@media only screen and (max-width: 1000px) {
+    .introduction > h1 {
+        font-size: 50px;
+    }
+}
+/* Introduction Section */
+
+/* Trust Section */
+.trust {
+    display: flex;
+    height: 500px;
+    background-color: black;
+    flex-direction: column;
+}
+
+.trust > h1 {
+    font-size: 70px;
+}
+
+/* Trust Section */
