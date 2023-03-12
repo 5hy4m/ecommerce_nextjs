@@ -36,6 +36,7 @@ export default function Category({
                       className="card-img"
                       src={product.imageUrls[0]}
                       alt={product.name}
+                      placeholder="blur" // Optional blur-up while loading
                       fill
                     />
                   </div>
