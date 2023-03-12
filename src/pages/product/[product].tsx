@@ -12,7 +12,7 @@ import Button from 'react-bootstrap/Button';
 import { useRouter } from 'next/router';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { CloseIcon, NextIcon, PrevIcon } from '@/icons';
+import { CloseIcon, NextIcon, PrevIcon, WhatsAppIcon } from '@/icons';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
 const contactNumber = process.env.NEXT_PUBLIC_CONTACT_NUMBER;
@@ -199,12 +199,7 @@ export default function Product({ product, categories }: ProductProps) {
                         variant='outline-success'
                     >
                         <b>Contact us on </b>
-                        <Image
-                            alt='whatsapp'
-                            height={25}
-                            width={25}
-                            src='/whatsapp.png'
-                        />
+                        <WhatsAppIcon height='25px' width='25px' />
                     </Button>
                 </section>
 
