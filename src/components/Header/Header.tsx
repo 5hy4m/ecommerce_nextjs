@@ -2,11 +2,11 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Link from 'next/link';
-import Image from 'next/image';
 import styles from './Header.module.css';
 import Nav from 'react-bootstrap/Nav';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { useState } from 'react';
+import { CategoryIcon } from '@/icons/';
 
 type HeaderProps = { categories: string[] };
 
@@ -19,10 +19,11 @@ export const Header = ({ categories }: HeaderProps) => {
                 <Navbar.Brand href='/'>Uniq Goods</Navbar.Brand>
 
                 <Navbar.Toggle
+                    className={styles.category_button}
                     onClick={() => setShow(true)}
                     aria-controls={`offcanvasNavbar-'md'-${'sm'}`}
                 >
-                    <Image alt='categories' priority fill src='/category.png' />
+                    <CategoryIcon />
                 </Navbar.Toggle>
 
                 <Navbar.Offcanvas
