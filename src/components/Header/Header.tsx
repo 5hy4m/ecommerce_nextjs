@@ -14,7 +14,7 @@ export const Header = ({ categories }: HeaderProps) => {
     const [show, setShow] = useState(false);
 
     return (
-        <Navbar bg='light' expand={'sm'} className='mb-3'>
+        <Navbar bg='dark' expand={'sm'} className='mb-3'>
             <Container className={styles.container} fluid>
                 <Navbar.Brand href='/'>Uniq Goods</Navbar.Brand>
 
@@ -28,6 +28,7 @@ export const Header = ({ categories }: HeaderProps) => {
 
                 <Navbar.Offcanvas
                     onHide={() => setShow(false)}
+                    className={styles.offcanvas}
                     show={show}
                     id={`offcanvasNavbar-'md'-${'sm'}`}
                     aria-labelledby={`offcanvasNavbarLabel-'md'-${'sm'}`}

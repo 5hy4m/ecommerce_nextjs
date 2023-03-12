@@ -1,9 +1,6 @@
 import Head from 'next/head';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
 import styles from './Home.module.css';
 import { getCategories } from '../services/notion';
-import Link from 'next/link';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 
@@ -25,7 +22,34 @@ export default function Home({ categories }: HomeProps) {
             </Head>
             <main>
                 <Header categories={categories} />
-                <Container></Container>
+                <div className={styles.homepage}>
+                    <section className={styles.introduction}>
+                        <b>
+                            We have <br />
+                        </b>
+                        <h1>
+                            Retro{' '}
+                            <span className={styles.red_gradient}>Games</span>,
+                            Vintage{' '}
+                            <span className={styles.yellow_gradient}>Toys</span>
+                            , Antique{' '}
+                            <span className={styles.purple_gradient}>
+                                Items
+                            </span>
+                            , Collectibles{' '}
+                            <span className={styles.green_gradient}>
+                                etc...
+                            </span>
+                        </h1>
+                    </section>
+                    <section className={styles.trust}>
+                        <h1>Since 2015</h1>
+                        <div className={styles.customers}></div>
+                        <div className={styles.products}></div>
+                    </section>
+                    <section className={styles.customers_about_us}></section>
+                    <section></section>
+                </div>
                 <Footer />
             </main>
         </>
