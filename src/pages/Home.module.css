@@ -86,7 +86,10 @@
 }
 
 .trust > h1 {
-    font-size: 70px;
+    font-size: 50px;
+    margin-left: 30px;
+    margin-top: 30px;
+    font-weight: 100;
 }
 
 /* Trust Section */
