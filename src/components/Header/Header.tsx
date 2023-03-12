@@ -28,6 +28,7 @@ export const Header = ({ categories }: HeaderProps) => {
 
                 <Navbar.Offcanvas
                     onHide={() => setShow(false)}
+                    className={styles.offcanvas}
                     show={show}
                     id={`offcanvasNavbar-'md'-${'sm'}`}
                     aria-labelledby={`offcanvasNavbarLabel-'md'-${'sm'}`}

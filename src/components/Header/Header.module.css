@@ -59,6 +59,10 @@
         box-shadow: 0px 0px 10px 0px;
     }
 
+    .categoryContainer {
+        flex-direction: column;
+    }
+
     .categoryContainer > a {
         padding: 10px;
         font-size: 20px;
@@ -67,6 +71,9 @@
         height: 30px;
         width: 30px;
         padding: 0px;
+    }
+    .offcanvas {
+        width: 300px !important;
     }
 }
 
