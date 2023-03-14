@@ -34,11 +34,9 @@ export const Header = ({ categories }: HeaderProps) => {
                     aria-labelledby={`offcanvasNavbarLabel-'md'-${'sm'}`}
                     placement='end'
                 >
-                    <Offcanvas.Header
-                        className={styles.offcanvas_header}
-                        closeButton
-                    >
+                    <Offcanvas.Header className={styles.offcanvas_header}>
                         <Offcanvas.Title
+                            className={styles.offcanvas_title}
                             id={`offcanvasNavbarLabel-'md'-${'sm'}`}
                         >
                             Categories

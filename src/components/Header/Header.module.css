@@ -56,10 +56,6 @@
         top: 25px;
     }
 
-    .offcanvas_header {
-        box-shadow: 0px 0px 10px 0px;
-    }
-
     .categoryContainer > a {
         padding: 10px;
         font-size: 20px;
@@ -69,9 +65,23 @@
         width: 30px;
         padding: 0px;
     }
-    .offcanvas {
-        width: 300px !important;
-    }
+}
+
+.offcanvas_header {
+    box-shadow: 0px 0px 10px 0px;
+}
+
+.offcanvas_header > button {
+    /* color: white; */
+}
+
+.offcanvas {
+    width: 75% !important;
+    background-color: #212529 !important;
+}
+
+.offcanvas_title {
+    color: white;
 }
 
 /* end Header */
