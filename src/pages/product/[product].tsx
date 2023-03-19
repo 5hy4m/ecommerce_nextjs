@@ -186,23 +186,25 @@ const StockPriceContainer = ({ product, type }: StockPriceContainerProps) => {
                 Stocks available: {product.stock}
             </div>
 
-            <Button
-                onClick={handleContact}
-                className={styles.contact_button}
-                variant='outline-success'
-            >
-                <b>Make offer on </b>
-                <WhatsAppIcon height='25px' width='25px' />
-            </Button>
+            <div className={styles.buttons_container}>
+                <Button
+                    onClick={handleContact}
+                    className={styles.contact_button}
+                    variant='outline-success'
+                >
+                    <b>Make offer on </b>
+                    <WhatsAppIcon height='25px' width='25px' />
+                </Button>
 
-            <Button
-                onClick={handleCall}
-                className={styles.contact_button}
-                variant='outline-primary'
-            >
-                <b>Call </b>
-                <CallIcon height='20px' width='15px' />
-            </Button>
+                <Button
+                    onClick={handleCall}
+                    className={styles.call_button}
+                    variant='outline-primary'
+                >
+                    <b>Call </b>
+                    <CallIcon height='20px' width='15px' />
+                </Button>
+            </div>
         </div>
     );
 };
