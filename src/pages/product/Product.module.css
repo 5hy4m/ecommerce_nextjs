@@ -85,6 +85,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 1rem;
 }
 
 .images_container {
@@ -219,12 +220,6 @@
 }
 /* Details Section */
 
-@media only screen and (min-width: 1441px) {
-    .details_container {
-        flex-direction: column;
-    }
-}
-
 @media only screen and (max-width: 1200px) {
     .whatsapp_share {
         height: 31px;
@@ -241,7 +236,7 @@
     .container {
         padding-bottom: 20px;
         width: 100%;
-        max-width: 1350px;
+        max-width: 100vw;
         display: flex;
         flex-direction: column;
     }
@@ -365,5 +360,14 @@
         flex-direction: row;
         justify-content: space-around;
         width: 100%;
+    }
+}
+
+@media only screen and (min-width: 1441px) {
+    .details_container {
+        flex-direction: column;
+    }
+    .images_section {
+        margin-bottom: 0;
     }
 }
