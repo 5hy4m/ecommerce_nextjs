@@ -85,8 +85,9 @@
 }
 
 .images_container {
-    height: 500px;
-    width: 400px;
+    height: 60%;
+    width: 70%;
+
     /* border: solid 1px orange; */
     flex-direction: column;
 }
@@ -161,10 +162,6 @@
     margin-top: 10px;
 }
 
-.name {
-    font-weight: 700;
-}
-
 .stock:hover {
     cursor: inherit;
 }
@@ -179,22 +176,17 @@
     justify-content: space-around;
     align-items: center;
 }
+
+.name {
+    font-size: 2.6vw;
+}
+
 /* Details Section */
 
 @media only screen and (max-width: 1200px) {
-    .images_container {
-        height: 400px;
-        width: 300px;
-    }
-
     .whatsapp_share {
         height: 31px;
         right: -35px;
-    }
-
-    .name {
-        font-weight: 650;
-        font-size: 30px;
     }
 
     .price {
@@ -208,10 +200,27 @@
 }
 
 /* Tablet */
-@media only screen and (max-width: 1000px) {
-    .images_container {
-        height: 350px;
-        width: 250px;
+@media only screen and (max-width: 1440px) {
+    .container {
+        padding-bottom: 20px;
+        width: 100%;
+        max-width: 1350px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .next_overlay,
+    .close_overlay,
+    .prev_overlay {
+        background: rgb(158, 158, 158);
+    }
+
+    .next_overlay {
+        right: 5px;
+    }
+
+    .prev_overlay {
+        left: 5px;
     }
 
     .whatsapp_share {
@@ -219,8 +228,8 @@
         right: -35px;
     }
 
-    .name {
-        font-size: 25px;
+    .contact_button {
+        align-self: center;
     }
 
     .price {
@@ -230,6 +239,28 @@
 
     .description {
         font-size: 13px;
+    }
+
+    .primary_image_container {
+        height: 450px;
+        border-radius: 0px;
+        background-color: black;
+    }
+    .primary_image {
+        position: relative !important;
+    }
+
+    .secondary_images_container {
+        display: none;
+    }
+
+    .name {
+        font-size: 25px;
+    }
+
+    .images_container {
+        height: 100%;
+        width: 100%;
     }
 }
 
@@ -253,10 +284,6 @@
         align-self: center;
     }
 
-    .name {
-        font-size: 25px;
-    }
-
     .price {
         font-size: 25px;
         font-weight: 450;
@@ -275,6 +302,10 @@
 
     .secondary_images_container {
         display: none;
+    }
+
+    .name {
+        font-size: 25px;
     }
 
     .images_container {
