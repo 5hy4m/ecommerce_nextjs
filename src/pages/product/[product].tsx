@@ -222,7 +222,7 @@ export default function Product({ product, categories }: ProductProps) {
             <Header categories={categories} />
 
             <Container className={styles.container}>
-                <section className='mb-3'>
+                <section className={styles.images_section}>
                     <ImageSelector product={product} />
                 </section>
 

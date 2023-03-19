@@ -81,21 +81,22 @@
 /* Images Section */
 
 .images_section {
-    /* border: solid 1px black; */
+    background-color: rgb(203, 203, 203);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .images_container {
     height: 60%;
     width: 70%;
 
-    /* border: solid 1px orange; */
     flex-direction: column;
 }
 
 .primary_image_container {
     width: 100%;
     height: 100%;
-    /* border: solid 5px orange; */
     border-radius: 15px;
     background-color: whitesmoke;
 }
@@ -152,7 +153,10 @@
 .details_section {
     background-color: rgb(203, 203, 203);
     height: 100%;
-    /* border: solid 1px orange; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
 /* White Card */
@@ -202,7 +206,7 @@
 }
 
 .name {
-    font-size: 2.6vw;
+    font-size: 35px;
 }
 
 .buttons_container {
@@ -210,17 +214,21 @@
     flex-direction: column;
 }
 
+.call_button {
+    margin-top: 10px;
+}
 /* Details Section */
+
+@media only screen and (min-width: 1441px) {
+    .details_container {
+        flex-direction: column;
+    }
+}
 
 @media only screen and (max-width: 1200px) {
     .whatsapp_share {
         height: 31px;
         right: -35px;
-    }
-
-    .price {
-        font-size: 30px;
-        font-weight: 450;
     }
 
     .description {
@@ -259,11 +267,6 @@
 
     .contact_button {
         align-self: center;
-    }
-
-    .price {
-        font-size: 25px;
-        font-weight: 450;
     }
 
     .description {
