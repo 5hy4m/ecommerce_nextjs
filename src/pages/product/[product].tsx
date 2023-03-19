@@ -168,6 +168,11 @@ const StockPriceContainer = ({ product, type }: StockPriceContainerProps) => {
         window.location.href = message;
     };
 
+    const handleCall = () => {
+        const message = `tel:${contactNumber}`;
+        window.location.href = message;
+    };
+
     return (
         <div
             className={clsx({
@@ -191,7 +196,7 @@ const StockPriceContainer = ({ product, type }: StockPriceContainerProps) => {
             </Button>
 
             <Button
-                onClick={handleContact}
+                onClick={handleCall}
                 className={styles.contact_button}
                 variant='outline-primary'
             >
