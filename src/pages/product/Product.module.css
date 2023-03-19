@@ -155,8 +155,6 @@
     background-color: rgb(203, 203, 203);
     height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
     margin-bottom: 1rem;
 }
 
@@ -364,10 +362,31 @@
 }
 
 @media only screen and (min-width: 1441px) {
+    .non_mobile_stock_price_container {
+        display: block;
+        padding: 0px;
+        margin: 0;
+    }
     .details_container {
         flex-direction: column;
     }
+    .details_section {
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+    }
     .images_section {
         margin-bottom: 0;
+        background-color: white;
+    }
+    .buttons_container {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        width: 100%;
+    }
+    .buttons_container > button {
+        width: 200px;
+        margin-right: 10px;
     }
 }
