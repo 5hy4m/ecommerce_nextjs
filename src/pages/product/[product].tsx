@@ -13,6 +13,8 @@ import { useRouter } from 'next/router';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { CloseIcon, NextIcon, PrevIcon, WhatsAppIcon } from '@/icons';
+import { CallIcon } from '@/icons/CallIcon';
+import { clsx } from 'clsx';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
 const contactNumber = process.env.NEXT_PUBLIC_CONTACT_NUMBER;
@@ -44,6 +46,11 @@ type NextButtonProps = {
 
 type CloseButtonProps = {
     handler: (bool: boolean) => void;
+};
+
+type StockPriceContainerProps = {
+    product: ProductType;
+    type: string;
 };
 
 const PrevButton = ({ handler }: PrevButtonProps) => (
@@ -153,6 +160,48 @@ const ImageSelector = ({ product }: ImageSelector) => {
     );
 };
 
+const StockPriceContainer = ({ product, type }: StockPriceContainerProps) => {
+    const { asPath } = useRouter();
+
+    const handleContact = () => {
+        const message = `whatsapp://send?phone=${contactNumber}&text=Hi, I would like to buy this product \n ${domain}${asPath}`;
+        window.location.href = message;
+    };
+
+    return (
+        <div
+            className={clsx({
+                [styles.non_mobile_stock_price_container]: type !== 'mobile',
+                [styles.mobile_stock_price_container]: type === 'mobile',
+            })}
+        >
+            <div className={styles.price}>₹ {product.rupees}</div>
+
+            <div className={styles.stock}>
+                Stocks available: {product.stock}
+            </div>
+
+            <Button
+                onClick={handleContact}
+                className={styles.contact_button}
+                variant='outline-success'
+            >
+                <b>Make offer on </b>
+                <WhatsAppIcon height='25px' width='25px' />
+            </Button>
+
+            <Button
+                onClick={handleContact}
+                className={styles.contact_button}
+                variant='outline-primary'
+            >
+                <b>Call </b>
+                <CallIcon height='20px' width='15px' />
+            </Button>
+        </div>
+    );
+};
+
 export default function Product({ product, categories }: ProductProps) {
     const { asPath } = useRouter();
 
@@ -161,46 +210,34 @@ export default function Product({ product, categories }: ProductProps) {
         window.location.href = whatsAppShareMessage;
     };
 
-    const handleContact = () => {
-        const message = `whatsapp://send?phone=${contactNumber}&text=Hi, I would like to buy this product \n ${domain}${asPath}`;
-        window.location.href = message;
-    };
-
     return (
         <main>
             <Header categories={categories} />
 
             <Container className={styles.container}>
-                <section className={styles.images_section}>
+                <section className='mb-3'>
                     <ImageSelector product={product} />
                 </section>
 
                 <section className={styles.details_section}>
-                    <h1 className={styles.name}>{product.name}</h1>
+                    <Container className={styles.details_container}>
+                        <div className={styles.details}>
+                            <h1 className={styles.name}>{product.name}</h1>
 
-                    <div className={styles.stock_price_container}>
-                        <div className={styles.price}>₹ {product.rupees}</div>
+                            <StockPriceContainer
+                                type='mobile'
+                                product={product}
+                            />
 
-                        <Button
-                            variant='outline-warning'
-                            className={styles.stock}
-                        >
-                            Stocks available: {product.stock}
-                        </Button>
-                    </div>
-
-                    <span className={styles.description}>
-                        {product.description}
-                    </span>
-
-                    <Button
-                        onClick={handleContact}
-                        className={styles.contact_button}
-                        variant='outline-success'
-                    >
-                        <b>Contact us on </b>
-                        <WhatsAppIcon height='25px' width='25px' />
-                    </Button>
+                            <div className={styles.description}>
+                                {product.description}
+                            </div>
+                        </div>
+                        <StockPriceContainer
+                            type='nonMobile'
+                            product={product}
+                        />
+                    </Container>
                 </section>
 
                 <div
