@@ -4,12 +4,13 @@ import { getCategories } from '../services/notion';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import CountUp from 'react-countup';
+import ScrollAnimation from 'react-animate-on-scroll';
 
 type HomeProps = {
     categories: string[];
 };
 
-export default function Home({ categories }: HomeProps) {
+export default function Index({ categories }: HomeProps) {
     return (
         <>
             <Head>
@@ -43,6 +44,9 @@ export default function Home({ categories }: HomeProps) {
                             </span>
                         </h1>
                     </section>
+
+                    <section className={styles.categories}></section>
+
                     <section className={styles.trust}>
                         <h1>
                             Since{' '}
@@ -53,11 +57,30 @@ export default function Home({ categories }: HomeProps) {
                                 end={2015}
                             />
                         </h1>
-                        <div className={styles.customers}></div>
-                        <div className={styles.products}></div>
+                        <div className={styles.trust_box_container}>
+                            <ScrollAnimation
+                                className={styles.customers}
+                                animateIn='fadeInUp'
+                                animateOut='fadeOutDown'
+                            ></ScrollAnimation>
+
+                            <ScrollAnimation
+                                className={styles.products}
+                                delay={100}
+                                animateIn='fadeInUp'
+                                animateOut='fadeOutDown'
+                            ></ScrollAnimation>
+
+                            <ScrollAnimation
+                                className={styles.service}
+                                delay={200}
+                                animateIn='fadeInUp'
+                                animateOut='fadeOutDown'
+                            ></ScrollAnimation>
+                        </div>
                     </section>
+
                     <section className={styles.customers_about_us}></section>
-                    <section></section>
                 </div>
                 <Footer />
             </main>

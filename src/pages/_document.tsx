@@ -1,7 +1,4 @@
-import { Footer } from '@/components/Footer/Footer';
-import { Header } from '@/components/Header';
 import { Html, Head, Main, NextScript } from 'next/document';
-import Script from 'next/script';
 
 export default function Document() {
     return (
@@ -22,6 +19,10 @@ export default function Document() {
                     href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css'
                     integrity='sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65'
                     crossOrigin='anonymous'
+                />
+                <link
+                    rel='stylesheet'
+                    href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'
                 />
             </Head>
             <body>
