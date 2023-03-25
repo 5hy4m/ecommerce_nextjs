@@ -3,8 +3,8 @@ import styles from './Home.module.css';
 import { getCategories } from '../services/notion';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
-import { CategorySection } from './components/CategorySection';
-import { TrustSection } from './components/TrustSection';
+import { CategorySection } from '../components/Home/CategorySection';
+import { TrustSection } from '../components/Home/TrustSection';
 
 type HomeProps = {
     categories: string[];
