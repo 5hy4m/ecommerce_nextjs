@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Nav from 'react-bootstrap/Nav';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { useState } from 'react';
-import { CategoryIcon } from '@/icons/';
+import { CategoryIcon } from '@/components/Icons';
 import styles from './Header.module.css';
 
 type HeaderProps = { categories: string[] };
