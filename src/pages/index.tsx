@@ -5,7 +5,7 @@ import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import CountUp from 'react-countup';
 import ScrollAnimation from 'react-animate-on-scroll';
-import CategorySection from './components/CategorySection/CategorySection';
+import { CategorySection } from './components/CategorySection';
 
 type HomeProps = {
     categories: string[];
