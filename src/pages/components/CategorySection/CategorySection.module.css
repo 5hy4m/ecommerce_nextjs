@@ -1,32 +1,51 @@
 .category_section {
     display: flex;
     flex-direction: row;
+    row-gap: var(--margin-divider);
     column-gap: var(--margin-divider);
 }
 
 .toys {
+    position: relative;
+    width: 200px;
+    margin-right: var(--margin-divider);
+    align-items: flex-end;
     color: black;
 }
 
 .videogames {
     background-color: black;
     margin-left: var(--margin-divider);
+    align-items: center;
 }
 
 .videogames,
 .toys {
     width: 50%;
-    height: 35vw;
+    height: 500px;
     display: flex;
     justify-content: center;
-    align-items: center;
     text-decoration: underline;
 }
 
+.toy_image_container {
+    position: relative;
+    width: 450px;
+    height: 450px;
+}
+
+.toy_image_container > img {
+    transition: transform 1s;
+    transform-origin: bottom;
+}
+
+.toy_image_container > img:hover {
+    transform: scale(1.1);
+}
+
 .image_container {
-    height: 70%;
-    width: 40%;
-    width: 40%;
+    height: 300px;
+    width: 250px;
     position: relative;
 }
 
