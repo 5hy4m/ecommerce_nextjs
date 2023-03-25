@@ -2,7 +2,7 @@
     color: white;
     display: flex;
     flex-direction: column;
-    row-gap: var(--margin-bottom-divider);
+    row-gap: var(--margin-divider);
 }
 /* Introduction Section */
 .introduction {

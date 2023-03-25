@@ -14,7 +14,7 @@ export const Header = ({ categories }: HeaderProps) => {
     const [show, setShow] = useState(false);
 
     return (
-        <Navbar bg='dark' expand={'sm'}>
+        <Navbar bg='dark' expand={'sm'} className={styles.navbar}>
             <Container className={styles.container} fluid>
                 <Navbar.Brand href='/'>Uniq Goods</Navbar.Brand>
 

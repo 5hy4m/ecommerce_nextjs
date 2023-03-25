@@ -1,7 +1,7 @@
 .category_section {
     display: flex;
     flex-direction: row;
-    column-gap: var(--margin-bottom-divider);
+    column-gap: var(--margin-divider);
 }
 
 .toys {
@@ -10,7 +10,7 @@
 
 .videogames {
     background-color: black;
-    margin-left: var(--margin-bottom-divider);
+    margin-left: var(--margin-divider);
 }
 
 .videogames,
