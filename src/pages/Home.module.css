@@ -80,67 +80,6 @@
 /* Introduction Section */
 
 /* Trust Section */
-.trust {
-    min-height: 500px;
-    padding: 20px;
-    display: flex;
-    justify-content: flex-end;
-    position: relative;
-    align-items: flex-end;
-    background-color: black;
-}
-
-.trust > h1 {
-    font-size: 45px;
-    margin: 0px;
-    position: absolute;
-    top: 0;
-    left: 10px;
-    font-weight: 100;
-}
-
-.trust_box_container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    column-gap: 5px;
-}
-
-.customers,
-.products,
-.service {
-    height: 300px;
-    width: 300px;
-    border-radius: 24px 0px 24px 24px;
-    margin-right: 1px;
-}
-
-.customers::before,
-.products::before,
-.service::before {
-    position: absolute;
-    top: -20px;
-    right: 0px;
-    width: 129px;
-    height: 60px;
-    border-radius: 31px 24px 10px 20px;
-    content: '';
-}
-
-.customers::before,
-.customers {
-    background-color: #fd5e09;
-}
-
-.products::before,
-.products {
-    background-color: #e0dfe0;
-}
-
-.service::before,
-.service {
-    background-color: #fdc857;
-}
 
 /* Trust Section */
 

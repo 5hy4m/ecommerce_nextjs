@@ -3,9 +3,8 @@ import styles from './Home.module.css';
 import { getCategories } from '../services/notion';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
-import CountUp from 'react-countup';
-import ScrollAnimation from 'react-animate-on-scroll';
 import { CategorySection } from './components/CategorySection';
+import { TrustSection } from './components/TrustSection';
 
 type HomeProps = {
     categories: string[];
@@ -48,36 +47,7 @@ export default function Index({ categories }: HomeProps) {
 
                     <CategorySection />
 
-                    <section className={styles.trust}>
-                        <h1>
-                            Since{' '}
-                            <CountUp
-                                separator=''
-                                duration={5.75}
-                                start={1975}
-                                end={2015}
-                            />
-                        </h1>
-                        <div className={styles.trust_box_container}>
-                            <ScrollAnimation
-                                className={styles.customers}
-                                animateIn='fadeInUp'
-                                animateOnce={true}
-                            ></ScrollAnimation>
-
-                            <ScrollAnimation
-                                className={styles.products}
-                                animateOnce={true}
-                                animateIn='fadeInUp'
-                            ></ScrollAnimation>
-
-                            <ScrollAnimation
-                                className={styles.service}
-                                animateOnce={true}
-                                animateIn='fadeInUp'
-                            ></ScrollAnimation>
-                        </div>
-                    </section>
+                    <TrustSection />
 
                     <section className={styles.customers_about_us}></section>
                 </div>
