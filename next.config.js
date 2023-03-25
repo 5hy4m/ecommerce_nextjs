@@ -5,7 +5,6 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                // TODO: Have to change the host name to imageKit.io
                 hostname: 'media.istockphoto.com',
             },
             {

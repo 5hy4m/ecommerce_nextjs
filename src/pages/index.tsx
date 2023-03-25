@@ -5,6 +5,7 @@ import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import CountUp from 'react-countup';
 import ScrollAnimation from 'react-animate-on-scroll';
+import CategorySection from './components/CategorySection/CategorySection';
 
 type HomeProps = {
     categories: string[];
@@ -45,7 +46,7 @@ export default function Index({ categories }: HomeProps) {
                         </h1>
                     </section>
 
-                    <section className={styles.categories}></section>
+                    <CategorySection />
 
                     <section className={styles.trust}>
                         <h1>
@@ -61,21 +62,19 @@ export default function Index({ categories }: HomeProps) {
                             <ScrollAnimation
                                 className={styles.customers}
                                 animateIn='fadeInUp'
-                                animateOut='fadeOutDown'
+                                animateOnce={true}
                             ></ScrollAnimation>
 
                             <ScrollAnimation
                                 className={styles.products}
-                                delay={100}
+                                animateOnce={true}
                                 animateIn='fadeInUp'
-                                animateOut='fadeOutDown'
                             ></ScrollAnimation>
 
                             <ScrollAnimation
                                 className={styles.service}
-                                delay={200}
+                                animateOnce={true}
                                 animateIn='fadeInUp'
-                                animateOut='fadeOutDown'
                             ></ScrollAnimation>
                         </div>
                     </section>
