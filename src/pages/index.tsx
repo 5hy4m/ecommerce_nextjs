@@ -3,13 +3,14 @@ import styles from './Home.module.css';
 import { getCategories } from '../services/notion';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
-import CountUp from 'react-countup';
+import { CategorySection } from '../components/Home/CategorySection';
+import { TrustSection } from '../components/Home/TrustSection';
 
 type HomeProps = {
     categories: string[];
 };
 
-export default function Home({ categories }: HomeProps) {
+export default function Index({ categories }: HomeProps) {
     return (
         <>
             <Head>
@@ -43,21 +44,12 @@ export default function Home({ categories }: HomeProps) {
                             </span>
                         </h1>
                     </section>
-                    <section className={styles.trust}>
-                        <h1>
-                            Since{' '}
-                            <CountUp
-                                separator=''
-                                duration={5.75}
-                                start={1975}
-                                end={2015}
-                            />
-                        </h1>
-                        <div className={styles.customers}></div>
-                        <div className={styles.products}></div>
-                    </section>
+
+                    <CategorySection />
+
+                    <TrustSection />
+
                     <section className={styles.customers_about_us}></section>
-                    <section></section>
                 </div>
                 <Footer />
             </main>

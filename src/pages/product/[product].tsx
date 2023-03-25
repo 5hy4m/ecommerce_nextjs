@@ -12,8 +12,13 @@ import Button from 'react-bootstrap/Button';
 import { useRouter } from 'next/router';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { CloseIcon, NextIcon, PrevIcon, WhatsAppIcon } from '@/icons';
-import { CallIcon } from '@/icons/CallIcon';
+import {
+    CloseIcon,
+    NextIcon,
+    PrevIcon,
+    WhatsAppIcon,
+} from '@/components/Icons';
+import { CallIcon } from '@/components/Icons';
 import { clsx } from 'clsx';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;

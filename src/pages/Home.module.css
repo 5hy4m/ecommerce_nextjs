@@ -1,5 +1,9 @@
 .homepage {
+    width: 100vw;
     color: white;
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--margin-divider);
 }
 /* Introduction Section */
 .introduction {
@@ -10,7 +14,6 @@
     justify-content: center;
     flex-direction: column;
     text-align: center;
-    margin-bottom: 16px;
 }
 
 .red_gradient {
@@ -78,16 +81,23 @@
 /* Introduction Section */
 
 /* Trust Section */
-.trust {
-    height: 500px;
-    background-color: black;
-    flex-direction: column;
-}
-
-.trust > h1 {
-    font-size: 6vw;
-    margin: 0px;
-    font-weight: 100;
-}
 
 /* Trust Section */
+
+@media only screen and (max-width: 960px) {
+    .trust_box_container {
+        flex-direction: column;
+    }
+    .trust {
+        justify-content: center;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .trust_box_container {
+        flex-direction: column;
+    }
+    .trust {
+        justify-content: center;
+    }
+}
