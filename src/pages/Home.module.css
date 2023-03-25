@@ -1,5 +1,8 @@
 .homepage {
     color: white;
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--margin-bottom-divider);
 }
 /* Introduction Section */
 .introduction {
@@ -10,7 +13,6 @@
     justify-content: center;
     flex-direction: column;
     text-align: center;
-    margin-bottom: 16px;
 }
 
 .red_gradient {

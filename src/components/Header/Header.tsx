@@ -2,11 +2,11 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Link from 'next/link';
-import styles from './Header.module.css';
 import Nav from 'react-bootstrap/Nav';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { useState } from 'react';
 import { CategoryIcon } from '@/icons/';
+import styles from './Header.module.css';
 
 type HeaderProps = { categories: string[] };
 
@@ -14,7 +14,7 @@ export const Header = ({ categories }: HeaderProps) => {
     const [show, setShow] = useState(false);
 
     return (
-        <Navbar bg='dark' expand={'sm'} className='mb-3'>
+        <Navbar bg='dark' expand={'sm'}>
             <Container className={styles.container} fluid>
                 <Navbar.Brand href='/'>Uniq Goods</Navbar.Brand>
 
