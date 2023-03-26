@@ -1,12 +1,21 @@
 import styles from './CategorySection.module.css';
 import Image from 'next/image';
+import { useGlobalContext } from '@/hooks/useGlobalContext';
 
 export default function CategorySection() {
+    const { setShowHeader } = useGlobalContext();
+
     return (
         <section className={styles.category_section}>
             <div className={styles.videogames}>
                 <div className={styles.font}>Video games</div>
-                <a className={styles.anchor}>View all categories</a>
+                <a
+                    href='#header'
+                    onClick={() => setShowHeader(true)}
+                    className={styles.anchor}
+                >
+                    View all categories
+                </a>
                 <div className={styles.image_container}>
                     <Image
                         fill
@@ -24,7 +33,13 @@ export default function CategorySection() {
                     src='https://ik.imagekit.io/Hello/foreground_removed.jpg'
                 />
                 <div className={styles.font}>Toys</div>
-                <a className={styles.anchor}>View all categories</a>
+                <a
+                    href='#header'
+                    onClick={() => setShowHeader(true)}
+                    className={styles.anchor}
+                >
+                    View all categories
+                </a>
                 <div className={styles.toy_image_container}>
                     <Image
                         priority
