@@ -4,32 +4,32 @@ import Row from 'react-bootstrap/Row';
 import Link from 'next/link';
 import Nav from 'react-bootstrap/Nav';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { useState } from 'react';
 import { CategoryIcon } from '@/components/Icons';
 import styles from './Header.module.css';
+import { useGlobalContext } from '@/hooks/useGlobalContext';
 
 type HeaderProps = { categories: string[] };
 
 export const Header = ({ categories }: HeaderProps) => {
-    const [show, setShow] = useState(false);
+    const { showHeader, setShowHeader } = useGlobalContext();
 
     return (
-        <Navbar bg='dark' expand={'sm'} className={styles.navbar}>
+        <Navbar id='header' bg='dark' expand={'sm'} className={styles.navbar}>
             <Container className={styles.container} fluid>
                 <Navbar.Brand href='/'>Uniq Goods</Navbar.Brand>
 
                 <Navbar.Toggle
                     className={styles.category_button}
-                    onClick={() => setShow(true)}
+                    onClick={() => setShowHeader(true)}
                     aria-controls={`offcanvasNavbar-'md'-${'sm'}`}
                 >
                     <CategoryIcon />
                 </Navbar.Toggle>
 
                 <Navbar.Offcanvas
-                    onHide={() => setShow(false)}
+                    onHide={() => setShowHeader(false)}
                     className={styles.offcanvas}
-                    show={show}
+                    show={showHeader}
                     id={`offcanvasNavbar-'md'-${'sm'}`}
                     aria-labelledby={`offcanvasNavbarLabel-'md'-${'sm'}`}
                     placement='end'
@@ -46,8 +46,10 @@ export const Header = ({ categories }: HeaderProps) => {
                     <Offcanvas.Body>
                         <Nav className='me-auto'>
                             <Row
-                                onClick={() => setShow(false)}
-                                className={styles.categoryContainer}
+                                onClick={() => setShowHeader(false)}
+                                className={`${styles.categoryContainer} ${
+                                    showHeader ? styles.flex_col : ''
+                                }`}
                             >
                                 {categories.map((name: string, i) => (
                                     <Link

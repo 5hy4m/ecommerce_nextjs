@@ -77,12 +77,20 @@
 }
 
 .offcanvas {
-    width: 75% !important;
+    width: 300px !important;
     background-color: #212529 !important;
 }
 
 .offcanvas_title {
     color: white;
+}
+
+.flex_col {
+    flex-direction: column !important;
+}
+.flex_col > a {
+    padding: 10px;
+    font-size: 20px;
 }
 
 /* end Header */
