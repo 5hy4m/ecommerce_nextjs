@@ -1,6 +1,7 @@
 import CountUp from 'react-countup';
 import ScrollAnimation from 'react-animate-on-scroll';
 import styles from './TrustSection.module.css';
+import { WorldIcon } from '@/components/Icons';
 
 export default function TrustSection() {
     return (
@@ -9,23 +10,25 @@ export default function TrustSection() {
                 Since{' '}
                 <CountUp separator='' duration={5.75} start={1975} end={2015} />
             </h1>
+
             <div className={styles.trust_box_container}>
                 <ScrollAnimation
                     className={styles.customers}
                     animateIn='fadeInUp'
-                    animateOnce={true}
-                ></ScrollAnimation>
+                >
+                    <WorldIcon height={'100px'} width={'100px'} />
+                </ScrollAnimation>
 
                 <ScrollAnimation
                     className={styles.products}
-                    animateOnce={true}
                     animateIn='fadeInUp'
+                    delay={100}
                 ></ScrollAnimation>
 
                 <ScrollAnimation
                     className={styles.service}
-                    animateOnce={true}
                     animateIn='fadeInUp'
+                    delay={200}
                 ></ScrollAnimation>
             </div>
         </section>
