@@ -5,3 +5,6 @@ export { CloseIcon } from './CloseIcon';
 export { WhatsAppIcon } from './WhatsAppIcon';
 export { CallIcon } from './CallIcon';
 export { WorldIcon } from './WorldIcon';
+export { DiagonalArrowIcon } from './DiagonalArrowIcon';
+export { ProductIcon } from './ProductIcon';
+export { CustomersIcon } from './CustomersIcon';
