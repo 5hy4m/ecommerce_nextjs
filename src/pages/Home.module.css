@@ -77,27 +77,3 @@
         font-size: 16.8vw;
     }
 }
-
-/* Introduction Section */
-
-/* Trust Section */
-
-/* Trust Section */
-
-@media only screen and (max-width: 960px) {
-    .trust_box_container {
-        flex-direction: column;
-    }
-    .trust {
-        justify-content: center;
-    }
-}
-
-@media only screen and (max-width: 767px) {
-    .trust_box_container {
-        flex-direction: column;
-    }
-    .trust {
-        justify-content: center;
-    }
-}
