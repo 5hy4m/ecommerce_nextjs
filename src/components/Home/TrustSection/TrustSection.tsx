@@ -4,9 +4,12 @@ import styles from './TrustSection.module.css';
 import {
     CustomersIcon,
     DiagonalArrowIcon,
+    HeartRateIcon,
     ProductIcon,
     WorldIcon,
 } from '@/components/Icons';
+import Container from 'react-bootstrap/Container';
+import { Counter } from './components/Counter';
 
 export default function TrustSection() {
     return (
@@ -25,16 +28,15 @@ export default function TrustSection() {
 
             <div className={styles.trust_box_container}>
                 <ScrollAnimation
-                    className={styles.customers}
+                    className={styles.service}
                     animateIn='fadeInUp'
                     animateOnce={true}
                 >
                     <div>
-                        SERVICE
-                        <br />
+                        SERVICE <br />
                         ALL OVER THE WORLD
                     </div>
-                    <WorldIcon height={'50px'} width={'50px'} />
+                    <WorldIcon height='100px' width='110px' />
                 </ScrollAnimation>
 
                 <ScrollAnimation
@@ -43,32 +45,26 @@ export default function TrustSection() {
                     delay={100}
                     animateOnce={true}
                 >
-                    <DiagonalArrowIcon height='40px' width={'40px'} />
+                    <DiagonalArrowIcon height='40px' width='40px' />
 
                     <div>
                         PRODUCTS <br />
                         SOLD
                     </div>
 
-                    <ProductIcon height='120px' width={'120px'} />
+                    <ProductIcon height='120px' width='120px' />
 
-                    <div className={styles.sold_count}>
-                        <CountUp
-                            separator=','
-                            duration={5.75}
-                            start={0}
-                            end={10000}
-                        />
-                        <sup>+</sup>
-                    </div>
+                    <Counter count={10000} />
                 </ScrollAnimation>
 
                 <ScrollAnimation
-                    className={styles.service}
+                    className={styles.customers}
                     animateIn='fadeInUp'
                     delay={200}
                     animateOnce={true}
                 >
+                    <HeartRateIcon width='40px' height='40px' />
+
                     <div>
                         HAPPY <br />
                         CUSTOMERS
@@ -76,15 +72,7 @@ export default function TrustSection() {
 
                     <CustomersIcon width='120px' height='120px' />
 
-                    <div className={styles.customers_count}>
-                        <CountUp
-                            separator=','
-                            duration={5.75}
-                            start={0}
-                            end={10000}
-                        />
-                        <sup>+</sup>
-                    </div>
+                    <Counter count={5000} />
                 </ScrollAnimation>
             </div>
         </section>

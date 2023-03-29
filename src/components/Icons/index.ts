@@ -1,10 +1,11 @@
-export { CategoryIcon } from './CategoryIcon';
 export { NextIcon } from './NextIcon';
 export { PrevIcon } from './PrevIcon';
-export { CloseIcon } from './CloseIcon';
-export { WhatsAppIcon } from './WhatsAppIcon';
 export { CallIcon } from './CallIcon';
 export { WorldIcon } from './WorldIcon';
-export { DiagonalArrowIcon } from './DiagonalArrowIcon';
+export { CloseIcon } from './CloseIcon';
 export { ProductIcon } from './ProductIcon';
+export { CategoryIcon } from './CategoryIcon';
+export { WhatsAppIcon } from './WhatsAppIcon';
 export { CustomersIcon } from './CustomersIcon';
+export { DiagonalArrowIcon } from './DiagonalArrowIcon';
+export { HeartRateIcon } from './HeartRateIcon';

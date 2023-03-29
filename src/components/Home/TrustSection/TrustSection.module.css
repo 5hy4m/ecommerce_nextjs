@@ -27,9 +27,9 @@
     column-gap: 5px;
 }
 
-.customers,
+.service,
 .products,
-.service {
+.customers {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -43,9 +43,9 @@
     font-weight: 500;
 }
 
-.customers::before,
+.service::before,
 .products::before,
-.service::before {
+.customers::before {
     position: absolute;
     top: -17px;
     right: 0px;
@@ -55,12 +55,12 @@
     content: '';
 }
 
-.customers::before,
-.customers {
+.service::before,
+.service {
     background-color: #fd5e09;
 }
 
-.customers > svg {
+.service > svg {
     position: absolute;
     bottom: 15px;
     left: 20px;
@@ -71,20 +71,21 @@
     background-color: #e0dfe0;
 }
 
-.products > .sold_count {
+.count {
     font-size: 50px;
     font-weight: 100;
     align-self: start;
 }
 
-.products > svg:first-child {
+.products > svg:first-child,
+.customers > svg:first-child {
     position: absolute;
     right: 25px;
     top: 15px;
 }
 
-.service::before,
-.service {
+.customers::before,
+.customers {
     background-color: #fdc857;
 }
 
@@ -96,7 +97,7 @@
         margin-top: 50px;
     }
 
-    .customers,
+    .service,
     .products {
         flex-grow: 1;
     }
