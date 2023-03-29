@@ -14,19 +14,19 @@ import { Counter } from './components/Counter';
 export default function TrustSection() {
     return (
         <section className={styles.trust}>
-            <h1>
-                Since
-                <ScrollAnimation animateIn='fadeInUp' animateOnce={true}>
-                    <CountUp
-                        separator=''
-                        duration={5.75}
-                        start={1975}
-                        end={2015}
-                    />
-                </ScrollAnimation>
-            </h1>
+            <Container className={styles.trust_box_container}>
+                <h1>
+                    Since
+                    <ScrollAnimation animateIn='fadeInUp' animateOnce={true}>
+                        <CountUp
+                            separator=''
+                            duration={5.75}
+                            start={1975}
+                            end={2015}
+                        />
+                    </ScrollAnimation>
+                </h1>
 
-            <div className={styles.trust_box_container}>
                 <ScrollAnimation
                     className={styles.service}
                     animateIn='fadeInUp'
@@ -74,7 +74,7 @@ export default function TrustSection() {
 
                     <Counter count={5000} />
                 </ScrollAnimation>
-            </div>
+            </Container>
         </section>
     );
 }
