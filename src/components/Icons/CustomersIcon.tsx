@@ -3,11 +3,11 @@ import { IconProps } from './types';
 export const CustomersIcon = ({ height, width }: IconProps) => {
     return (
         <svg
-            fill='#ffffff'
-            width='800px'
-            height='800px'
+            fill='#000000'
+            width={width}
+            height={height}
             viewBox='0 -64 640 640'
-            stroke='#ffffff'
+            stroke='#000000'
             stroke-width='0.0064'
             transform='rotate(0)'
         >

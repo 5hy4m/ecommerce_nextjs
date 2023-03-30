@@ -8,28 +8,29 @@
     background-color: black;
 }
 
-.trust > h1 {
+.trust_box_container > h1 {
     display: flex;
     width: 220px;
     justify-content: space-between;
     font-size: 45px;
     margin: 0px;
     position: absolute;
-    top: 0;
+    top: -170px;
     left: 10px;
     font-weight: 100;
 }
 
 .trust_box_container {
+    position: relative;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-around;
     column-gap: 5px;
 }
 
-.customers,
+.service,
 .products,
-.service {
+.customers {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -43,9 +44,9 @@
     font-weight: 500;
 }
 
-.customers::before,
+.service::before,
 .products::before,
-.service::before {
+.customers::before {
     position: absolute;
     top: -17px;
     right: 0px;
@@ -55,12 +56,12 @@
     content: '';
 }
 
-.customers::before,
-.customers {
+.service::before,
+.service {
     background-color: #fd5e09;
 }
 
-.customers > svg {
+.service > svg {
     position: absolute;
     bottom: 15px;
     left: 20px;
@@ -71,20 +72,21 @@
     background-color: #e0dfe0;
 }
 
-.products > .sold_count {
+.count {
     font-size: 50px;
     font-weight: 100;
     align-self: start;
 }
 
-.products > svg:first-child {
+.products > svg:first-child,
+.customers > svg:first-child {
     position: absolute;
     right: 25px;
     top: 15px;
 }
 
-.service::before,
-.service {
+.customers::before,
+.customers {
     background-color: #fdc857;
 }
 
@@ -94,9 +96,10 @@
         flex-wrap: wrap;
         row-gap: 50px;
         margin-top: 50px;
+        padding-top: 10px;
     }
 
-    .customers,
+    .service,
     .products {
         flex-grow: 1;
     }
@@ -107,5 +110,10 @@
 
     .trust {
         justify-content: center;
+    }
+
+    .trust_box_container > h1 {
+        top: -65px;
+        left: unset;
     }
 }
