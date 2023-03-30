@@ -5,6 +5,7 @@ import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { CategorySection } from '../components/Home/CategorySection';
 import { TrustSection } from '../components/Home/TrustSection';
+import Script from 'next/script';
 
 type HomeProps = {
     categories: string[];
@@ -15,12 +16,20 @@ export default function Index({ categories }: HomeProps) {
         <>
             <Head>
                 <title>UniqGoods</title>
+
                 <meta name='description' content='Vintage and Retro games' />
+
                 <meta
                     name='viewport'
                     content='width=device-width, initial-scale=1'
                 />
+
                 <link rel='icon' href='/favicon.ico' />
+
+                <Script
+                    strategy='lazyOnload'
+                    src='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'
+                />
             </Head>
             <main>
                 <Header categories={categories} />
