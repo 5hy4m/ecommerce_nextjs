@@ -48,6 +48,7 @@
 
 .anchor {
     z-index: 1;
+    font-size: 1.1rem;
 }
 
 .toy_image_container > img {
