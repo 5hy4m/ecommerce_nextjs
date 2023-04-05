@@ -16,7 +16,9 @@ export const Header = ({ categories }: HeaderProps) => {
     return (
         <Navbar id='header' bg='dark' expand={'sm'} className={styles.navbar}>
             <Container className={styles.container} fluid>
-                <Navbar.Brand href='/'>Uniq Goods</Navbar.Brand>
+                <Navbar.Brand href='/' className={styles.logo}>
+                    Uniq Goods
+                </Navbar.Brand>
 
                 <Navbar.Toggle
                     className={styles.category_button}
