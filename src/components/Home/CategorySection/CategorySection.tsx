@@ -21,7 +21,7 @@ export default function CategorySection() {
                         fill
                         alt=''
                         priority
-                        src='https://ik.imagekit.io/Hello/Video_Games_Image_fKv1-SGTPi?updatedAt=1679719049704'
+                        src='https://ik.imagekit.io/Hello/Video_Games_Image_fKv1-SGTPi'
                     />
                 </div>
             </div>
@@ -42,10 +42,10 @@ export default function CategorySection() {
                 </a>
                 <div className={styles.toy_image_container}>
                     <Image
-                        priority
-                        alt=''
                         fill
-                        src='https://ik.imagekit.io/Hello/fullscreen_barbie_Background_Removed.png?updatedAt=1679731652908'
+                        alt=''
+                        priority
+                        src='https://ik.imagekit.io/Hello/fullscreen_barbie_Background_Removed.png'
                     />
                 </div>
             </div>
