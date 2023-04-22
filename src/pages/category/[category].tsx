@@ -5,10 +5,10 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import styles from './Category.module.css';
 import Card from 'react-bootstrap/Card';
-import Image from 'next/image';
 import Col from 'react-bootstrap/Col';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
+import { IKImage } from 'imagekitio-react';
 
 type CategoryProps = {
     category: string;
@@ -35,12 +35,22 @@ export default function Category({
                             <div className={styles.card_container}>
                                 <Card className={styles.card}>
                                     <div className={styles.img_container}>
-                                        <Image
-                                            className='card-img'
+                                        <IKImage
+                                            className={
+                                                styles.card_img + ' card-img'
+                                            }
+                                            transformation={[
+                                                {
+                                                    quality: '10',
+                                                },
+                                            ]}
                                             src={product.imageUrls[0]}
                                             alt={product.name}
-                                            priority
-                                            fill
+                                            lqip={{
+                                                active: true,
+                                                quality: 10,
+                                                blur: 50,
+                                            }}
                                         />
                                     </div>
                                     <Card.Body className={styles.card_body}>
