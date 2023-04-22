@@ -100,7 +100,16 @@ const SecondaryImages = ({
             key={`${i}_secondaryImages`}
             onClick={(e) => handleOnSelect(e)}
         >
-            <Image id={`${i}`} src={image} alt={productName} fill></Image>
+            <IKImage
+                id={`${i}`}
+                src={image}
+                alt={productName}
+                lqip={{
+                    active: true,
+                    quality: 10,
+                    blur: 50,
+                }}
+            />
         </div>
     ));
 
