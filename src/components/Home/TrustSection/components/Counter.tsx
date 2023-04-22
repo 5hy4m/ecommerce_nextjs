@@ -1,9 +1,9 @@
-import CountUp from 'react-countup';
+import { RefObject } from 'react';
 import styles from '../TrustSection.module.css';
 
-export const Counter = ({ count }: { count: number }) => (
+export const Counter = ({ countRef }: { countRef: RefObject<HTMLElement> }) => (
     <div className={styles.count}>
-        <CountUp separator=',' duration={5.75} start={0} end={count} />
+        <span ref={countRef}></span>
         <sup>+</sup>
     </div>
 );

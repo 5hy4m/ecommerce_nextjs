@@ -15,17 +15,23 @@ export default function TrustSection() {
     return (
         <section className={styles.trust}>
             <Container className={styles.trust_box_container}>
-                <h1>
-                    Since
-                    <ScrollAnimation animateIn='fadeInUp' animateOnce={true}>
-                        <CountUp
-                            separator=''
-                            duration={5.75}
-                            start={1975}
-                            end={2015}
-                        />
-                    </ScrollAnimation>
-                </h1>
+                <CountUp separator='' duration={2.75} start={1975} end={2015}>
+                    {({ countUpRef, start }) => (
+                        <h1>
+                            Since
+                            <ScrollAnimation
+                                afterAnimatedIn={(visibility) => {
+                                    if (visibility.inViewport) start();
+                                    return {};
+                                }}
+                                animateIn='fadeInUp'
+                                animateOnce={true}
+                            >
+                                <span ref={countUpRef} />
+                            </ScrollAnimation>
+                        </h1>
+                    )}
+                </CountUp>
 
                 <ScrollAnimation
                     className={styles.service}
@@ -39,41 +45,57 @@ export default function TrustSection() {
                     <WorldIcon height='100px' width='110px' />
                 </ScrollAnimation>
 
-                <ScrollAnimation
-                    className={styles.products}
-                    animateIn='fadeInUp'
-                    delay={100}
-                    animateOnce={true}
-                >
-                    <DiagonalArrowIcon height='40px' width='40px' />
+                <CountUp separator=',' duration={2.75} start={0} end={10000}>
+                    {({ countUpRef, start }) => (
+                        <ScrollAnimation
+                            className={styles.products}
+                            animateIn='fadeInUp'
+                            delay={100}
+                            animateOnce={true}
+                            afterAnimatedIn={(visibility) => {
+                                if (visibility.onScreen) start();
+                                return {};
+                            }}
+                        >
+                            <DiagonalArrowIcon height='40px' width='40px' />
 
-                    <div>
-                        PRODUCTS <br />
-                        SOLD
-                    </div>
+                            <div>
+                                PRODUCTS <br />
+                                SOLD
+                            </div>
 
-                    <ProductIcon height='120px' width='120px' />
+                            <ProductIcon height='120px' width='120px' />
 
-                    <Counter count={10000} />
-                </ScrollAnimation>
+                            <Counter countRef={countUpRef} />
+                        </ScrollAnimation>
+                    )}
+                </CountUp>
 
-                <ScrollAnimation
-                    className={styles.customers}
-                    animateIn='fadeInUp'
-                    delay={200}
-                    animateOnce={true}
-                >
-                    <HeartRateIcon width='40px' height='40px' />
+                <CountUp separator=',' duration={2.75} start={0} end={10000}>
+                    {({ countUpRef, start }) => (
+                        <ScrollAnimation
+                            className={styles.customers}
+                            animateIn='fadeInUp'
+                            delay={200}
+                            animateOnce={true}
+                            afterAnimatedIn={(visibility) => {
+                                if (visibility.inViewport) start();
+                                return {};
+                            }}
+                        >
+                            <HeartRateIcon width='40px' height='40px' />
 
-                    <div>
-                        HAPPY <br />
-                        CUSTOMERS
-                    </div>
+                            <div>
+                                HAPPY <br />
+                                CUSTOMERS
+                            </div>
 
-                    <CustomersIcon width='120px' height='120px' />
+                            <CustomersIcon width='120px' height='120px' />
 
-                    <Counter count={5000} />
-                </ScrollAnimation>
+                            <Counter countRef={countUpRef} />
+                        </ScrollAnimation>
+                    )}
+                </CountUp>
             </Container>
         </section>
     );
