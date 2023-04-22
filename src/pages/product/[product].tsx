@@ -242,7 +242,7 @@ export default function Product({ product, categories }: ProductProps) {
                             />
 
                             <div className={styles.description}>
-                                {product.description}
+                                <pre>{product.description}</pre>
                             </div>
                         </div>
                         <StockPriceContainer

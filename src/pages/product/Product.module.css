@@ -217,6 +217,10 @@
 .call_button {
     margin-top: 10px;
 }
+.description {
+    max-height: 250px;
+    overflow-y: scroll;
+}
 /* Details Section */
 
 @media only screen and (max-width: 1200px) {
