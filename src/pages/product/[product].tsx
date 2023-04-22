@@ -20,6 +20,7 @@ import {
 } from '@/components/Icons';
 import { CallIcon } from '@/components/Icons';
 import { clsx } from 'clsx';
+import { IKImage } from 'imagekitio-react';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
 const contactNumber = process.env.NEXT_PUBLIC_CONTACT_NUMBER;
@@ -130,11 +131,16 @@ const ImageSelector = ({ product }: ImageSelector) => {
             {showOverlay && (
                 <div className={styles.zoom_overlay}>
                     <div className={styles.zoomed_image_container}>
-                        <Image
+                        <IKImage
+                            className={styles.card_img + ' card-img'}
                             src={images[selectedIndex]}
-                            alt={name}
-                            fill
-                        ></Image>
+                            alt={product.name}
+                            lqip={{
+                                active: true,
+                                quality: 10,
+                                blur: 50,
+                            }}
+                        />
 
                         <CloseButton handler={setOverlay} />
 
