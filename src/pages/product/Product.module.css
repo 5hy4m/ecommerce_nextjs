@@ -150,7 +150,7 @@
 
 /* Details Section */
 .details_section {
-    background-color: rgb(203, 203, 203);
+    background-color: rgb(237 237 237);
     height: 100%;
     display: flex;
     margin-bottom: var(--margin-divider);
@@ -235,7 +235,6 @@
 /* Tablet */
 @media only screen and (max-width: 1440px) {
     .container {
-        padding-bottom: 20px;
         width: 100%;
         max-width: 100vw;
         display: flex;
