@@ -20,6 +20,9 @@
 .navbar > .container {
     justify-content: center;
 }
+.logo {
+    font-size: 1.5rem;
+}
 
 .categoryContainer > a {
     padding-left: 10px;

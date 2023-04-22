@@ -27,7 +27,8 @@ export default function Index({ categories }: HomeProps) {
                 <div className={styles.homepage}>
                     <section className={styles.introduction}>
                         <b>
-                            We have <br />
+                            We sell
+                            <br />
                         </b>
                         <h1>
                             Retro{' '}

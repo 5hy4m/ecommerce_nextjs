@@ -7,6 +7,15 @@
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace; */
 }
+pre {
+    overflow-x: auto;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    margin: 0;
+}
 
 * {
     box-sizing: border-box;
@@ -16,6 +25,7 @@
 
 html,
 body {
+    overscroll-behavior: none;
     font-family: 'Kumbh Sans', sans-serif;
     width: 100%;
     margin: 0;

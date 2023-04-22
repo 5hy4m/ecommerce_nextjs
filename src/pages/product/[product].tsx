@@ -20,6 +20,7 @@ import {
 } from '@/components/Icons';
 import { CallIcon } from '@/components/Icons';
 import { clsx } from 'clsx';
+import { IKImage } from 'imagekitio-react';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
 const contactNumber = process.env.NEXT_PUBLIC_CONTACT_NUMBER;
@@ -113,6 +114,8 @@ const ImageSelector = ({ product }: ImageSelector) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [showOverlay, setOverlay] = useState(false);
 
+    const showArrows = images.length > 1;
+
     const handleNextImage = () =>
         selectedIndex + 1 >= imagesCount
             ? setSelectedIndex(0)
@@ -128,17 +131,26 @@ const ImageSelector = ({ product }: ImageSelector) => {
             {showOverlay && (
                 <div className={styles.zoom_overlay}>
                     <div className={styles.zoomed_image_container}>
-                        <Image
+                        <IKImage
+                            className={styles.card_img + ' card-img'}
                             src={images[selectedIndex]}
-                            alt={name}
-                            fill
-                        ></Image>
+                            alt={product.name}
+                            lqip={{
+                                active: true,
+                                quality: 10,
+                                blur: 50,
+                            }}
+                        />
 
                         <CloseButton handler={setOverlay} />
 
-                        <NextButton handler={handleNextImage} />
+                        {showArrows ? (
+                            <>
+                                <NextButton handler={handleNextImage} />
 
-                        <PrevButton handler={handlePreviousImage} />
+                                <PrevButton handler={handlePreviousImage} />
+                            </>
+                        ) : null}
                     </div>
                 </div>
             )}
@@ -151,9 +163,13 @@ const ImageSelector = ({ product }: ImageSelector) => {
                     fill
                 ></Image>
 
-                <PrevButton handler={handlePreviousImage} />
+                {showArrows ? (
+                    <>
+                        <PrevButton handler={handlePreviousImage} />
 
-                <NextButton handler={handleNextImage} />
+                        <NextButton handler={handleNextImage} />
+                    </>
+                ) : null}
             </div>
             <SecondaryImages
                 images={images}
@@ -242,7 +258,7 @@ export default function Product({ product, categories }: ProductProps) {
                             />
 
                             <div className={styles.description}>
-                                {product.description}
+                                <pre>{product.description}</pre>
                             </div>
                         </div>
                         <StockPriceContainer

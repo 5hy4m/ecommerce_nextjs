@@ -8,7 +8,8 @@ export const Footer = () => {
         <div className={styles.footer}>
             <div>
                 Contact us on{' '}
-                <a href={`tel:${contactNumber}`}>{contactNumber}</a>
+                <a href={`tel:${contactNumber}`}>{contactNumber}</a> to sell
+                goods.
                 <br />© {currentYear} UniqGoods
             </div>
         </div>
