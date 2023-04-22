@@ -36,6 +36,7 @@ export default function Category({
                                 <Card className={styles.card}>
                                     <div className={styles.img_container}>
                                         <IKImage
+                                            loading='lazy'
                                             className={
                                                 styles.card_img + ' card-img'
                                             }
