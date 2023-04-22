@@ -113,6 +113,8 @@ const ImageSelector = ({ product }: ImageSelector) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [showOverlay, setOverlay] = useState(false);
 
+    const showArrows = images.length > 1;
+
     const handleNextImage = () =>
         selectedIndex + 1 >= imagesCount
             ? setSelectedIndex(0)
@@ -136,9 +138,13 @@ const ImageSelector = ({ product }: ImageSelector) => {
 
                         <CloseButton handler={setOverlay} />
 
-                        <NextButton handler={handleNextImage} />
+                        {showArrows ? (
+                            <>
+                                <NextButton handler={handleNextImage} />
 
-                        <PrevButton handler={handlePreviousImage} />
+                                <PrevButton handler={handlePreviousImage} />
+                            </>
+                        ) : null}
                     </div>
                 </div>
             )}
@@ -151,9 +157,13 @@ const ImageSelector = ({ product }: ImageSelector) => {
                     fill
                 ></Image>
 
-                <PrevButton handler={handlePreviousImage} />
+                {showArrows ? (
+                    <>
+                        <PrevButton handler={handlePreviousImage} />
 
-                <NextButton handler={handleNextImage} />
+                        <NextButton handler={handleNextImage} />
+                    </>
+                ) : null}
             </div>
             <SecondaryImages
                 images={images}
