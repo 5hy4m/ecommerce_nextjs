@@ -124,7 +124,7 @@
     position: relative;
 }
 
-.primary_image_container > img,
+.primary_image,
 .secondary_image_container > img,
 .zoomed_image_container > img,
 .secondary_image_container_active > img {
@@ -134,9 +134,7 @@
 .primary_image:hover,
 .secondary_image_container > img:hover,
 .secondary_image_container_active > img {
-    color: #fff;
     display: inline-block;
-    opacity: 0.2;
     cursor: pointer;
 }
 
@@ -394,5 +392,11 @@
     .buttons_container > button {
         width: 200px;
         margin-right: 10px;
+    }
+    .primary_image:hover,
+    .secondary_image_container > img:hover,
+    .secondary_image_container_active > img {
+        color: #fff;
+        opacity: 0.2;
     }
 }
