@@ -5,6 +5,7 @@ import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { CategorySection } from '../components/Home/CategorySection';
 import { TrustSection } from '../components/Home/TrustSection';
+import { categoryListCache } from '@/services/cache';
 
 type HomeProps = {
     categories: string[];
@@ -59,9 +60,9 @@ export default function Index({ categories }: HomeProps) {
 }
 
 export async function getStaticProps() {
-    console.time('getCategories');
+    console.time('[Category] getCategories');
     const categories = await getCategories();
-    console.timeEnd('getCategories');
+    console.timeEnd('[Category] getCategories');
 
     return {
         props: { categories },

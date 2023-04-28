@@ -1,5 +1,19 @@
+import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+
 type PropertyMapper = {
     [key in string]: string;
+};
+
+export type Product = {
+    url: string;
+    description: string;
+    undefined: boolean;
+    imageUrls: string[];
+    stock: number;
+    category: string;
+    rupees: number;
+    name: string;
+    isActive: boolean;
 };
 
 const propertyMapper: PropertyMapper = {
@@ -10,40 +24,46 @@ const propertyMapper: PropertyMapper = {
     Description: 'description',
     'Image Urls': 'imageUrls',
     URL: 'url',
+    isActive: 'isActive',
 };
 
-export const parseProduct = ({ properties }: any): any => {
-    const propNames = Object.keys(properties);
+export const parseProduct = ({ properties }: PageObjectResponse): Product => {
     let parsedProduct = {} as any;
 
-    propNames.forEach((name: string) => {
-        const prop = properties[name];
-        const content = prop[prop.type];
+    for (const [name, prop] of Object.entries(properties)) {
+        const [a, b, content] = Object.values(prop);
         const propName = propertyMapper[name];
 
         if (name === 'URL') {
-            return (parsedProduct[propName] =
-                `${content.string}`.toLowerCase());
+            parsedProduct[propName] = `${content.string}`.toLowerCase();
+            continue;
+        }
+
+        if (name === 'isActive') {
+            parsedProduct[propName] = content;
         }
 
         if (name === 'Category') {
-            return (parsedProduct[propName] = content.name);
+            parsedProduct[propName] = content.name;
+            continue;
         }
 
         // handles Stock, Rupees fields
         if (!Array.isArray(content)) {
-            return (parsedProduct[propName] = content);
+            parsedProduct[propName] = content;
+            continue;
         }
 
         if (name.toLowerCase() === 'image urls') {
-            return (parsedProduct[propName] = content.map((item) => item.name));
+            parsedProduct[propName] = content.map((item) => item.name);
+            continue;
         }
 
         // handles Name and Description fields
-        return (parsedProduct[propName] = content
+        parsedProduct[propName] = content
             .map((item) => item[item.type].content)
-            .join(''));
-    });
+            .join('');
+    }
 
     return parsedProduct;
 };

@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { IKImage } from 'imagekitio-react';
+import { categoryListCache } from '@/services/cache';
 
 type CategoryProps = {
     category: string;
@@ -93,9 +94,9 @@ export async function getStaticProps(props: { params: CategoryProps }) {
 }
 
 export async function getStaticPaths() {
-    console.time('getCategoriesPaths');
-    const categories: string[] = await getCategories();
-    console.timeEnd('getCategoriesPaths');
+    console.time('[Category] getCategories');
+    const categories = await getCategories();
+    console.timeEnd('[Category] getCategories');
 
     const paths = categories.map((name) => ({
         params: {

@@ -1,5 +1,7 @@
 import { Client } from '@notionhq/client';
-import { parseProduct } from './parser';
+import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import { categoryListCache } from '../cache';
+import { parseProduct, Product } from './parser';
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
 const databaseId = process.env.NOTION_DATABASE_ID;
@@ -11,14 +13,24 @@ export const getCategories = async (): Promise<string[]> => {
         return [];
     }
 
+    let categories = categoryListCache.get();
+
+    if (categories) {
+        console.log('using cache to get categories');
+        return categories;
+    }
+
     try {
         const response: any = await notion.databases.retrieve({
             database_id: databaseId,
         });
-
-        return response.properties.Category.select.options.map(
+        categories = response.properties.Category.select.options.map(
             (option: Partial<{ name: string }>) => option.name,
         );
+
+        categoryListCache.set(categories!);
+
+        return categories!;
     } catch (err) {
         console.error('Fetch categories from notion failed: ', err);
         throw err;
@@ -43,18 +55,20 @@ export const getProductsByCategory = async (
                 },
             },
         });
-
-        return response.results.map((product) => parseProduct(product));
+        const products = response.results.map((product) =>
+            parseProduct(product as PageObjectResponse),
+        );
+        return products.filter((product) => product.isActive);
     } catch (err) {
         console.error('Fetch categories from notion failed: ', err);
         throw err;
     }
 };
 
-export const getProduct = async (productUrl: string): Promise<any[]> => {
+export const getProduct = async (productUrl: string): Promise<Product> => {
     if (!databaseId || !secret) {
         console.error("Can't find notion env variable");
-        return [];
+        return {} as Product;
     }
 
     try {
@@ -72,7 +86,9 @@ export const getProduct = async (productUrl: string): Promise<any[]> => {
         if (response.results.length > 1)
             console.warn('Duplicates found in Notion Table');
 
-        return parseProduct(response.results[0]);
+        const product = parseProduct(response.results[0] as PageObjectResponse);
+
+        return product.isActive ? product : ({} as Product);
     } catch (err) {
         console.error('Fetch categories from notion failed: ', err);
         throw err;
