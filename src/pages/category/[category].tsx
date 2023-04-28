@@ -9,7 +9,6 @@ import Col from 'react-bootstrap/Col';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { IKImage } from 'imagekitio-react';
-import { categoryListCache } from '@/services/cache';
 
 type CategoryProps = {
     category: string;

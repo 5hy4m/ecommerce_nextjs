@@ -5,7 +5,6 @@ import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { CategorySection } from '../components/Home/CategorySection';
 import { TrustSection } from '../components/Home/TrustSection';
-import { categoryListCache } from '@/services/cache';
 
 type HomeProps = {
     categories: string[];
