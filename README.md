@@ -12,7 +12,10 @@ This is a Next.js ecommerce website uses static site generation with Notion data
 ![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)
 
 ## Screens
-
+<div >
+<img src="https://user-images.githubusercontent.com/29056397/235417782-fb22cb6e-bfb2-4ff9-bffd-e31846c80e69.gif" width="680" height="450"/>&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://user-images.githubusercontent.com/29056397/235417791-605d09f7-7495-4ef2-a7ae-179df8e60944.gif" width="193" height="451"/>
+</div>
 
 ## Getting Started
 Clone the project:
