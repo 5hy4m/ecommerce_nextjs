@@ -1,4 +1,5 @@
 ## Project
+
 This is a Next.js e-commerce website uses static site generation with Notion database as backend. It lists the products from notion database in a categorized manner. Since this is a static site we need to rebuild and deploy the site to keep the website updated with notion database. I have given example Notion database schema below.
 
 ## Tech Stack
@@ -19,6 +20,14 @@ This is a Next.js e-commerce website uses static site generation with Notion dat
 ## Deployed:
 
 https://uniq-goods.vercel.app
+
+## Sample notion database schema
+
+https://shyamkumar.notion.site/599d3e6efc434716b071c9f4dfccf3ae?v=2be6b90f833b4b9f9a8d0e707211a9cd
+
+## Sample dot env file
+
+https://github.com/5hy4m/ecommerce_nextjs/blob/master/sampleDotEnv
 
 ## Getting Started
 
@@ -42,4 +51,12 @@ Run the development server:
 
 ```bash
 npm run dev
+```
+
+## Cache
+
+As this website uses SSG. Build time increases as the products count increases. So I built a cache support on built time. To reset the Cache use this command:
+
+```
+npm run resetCache
 ```
