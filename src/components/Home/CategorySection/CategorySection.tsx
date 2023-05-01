@@ -1,6 +1,7 @@
 import styles from './CategorySection.module.css';
 import { useGlobalContext } from '@/hooks/useGlobalContext';
 import { IKImage } from 'imagekitio-react';
+import Link from 'next/link';
 
 export default function CategorySection() {
     const { setShowHeader } = useGlobalContext();
@@ -16,7 +17,10 @@ export default function CategorySection() {
                 >
                     View all categories
                 </a>
-                <div className={styles.image_container}>
+                <Link
+                    href={'/category/VideoGames'}
+                    className={styles.image_container}
+                >
                     <IKImage
                         src='https://ik.imagekit.io/Hello/Video_Games_Image_fKv1-SGTPi'
                         transformation={[
@@ -31,7 +35,7 @@ export default function CategorySection() {
                             blur: 50,
                         }}
                     />
-                </div>
+                </Link>
             </div>
             <div className={styles.toys}>
                 <IKImage
@@ -50,7 +54,10 @@ export default function CategorySection() {
                 >
                     View all categories
                 </a>
-                <div className={styles.toy_image_container}>
+                <Link
+                    href={'/category/Toys'}
+                    className={styles.toy_image_container}
+                >
                     <IKImage
                         src='https://ik.imagekit.io/Hello/fullscreen_barbie_Background_Removed.png'
                         transformation={[
@@ -65,7 +72,7 @@ export default function CategorySection() {
                             blur: 50,
                         }}
                     />
-                </div>
+                </Link>
             </div>
         </section>
     );

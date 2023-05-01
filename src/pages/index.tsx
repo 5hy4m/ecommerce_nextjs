@@ -59,9 +59,9 @@ export default function Index({ categories }: HomeProps) {
 }
 
 export async function getStaticProps() {
-    console.time('getCategories');
+    console.time('[Category] getCategories');
     const categories = await getCategories();
-    console.timeEnd('getCategories');
+    console.timeEnd('[Category] getCategories');
 
     return {
         props: { categories },

@@ -102,6 +102,13 @@
     background-color: whitesmoke;
 }
 
+.primary_image_container > img {
+    position: absolute;
+    height: 100%;
+    object-fit: contain;
+    width: 100%;
+}
+
 .secondary_image_container,
 .secondary_image_container_active {
     border-radius: 15px;
@@ -333,6 +340,7 @@
     .primary_image_container {
         height: 350px;
     }
+
     .primary_image {
         position: relative !important;
     }

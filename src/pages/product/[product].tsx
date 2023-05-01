@@ -100,7 +100,16 @@ const SecondaryImages = ({
             key={`${i}_secondaryImages`}
             onClick={(e) => handleOnSelect(e)}
         >
-            <Image id={`${i}`} src={image} alt={productName} fill></Image>
+            <IKImage
+                id={`${i}`}
+                src={image}
+                alt={productName}
+                lqip={{
+                    active: true,
+                    quality: 10,
+                    blur: 50,
+                }}
+            />
         </div>
     ));
 
@@ -155,13 +164,16 @@ const ImageSelector = ({ product }: ImageSelector) => {
                 </div>
             )}
             <div className={styles.primary_image_container}>
-                <Image
+                <IKImage
                     onClick={() => setOverlay(true)}
-                    className={styles.primary_image}
                     src={images[selectedIndex]}
                     alt={name}
-                    fill
-                ></Image>
+                    lqip={{
+                        active: true,
+                        quality: 10,
+                        blur: 50,
+                    }}
+                />
 
                 {showArrows ? (
                     <>

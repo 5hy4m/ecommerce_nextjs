@@ -36,6 +36,7 @@ export default function Category({
                                 <Card className={styles.card}>
                                     <div className={styles.img_container}>
                                         <IKImage
+                                            loading='lazy'
                                             className={
                                                 styles.card_img + ' card-img'
                                             }
@@ -92,9 +93,9 @@ export async function getStaticProps(props: { params: CategoryProps }) {
 }
 
 export async function getStaticPaths() {
-    console.time('getCategoriesPaths');
-    const categories: string[] = await getCategories();
-    console.timeEnd('getCategoriesPaths');
+    console.time('[Category] getCategories');
+    const categories = await getCategories();
+    console.timeEnd('[Category] getCategories');
 
     const paths = categories.map((name) => ({
         params: {
