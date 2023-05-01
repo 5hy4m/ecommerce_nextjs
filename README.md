@@ -1,7 +1,7 @@
-##Project
+## Project
 This is a Next.js ecommerce website uses static site generation with Notion database as backend. It lists the products from notion database in a categorized manner. Since this is a static site we need to rebuild and deploy the site to keep the website updated with notion database. I have given example Notion database schema below.
 
-##Tech Stack <br />
+## Tech Stack
 
 ![HTML](https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white)
 ![Css3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
@@ -11,8 +11,7 @@ This is a Next.js ecommerce website uses static site generation with Notion data
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)
 
-##Screens
-![Desktop screen]()
+## Screens
 
 
 ## Getting Started
