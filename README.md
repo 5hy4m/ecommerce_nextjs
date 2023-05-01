@@ -1,5 +1,4 @@
 ## Project
-
 This is a Next.js e-commerce website uses static site generation with Notion database as backend. It lists the products from notion database in a categorized manner. Since this is a static site we need to rebuild and deploy the site to keep the website updated with notion database. I have given example Notion database schema below.
 
 ## Tech Stack
@@ -44,9 +43,3 @@ Run the development server:
 ```bash
 npm run dev
 ```
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
