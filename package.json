@@ -4,8 +4,9 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build": "next build",
         "prebuild": "npm run resetCache",
+        "build": "next build && npm run postbuild",
+        "postbuild": "next-sitemap",
         "start": "next start -p 3001",
         "lint": "next lint",
         "format": "prettier --write src/**/*.{ts,tsx,css,md} --config ./.prettierrc",
@@ -34,6 +35,8 @@
     },
     "devDependencies": {
         "@types/react-animate-on-scroll": "^2.1.5",
+        "eslint-config-prettier": "^8.8.0",
+        "next-sitemap": "^4.0.9",
         "prettier": "2.8.4"
     }
 }
