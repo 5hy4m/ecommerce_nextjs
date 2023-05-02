@@ -5,6 +5,7 @@
     "scripts": {
         "dev": "next dev",
         "build": "next build",
+        "prebuild": "npm run resetCache",
         "start": "next start -p 3001",
         "lint": "next lint",
         "format": "prettier --write src/**/*.{ts,tsx,css,md} --config ./.prettierrc",

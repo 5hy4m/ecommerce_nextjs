@@ -7,8 +7,7 @@ export const cache = {
             const data = fs.readFileSync(
                 path.join(process.cwd(), `.next/cache/${fileName}.db`),
             );
-            const categories: unknown = JSON.parse(data as unknown as string);
-            return categories;
+            return JSON.parse(data as unknown as string);
         } catch {}
     },
     set: (fileName: string, data: unknown) => {
