@@ -24,6 +24,7 @@ export const getCategories = async (): Promise<string[]> => {
         console.log('using cache to get categories');
         return categories;
     }
+    console.log("Can't find a cache for getCategories API");
 
     try {
         const response: any = await notion.databases.retrieve({
@@ -57,6 +58,7 @@ export const getProductsByCategory = async (
         console.log('using cache to get products list');
         return products;
     }
+    console.log("Can't find a cache for getProductsByCategory API");
 
     try {
         const response = await notion.databases.query({
@@ -104,6 +106,7 @@ export const getProduct = async (productUrl: string): Promise<Product> => {
         console.log('using cache to get product');
         return product;
     }
+    console.log("Can't find a cache for getProduct API");
 
     try {
         const response = await notion.databases.query({

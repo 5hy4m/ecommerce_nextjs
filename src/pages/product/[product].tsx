@@ -312,9 +312,9 @@ export async function getStaticProps(props: any) {
 }
 
 export async function getStaticPaths() {
-    console.time('[Product] getCategoriesPaths');
+    console.time('[Product] getCategories');
     const categories: string[] = await getCategories();
-    console.timeEnd('[Product] getCategoriesPaths');
+    console.timeEnd('[Product] getCategories');
 
     const productPromises = categories.map((category) =>
         getProductsByCategory(category),
