@@ -39,3 +39,8 @@ next-env.d.ts
 
 #build cache
 *.db
+
+#SEO
+robots.txt
+sitemap.xml
+sitemap-0.xml
