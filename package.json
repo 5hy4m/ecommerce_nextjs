@@ -10,7 +10,7 @@
         "start": "next start -p 3001",
         "lint": "next lint",
         "format": "prettier --write src/**/*.{ts,tsx,css,md} --config ./.prettierrc",
-        "resetCache": "rm .next/cache/*.db"
+        "resetCache": "rm .next/cache/*.db || true"
     },
     "dependencies": {
         "@next/font": "13.1.6",
