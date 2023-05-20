@@ -35,9 +35,22 @@ export const getCategories = async (): Promise<string[]> => {
             (option: Partial<{ name: string }>) => option.name,
         );
 
-        cache.set(cachePath, categories!);
+        let productsPromises: Promise<Product[]>[] = [];
+        categories.forEach((category) => {
+            console.time('[Category] getProductsByCategory');
+            productsPromises.push(getProductsByCategory(category));
+            console.timeEnd('[Category] getProductsByCategory');
+        });
 
-        return categories!;
+        const settledPromises: any = await Promise.allSettled(productsPromises);
+
+        const filteredCategories = categories.filter((category, i) => {
+            return settledPromises[i].value.length != 0;
+        });
+
+        cache.set(cachePath, filteredCategories!);
+
+        return filteredCategories!;
     } catch (err) {
         console.error('Fetch categories from notion failed: ', err);
         throw err;
@@ -46,7 +59,7 @@ export const getCategories = async (): Promise<string[]> => {
 
 export const getProductsByCategory = async (
     category: string,
-): Promise<any[]> => {
+): Promise<Product[]> => {
     if (!databaseId || !secret) {
         console.error("Can't find notion env variable");
         return [];
