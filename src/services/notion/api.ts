@@ -2,6 +2,7 @@ import { Client } from '@notionhq/client';
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import { cache } from '../cache';
 import { parseProduct, Product } from './parser';
+import { validateProduct } from './validator';
 
 const CATEGORY_CACHE_PATH = process.env.CATEGORY_LIST_CACHE_PATH;
 const PRODUCT_CACHE_PATH = process.env.PRODUCT_CACHE_PATH;
@@ -58,7 +59,7 @@ export const getProductsByCategory = async (
         console.log('using cache to get products list');
         return products;
     }
-    console.log("Can't find a cache for getProductsByCategory API");
+    console.log("Can't find a cache for getProductsByCategory API: ", category);
 
     try {
         const response = await notion.databases.query({
@@ -81,15 +82,15 @@ export const getProductsByCategory = async (
             },
         });
 
-        const products = response.results.map((product) =>
-            parseProduct(product as PageObjectResponse),
-        );
+        const products: Product[] = response.results
+            .map((product) => parseProduct(product as PageObjectResponse))
+            .filter((product) => validateProduct(product));
 
         cache.set(cachePath, products!);
 
         return products;
     } catch (err) {
-        console.error('Fetch categories from notion failed: ', err);
+        console.error('Fetch productsByCategory from notion failed: ', err);
         throw err;
     }
 };
@@ -139,7 +140,7 @@ export const getProduct = async (productUrl: string): Promise<Product> => {
 
         return product;
     } catch (err) {
-        console.error('Fetch categories from notion failed: ', err);
+        console.error('Fetch product from notion failed: ', err);
         throw err;
     }
 };

@@ -6,3 +6,19 @@ export type ProductType = {
     description: string;
     imageUrls: string[];
 };
+
+export type Product = {
+    url: string;
+    description: string;
+    undefined: boolean;
+    imageUrls: string[];
+    stock: number;
+    category: string;
+    rupees: number;
+    name: string;
+    isActive: boolean;
+};
+
+export type PropertyMapper = {
+    [key in string]: string;
+};

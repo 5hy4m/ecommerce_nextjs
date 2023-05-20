@@ -41,6 +41,7 @@ export const parseProduct = ({ properties }: PageObjectResponse): Product => {
 
         if (name === 'isActive') {
             parsedProduct[propName] = content;
+            continue;
         }
 
         if (name === 'Category') {
@@ -49,20 +50,22 @@ export const parseProduct = ({ properties }: PageObjectResponse): Product => {
         }
 
         // handles Stock, Rupees fields
-        if (!Array.isArray(content)) {
+        if (name === 'Stock' || name === 'Rupees') {
             parsedProduct[propName] = content;
             continue;
         }
 
         if (name.toLowerCase() === 'image urls') {
-            parsedProduct[propName] = content.map((item) => item.name);
+            parsedProduct[propName] = content.map((item: any) => item.name);
             continue;
         }
 
         // handles Name and Description fields
-        parsedProduct[propName] = content
-            .map((item) => item[item.type].content)
-            .join('');
+        if (name === 'Name' || name === 'Description') {
+            parsedProduct[propName] = content
+                .map((item: any) => item[item.type].content)
+                .join('');
+        }
     }
 
     return parsedProduct;

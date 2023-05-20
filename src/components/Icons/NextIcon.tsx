@@ -12,7 +12,7 @@ export const NextIcon = ({ height, width }: IconProps) => {
             viewBox='0 0 42 42'
         >
             <polygon
-                fill-rule='evenodd'
+                fillRule='evenodd'
                 points='11,38.32 28.609,21 11,3.68 13.72,1 34,21.01 13.72,41 '
             />
         </svg>
