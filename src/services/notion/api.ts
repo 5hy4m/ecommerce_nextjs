@@ -35,18 +35,21 @@ export const getCategories = async (): Promise<string[]> => {
             (option: Partial<{ name: string }>) => option.name,
         );
 
-        let productsPromises: any = [];
+        let productsPromises: Promise<Product[]>[] = [];
         categories.forEach((category) => {
             console.time('[Category] getProductsByCategory');
             productsPromises.push(getProductsByCategory(category));
             console.timeEnd('[Category] getProductsByCategory');
         });
 
-        const settledPromises = await Promise.allSettled(productsPromises);
+        const settledPromises: any = await Promise.allSettled(productsPromises);
+
         const filteredCategories = categories.filter((category, i) => {
             return settledPromises[i].value.length != 0;
         });
+
         cache.set(cachePath, filteredCategories!);
+
         return filteredCategories!;
     } catch (err) {
         console.error('Fetch categories from notion failed: ', err);
