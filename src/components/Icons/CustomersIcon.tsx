@@ -8,15 +8,15 @@ export const CustomersIcon = ({ height, width }: IconProps) => {
             height={height}
             viewBox='0 -64 640 640'
             stroke='#000000'
-            stroke-width='0.0064'
+            strokeWidth='0.0064'
             transform='rotate(0)'
         >
-            <g id='SVGRepo_bgCarrier' stroke-width='0' />
+            <g id='SVGRepo_bgCarrier' strokeWidth='0' />
 
             <g
                 id='SVGRepo_tracerCarrier'
-                stroke-linecap='round'
-                stroke-linejoin='round'
+                strokeLinecap='round'
+                strokeLinejoin='round'
             />
 
             <g id='SVGRepo_iconCarrier'>

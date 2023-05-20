@@ -11,14 +11,14 @@ export const DiagonalArrowIcon = ({ height, width }: IconProps) => {
             fill='#000000'
             transform='rotate(90)'
             stroke='#000000'
-            stroke-width='0.00047000000000000004'
+            strokeWidth='0.00047000000000000004'
         >
-            <g id='SVGRepo_bgCarrier' stroke-width='0' />
+            <g id='SVGRepo_bgCarrier' strokeWidth='0' />
 
             <g
                 id='SVGRepo_tracerCarrier'
-                stroke-linecap='round'
-                stroke-linejoin='round'
+                strokeLinecap='round'
+                strokeLinejoin='round'
             />
 
             <g id='SVGRepo_iconCarrier'>
