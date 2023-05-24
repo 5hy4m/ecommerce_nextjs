@@ -1,60 +1,44 @@
 import { Client } from '@notionhq/client';
-import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import {
+    GetDatabaseResponse,
+    PageObjectResponse,
+} from '@notionhq/client/build/src/api-endpoints';
 import { cache } from '../cache';
 import { parseProduct, Product } from './parser';
 import { validateProduct } from './validator';
 
 const CATEGORY_CACHE_PATH = process.env.CATEGORY_LIST_CACHE_PATH;
+const SUBCATEGORY_CACHE_PATH = process.env.SUBCATEGORY_LIST_CACHE_PATH;
 const PRODUCT_CACHE_PATH = process.env.PRODUCT_CACHE_PATH;
 const PRODUCTS_CACHE_PATH = process.env.PRODUCTS_CACHE_PATH;
+const DATABASE_DETAILS_CACHE_PATH = process.env.DATABASE_DETAILS_CACHE_PATH;
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
 const databaseId = process.env.NOTION_DATABASE_ID;
 const secret = process.env.NOTION_SECRET;
 
 export const getCategories = async (): Promise<string[]> => {
-    if (!databaseId || !secret) {
-        console.error("Can't find notion env variable");
-        return [];
-    }
-    const cachePath = `${CATEGORY_CACHE_PATH}`;
-
-    let categories = cache.get(cachePath) as string[];
-
-    if (categories) {
-        console.log('using cache to get categories');
-        return categories;
-    }
     console.log("Can't find a cache for getCategories API");
 
-    try {
-        const response: any = await notion.databases.retrieve({
-            database_id: databaseId,
-        });
-        categories = response.properties.Category.select.options.map(
-            (option: Partial<{ name: string }>) => option.name,
-        );
+    const response: any = await getDatabaseDetails();
+    const categories = response.properties.Category.select.options.map(
+        (option: Partial<{ name: string }>) => option.name,
+    );
 
-        let productsPromises: Promise<Product[]>[] = [];
-        categories.forEach((category) => {
-            console.time('[Category] getProductsByCategory');
-            productsPromises.push(getProductsByCategory(category));
-            console.timeEnd('[Category] getProductsByCategory');
-        });
+    let productsPromises: Promise<Product[]>[] = [];
+    categories.forEach((category: string) => {
+        console.time('[Category] getProductsByCategory');
+        productsPromises.push(getProductsByCategory(category));
+        console.timeEnd('[Category] getProductsByCategory');
+    });
 
-        const settledPromises: any = await Promise.allSettled(productsPromises);
+    const settledPromises: any = await Promise.allSettled(productsPromises);
 
-        const filteredCategories = categories.filter((category, i) => {
-            return settledPromises[i].value.length != 0;
-        });
+    const filteredCategories = categories.filter((_: string, i: number) => {
+        return settledPromises[i].value.length != 0;
+    });
 
-        cache.set(cachePath, filteredCategories!);
-
-        return filteredCategories!;
-    } catch (err) {
-        console.error('Fetch categories from notion failed: ', err);
-        throw err;
-    }
+    return filteredCategories!;
 };
 
 export const getProductsByCategory = async (
@@ -154,6 +138,35 @@ export const getProduct = async (productUrl: string): Promise<Product> => {
         return product;
     } catch (err) {
         console.error('Fetch product from notion failed: ', err);
+        throw err;
+    }
+};
+
+export const getDatabaseDetails = async () => {
+    if (!databaseId || !secret) {
+        console.error("Can't find notion env variable");
+        throw new Error('Notion credentials missing');
+    }
+    const cachePath = `${DATABASE_DETAILS_CACHE_PATH}`;
+
+    let details = cache.get(cachePath) as GetDatabaseResponse;
+
+    if (details) {
+        console.log('using cache to get database details');
+        return details;
+    }
+    console.log("Can't find a cache for getDatabaseDetails API");
+
+    try {
+        const response: GetDatabaseResponse = await notion.databases.retrieve({
+            database_id: databaseId,
+        });
+
+        cache.set(cachePath, response!);
+
+        return response!;
+    } catch (err) {
+        console.error('Fetch database details from notion failed: ', err);
         throw err;
     }
 };
