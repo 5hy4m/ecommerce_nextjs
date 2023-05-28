@@ -13,6 +13,8 @@ type HeaderProps = { categories: string[] };
 export const Header = ({ categories }: HeaderProps) => {
     const { showHeader, setShowHeader } = useGlobalContext();
 
+    console.log(categories);
+
     return (
         <Navbar id='header' bg='dark' expand={'sm'} className={styles.navbar}>
             <Container className={styles.container} fluid>
@@ -53,14 +55,14 @@ export const Header = ({ categories }: HeaderProps) => {
                                     showHeader ? styles.flex_col : ''
                                 }`}
                             >
-                                {categories.map((name: string, i) => (
+                                {/* {categories.map((name: string, i) => (
                                     <Link
                                         href={`/category/${name}`}
                                         key={`Categories_${i}`}
                                     >
                                         <u>{name}</u>
                                     </Link>
-                                ))}
+                                ))} */}
                             </Row>
                         </Nav>
                     </Offcanvas.Body>

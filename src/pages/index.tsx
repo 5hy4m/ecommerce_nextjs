@@ -5,9 +5,10 @@ import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { CategorySection } from '../components/Home/CategorySection';
 import { TrustSection } from '../components/Home/TrustSection';
+import { getAllCategories } from '@/services/notion/parser';
 
 type HomeProps = {
-    categories: string[];
+    categories: any[];
 };
 
 export default function Index({ categories }: HomeProps) {
@@ -59,9 +60,9 @@ export default function Index({ categories }: HomeProps) {
 }
 
 export async function getStaticProps() {
-    console.time('[Category] getCategories');
-    const categories = await getCategories();
-    console.timeEnd('[Category] getCategories');
+    console.time('[Category] getAllCategories');
+    const categories = await getAllCategories();
+    console.timeEnd('[Category] getAllCategories');
 
     return {
         props: { categories },

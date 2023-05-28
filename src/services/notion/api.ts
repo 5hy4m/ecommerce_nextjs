@@ -6,45 +6,29 @@ import {
 import { cache } from '../cache';
 import { parseProduct, Product } from './parser';
 import { validateProduct } from './validator';
+import { Database, DatabaseIds } from './types';
 
-const CATEGORY_CACHE_PATH = process.env.CATEGORY_LIST_CACHE_PATH;
-const SUBCATEGORY_CACHE_PATH = process.env.SUBCATEGORY_LIST_CACHE_PATH;
 const PRODUCT_CACHE_PATH = process.env.PRODUCT_CACHE_PATH;
 const PRODUCTS_CACHE_PATH = process.env.PRODUCTS_CACHE_PATH;
 const DATABASE_DETAILS_CACHE_PATH = process.env.DATABASE_DETAILS_CACHE_PATH;
 
-const notion = new Client({ auth: process.env.NOTION_SECRET });
-const databaseId = process.env.NOTION_DATABASE_ID;
 const secret = process.env.NOTION_SECRET;
+const productDatabaseId = process.env.PRODUCT_DATABASE_ID;
+const categoryDatabaseId = process.env.CATEGORY_DATABASE_ID;
+const subCategoryDatabaseId = process.env.SUBCATEGORY_DATABASE_ID;
 
-export const getCategories = async (): Promise<string[]> => {
-    console.log("Can't find a cache for getCategories API");
+const notion = new Client({ auth: secret });
 
-    const response: any = await getDatabaseDetails();
-    const categories = response.properties.Category.select.options.map(
-        (option: Partial<{ name: string }>) => option.name,
-    );
-
-    let productsPromises: Promise<Product[]>[] = [];
-    categories.forEach((category: string) => {
-        console.time('[Category] getProductsByCategory');
-        productsPromises.push(getProductsByCategory(category));
-        console.timeEnd('[Category] getProductsByCategory');
-    });
-
-    const settledPromises: any = await Promise.allSettled(productsPromises);
-
-    const filteredCategories = categories.filter((_: string, i: number) => {
-        return settledPromises[i].value.length != 0;
-    });
-
-    return filteredCategories!;
+const databaseIds: DatabaseIds = {
+    [Database.Product]: productDatabaseId!,
+    [Database.Category]: categoryDatabaseId!,
+    [Database.SubCategory]: subCategoryDatabaseId!,
 };
 
 export const getProductsByCategory = async (
     category: string,
 ): Promise<Product[]> => {
-    if (!databaseId || !secret) {
+    if (!productDatabaseId || !secret) {
         console.error("Can't find notion env variable");
         return [];
     }
@@ -60,7 +44,7 @@ export const getProductsByCategory = async (
 
     try {
         const response = await notion.databases.query({
-            database_id: databaseId,
+            database_id: productDatabaseId,
             filter: {
                 and: [
                     {
@@ -93,7 +77,7 @@ export const getProductsByCategory = async (
 };
 
 export const getProduct = async (productUrl: string): Promise<Product> => {
-    if (!databaseId || !secret) {
+    if (!productDatabaseId || !secret) {
         console.error("Can't find notion env variable");
         return {} as Product;
     }
@@ -108,7 +92,7 @@ export const getProduct = async (productUrl: string): Promise<Product> => {
 
     try {
         const response = await notion.databases.query({
-            database_id: databaseId,
+            database_id: productDatabaseId,
             filter: {
                 and: [
                     {
@@ -142,20 +126,22 @@ export const getProduct = async (productUrl: string): Promise<Product> => {
     }
 };
 
-export const getDatabaseDetails = async () => {
-    if (!databaseId || !secret) {
+export const getDatabaseDetails = async (database: Database) => {
+    const databaseId = databaseIds[database];
+    if (!databaseId || !secret || !DATABASE_DETAILS_CACHE_PATH) {
         console.error("Can't find notion env variable");
         throw new Error('Notion credentials missing');
     }
-    const cachePath = `${DATABASE_DETAILS_CACHE_PATH}`;
+    const cachePath = `${DATABASE_DETAILS_CACHE_PATH}-${databaseId}`;
 
     let details = cache.get(cachePath) as GetDatabaseResponse;
 
     if (details) {
-        console.log('using cache to get database details');
+        console.log(`using cache to get ${database} database details `);
         return details;
     }
-    console.log("Can't find a cache for getDatabaseDetails API");
+
+    console.log(`Can't find a cache for ${database} DatabaseDetails API`);
 
     try {
         const response: GetDatabaseResponse = await notion.databases.retrieve({
@@ -166,7 +152,7 @@ export const getDatabaseDetails = async () => {
 
         return response!;
     } catch (err) {
-        console.error('Fetch database details from notion failed: ', err);
+        console.error(`Fetch ${database} details from notion failed: `, err);
         throw err;
     }
 };

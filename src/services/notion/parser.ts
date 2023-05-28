@@ -1,4 +1,9 @@
-import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import {
+    GetDatabaseResponse,
+    PageObjectResponse,
+} from '@notionhq/client/build/src/api-endpoints';
+import { getDatabaseDetails } from './api';
+import { Database } from './types';
 
 type PropertyMapper = {
     [key in string]: string;
@@ -69,4 +74,41 @@ export const parseProduct = ({ properties }: PageObjectResponse): Product => {
     }
 
     return parsedProduct;
+};
+
+export const getAllCategories = async (): Promise<GetDatabaseResponse> => {
+    let categories = {} as any;
+    let subcategories = {} as any;
+
+    const categoryResponse: any = await getDatabaseDetails(Database.Category);
+
+    const subCategoryResponse: any = await getDatabaseDetails(
+        Database.SubCategory,
+    );
+
+    subCategoryResponse.results?.forEach((result: any) => {
+        const key = result.properties.Name.title[0]?.plain_text;
+        if (!key) return;
+
+        subcategories[key] = [];
+
+        result.properties.Rollup.rollup.array.map((prop: any) => {
+            const value = prop.title[0].plain_text;
+            subcategories[key].push(value);
+        });
+    });
+
+    categoryResponse.results?.forEach((result: any) => {
+        const key = result.properties.Name.title[0]?.plain_text;
+        if (!key) return;
+
+        categories[key] = [];
+
+        result.properties.Rollup.rollup.array.map((prop: any) => {
+            const value = prop.title[0].plain_text;
+            categories[key].push({ [value]: subcategories[value] });
+        });
+    });
+
+    return categories!;
 };

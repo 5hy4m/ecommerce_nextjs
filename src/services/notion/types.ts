@@ -22,3 +22,13 @@ export type Product = {
 export type PropertyMapper = {
     [key in string]: string;
 };
+
+export enum Database {
+    Product = 'Product',
+    Category = 'Category',
+    SubCategory = 'SubCategory',
+}
+
+export type DatabaseIds = {
+    [key in Database]: string;
+};
