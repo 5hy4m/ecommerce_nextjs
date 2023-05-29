@@ -8,7 +8,7 @@ import { TrustSection } from '../components/Home/TrustSection';
 import { getAllCategories } from '@/services/notion/parser';
 
 type HomeProps = {
-    categories: any[];
+    categories: any;
 };
 
 export default function Index({ categories }: HomeProps) {

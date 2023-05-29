@@ -134,7 +134,7 @@ export const getDatabaseDetails = async (database: Database) => {
     }
     const cachePath = `${DATABASE_DETAILS_CACHE_PATH}-${databaseId}`;
 
-    let details = cache.get(cachePath) as GetDatabaseResponse;
+    let details = cache.get(cachePath);
 
     if (details) {
         console.log(`using cache to get ${database} database details `);
@@ -144,7 +144,7 @@ export const getDatabaseDetails = async (database: Database) => {
     console.log(`Can't find a cache for ${database} DatabaseDetails API`);
 
     try {
-        const response: GetDatabaseResponse = await notion.databases.retrieve({
+        const response = await notion.databases.retrieve({
             database_id: databaseId,
         });
 
