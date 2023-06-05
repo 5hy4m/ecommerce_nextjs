@@ -7,11 +7,22 @@ import { CategoryIcon } from '@/components/Icons';
 import styles from './Header.module.css';
 import { useGlobalContext } from '@/hooks/useGlobalContext';
 import { DropTabs } from '@/components/DropTabs';
+import { useEffect, useRef } from 'react';
 
 type HeaderProps = {};
 
 export const Header = ({}: HeaderProps) => {
     const { showHeader, setShowHeader } = useGlobalContext();
+    const isMobileView = useRef(false);
+
+    useEffect(() => {
+        console.log('Hi: ', window.innerWidth <= 575);
+
+        isMobileView.current = window.innerWidth <= 575;
+    }, []);
+
+    console.log(isMobileView);
+
     return (
         <Navbar id='header' bg='dark' expand={'sm'} className={styles.navbar}>
             <Container className={styles.container} fluid>
@@ -47,12 +58,12 @@ export const Header = ({}: HeaderProps) => {
                     <Offcanvas.Body>
                         <Nav className='me-auto'>
                             <Row
-                                onClick={() => setShowHeader(false)}
+                                // onClick={() => setShowHeader(false)}
                                 className={`${styles.categoryContainer} ${
                                     showHeader ? styles.flex_col : ''
                                 }`}
                             >
-                                <DropTabs />
+                                {isMobileView.current ? null : <DropTabs />}
                                 {/* {Object.entries(allCategories).map(
                                     (allCategory, i) => {
                                         const [category, subCategories] =

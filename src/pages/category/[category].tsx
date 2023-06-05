@@ -23,7 +23,7 @@ export default function Category({
 }: CategoryProps) {
     return (
         <main>
-            <Header categories={categories} />
+            <Header />
             <Container>
                 <h1 className={styles.h1}>{category}</h1>
                 <Col className={styles.cards_layout}>
