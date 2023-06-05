@@ -1,20 +1,17 @@
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Link from 'next/link';
 import Nav from 'react-bootstrap/Nav';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { CategoryIcon } from '@/components/Icons';
 import styles from './Header.module.css';
 import { useGlobalContext } from '@/hooks/useGlobalContext';
+import { DropTabs } from '@/components/DropTabs';
 
-type HeaderProps = { categories: string[] };
+type HeaderProps = {};
 
-export const Header = ({ categories }: HeaderProps) => {
+export const Header = ({}: HeaderProps) => {
     const { showHeader, setShowHeader } = useGlobalContext();
-
-    console.log(categories);
-
     return (
         <Navbar id='header' bg='dark' expand={'sm'} className={styles.navbar}>
             <Container className={styles.container} fluid>
@@ -55,14 +52,21 @@ export const Header = ({ categories }: HeaderProps) => {
                                     showHeader ? styles.flex_col : ''
                                 }`}
                             >
-                                {/* {categories.map((name: string, i) => (
-                                    <Link
-                                        href={`/category/${name}`}
-                                        key={`Categories_${i}`}
-                                    >
-                                        <u>{name}</u>
-                                    </Link>
-                                ))} */}
+                                <DropTabs />
+                                {/* {Object.entries(allCategories).map(
+                                    (allCategory, i) => {
+                                        const [category, subCategories] =
+                                            allCategory;
+                                        return (
+                                            <Link
+                                                href={`/category/${category}`}
+                                                key={`Categories_${i}`}
+                                            >
+                                                <u>{category}</u>
+                                            </Link>
+                                        );
+                                    },
+                                )} */}
                             </Row>
                         </Nav>
                     </Offcanvas.Body>

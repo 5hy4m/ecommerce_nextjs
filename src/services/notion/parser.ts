@@ -76,9 +76,10 @@ export const parseProduct = ({ properties }: PageObjectResponse): Product => {
     return parsedProduct;
 };
 
-export const getAllCategories = async (): Promise<GetDatabaseResponse> => {
+export const getAllCategories = async (): Promise<any> => {
     let categories = {} as any;
-    let subcategories = {} as any;
+    let allCategories = {} as any;
+    let filters = {} as any;
 
     const categoryResponse: any = await getDatabaseDetails(Database.Category);
 
@@ -90,11 +91,11 @@ export const getAllCategories = async (): Promise<GetDatabaseResponse> => {
         const key = result.properties.Name.title[0]?.plain_text;
         if (!key) return;
 
-        subcategories[key] = [];
+        filters[key] = [];
 
         result.properties.Rollup.rollup.array.map((prop: any) => {
             const value = prop.title[0].plain_text;
-            subcategories[key].push(value);
+            filters[key].push(value);
         });
     });
 
@@ -103,12 +104,14 @@ export const getAllCategories = async (): Promise<GetDatabaseResponse> => {
         if (!key) return;
 
         categories[key] = [];
+        allCategories[key] = [];
 
         result.properties.Rollup.rollup.array.map((prop: any) => {
             const value = prop.title[0].plain_text;
-            categories[key].push({ [value]: subcategories[value] });
+            categories[key].push(value);
+            allCategories[key].push({ [value]: filters[value] });
         });
     });
 
-    return categories!;
+    return { categories, filters }!;
 };

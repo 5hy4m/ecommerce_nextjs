@@ -144,7 +144,7 @@ export const getDatabaseDetails = async (database: Database) => {
     console.log(`Can't find a cache for ${database} DatabaseDetails API`);
 
     try {
-        const response = await notion.databases.retrieve({
+        const response = await notion.databases.query({
             database_id: databaseId,
         });
 

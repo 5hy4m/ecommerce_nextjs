@@ -1,0 +1,10 @@
+.tab {
+    position: absolute;
+    padding: 20px;
+    background: white;
+    left: 5px;
+}
+
+.subCategory_text {
+    font-weight: bold;
+}
