@@ -8,6 +8,7 @@ import styles from './Header.module.css';
 import { useGlobalContext } from '@/hooks/useGlobalContext';
 import { DropTabs } from '@/components/DropTabs';
 import { useEffect, useRef } from 'react';
+import { CategoriesAccordian } from '../CategoriesAccordian';
 
 type HeaderProps = {};
 
@@ -16,12 +17,8 @@ export const Header = ({}: HeaderProps) => {
     const isMobileView = useRef(false);
 
     useEffect(() => {
-        console.log('Hi: ', window.innerWidth <= 575);
-
         isMobileView.current = window.innerWidth <= 575;
     }, []);
-
-    console.log(isMobileView);
 
     return (
         <Navbar id='header' bg='dark' expand={'sm'} className={styles.navbar}>
@@ -55,29 +52,18 @@ export const Header = ({}: HeaderProps) => {
                         </Offcanvas.Title>
                     </Offcanvas.Header>
 
-                    <Offcanvas.Body>
+                    <Offcanvas.Body className={styles.offCanvasBody}>
                         <Nav className='me-auto'>
                             <Row
-                                // onClick={() => setShowHeader(false)}
                                 className={`${styles.categoryContainer} ${
                                     showHeader ? styles.flex_col : ''
                                 }`}
                             >
-                                {isMobileView.current ? null : <DropTabs />}
-                                {/* {Object.entries(allCategories).map(
-                                    (allCategory, i) => {
-                                        const [category, subCategories] =
-                                            allCategory;
-                                        return (
-                                            <Link
-                                                href={`/category/${category}`}
-                                                key={`Categories_${i}`}
-                                            >
-                                                <u>{category}</u>
-                                            </Link>
-                                        );
-                                    },
-                                )} */}
+                                {isMobileView.current ? (
+                                    <CategoriesAccordian />
+                                ) : (
+                                    <DropTabs />
+                                )}
                             </Row>
                         </Nav>
                     </Offcanvas.Body>
