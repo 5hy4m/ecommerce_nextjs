@@ -48,7 +48,7 @@ export const CustomMenu = React.forwardRef(
         ref: any,
     ) => {
         const { filters } = useGlobalContext();
-        const [menuWidth, setMenuWidth] = useState(0);
+        const [menuWidth, setMenuWidth] = useState(9999999);
         style = {
             ...style,
             left: `calc(50% - ${menuWidth}px/2`,
@@ -114,9 +114,10 @@ function DropDowns({ category, subCategories, idx }: Props) {
             as={ButtonGroup}
             onMouseLeave={() => setShow(false)}
             onMouseOver={() => setShow(true)}
+            show={show}
         >
             <Dropdown.Toggle
-                id='dropdown-autoclose-false'
+                id='dropdown-autoclose-outside'
                 as={CustomToggle}
                 variant='dark'
             >
