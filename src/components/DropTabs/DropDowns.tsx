@@ -1,5 +1,5 @@
 import { useGlobalContext } from '@/hooks/useGlobalContext';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import styles from './DropTabs.module.css';
@@ -48,11 +48,18 @@ export const CustomMenu = React.forwardRef(
         ref: any,
     ) => {
         const { filters } = useGlobalContext();
+        const [menuWidth, setMenuWidth] = useState(0);
         style = {
             ...style,
-            left: `calc(50% - var(--header-menu-width)/2`,
+            left: `calc(50% - ${menuWidth}px/2`,
             top: '25px',
         };
+        const menuRef = useRef<HTMLDivElement>(null);
+
+        useEffect(() => {
+            const width = menuRef.current?.getBoundingClientRect().width;
+            width && setMenuWidth(width);
+        }, []);
 
         return (
             <div
@@ -61,8 +68,9 @@ export const CustomMenu = React.forwardRef(
                 className={className}
                 aria-labelledby={labeledBy}
             >
-                <div className={` ${styles.desktop_menu} `}>
+                <div ref={menuRef} className={` ${styles.desktop_menu} `}>
                     {subCategories.map((subCategory: string, i: number) => {
+                        const hasFilters = filters[subCategory].length > 0;
                         return (
                             <div key={subCategory + i}>
                                 <Dropdown.Item className={styles.columnHeader}>
@@ -71,20 +79,23 @@ export const CustomMenu = React.forwardRef(
                                     </Link>
                                 </Dropdown.Item>
 
-                                <Dropdown.Divider />
-
-                                {filters[subCategory].map(
-                                    (filter: string, i) => {
-                                        return (
-                                            <Dropdown.Item
-                                                key={filter + i}
-                                                href='#/action-2'
-                                            >
-                                                {filter}
-                                            </Dropdown.Item>
-                                        );
-                                    },
-                                )}
+                                {hasFilters ? (
+                                    <>
+                                        <Dropdown.Divider />
+                                        {filters[subCategory].map(
+                                            (filter: string, i) => {
+                                                return (
+                                                    <Dropdown.Item
+                                                        key={filter + i}
+                                                        href='#/action-2'
+                                                    >
+                                                        {filter}
+                                                    </Dropdown.Item>
+                                                );
+                                            },
+                                        )}
+                                    </>
+                                ) : null}
                             </div>
                         );
                     })}
