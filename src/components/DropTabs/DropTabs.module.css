@@ -10,6 +10,10 @@
     /* grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); */
 }
 
+.desktop_menu > div > a:active {
+    background-color: unset;
+}
+
 .columnHeader {
     font-weight: bolder;
 }
