@@ -27,55 +27,52 @@ const databaseIds: DatabaseIds = {
     [Database.SubCategory]: subCategoryDatabaseId!,
 };
 
-export const getProductsByCategory = async (
-    category: string,
-): Promise<Product[]> => {
-    if (!productDatabaseId || !secret) {
+export const getDatabaseDetails = async (database: Database) => {
+    const databaseId = databaseIds[database];
+    if (!databaseId || !secret || !DATABASE_DETAILS_CACHE_PATH) {
         console.error("Can't find notion env variable");
-        return [];
+        throw new Error('Notion credentials missing');
     }
-    const cachePath = `${PRODUCTS_CACHE_PATH}_${category}`;
+    const cachePath = `${DATABASE_DETAILS_CACHE_PATH}-${databaseId}`;
 
-    let products = cache.get(cachePath) as Product[];
+    let details = cache.get(cachePath);
 
-    if (products) {
-        console.log('using cache to get products list');
-        return products;
+    if (details) {
+        console.log(`using cache to get ${database} database details `);
+        return details;
     }
-    console.log("Can't find a cache for getProductsByCategory API: ", category);
+
+    console.log(`Can't find a cache for ${database} DatabaseDetails API`);
 
     try {
         const response = await notion.databases.query({
-            database_id: productDatabaseId,
-            filter: {
-                and: [
-                    {
-                        property: 'Category',
-                        select: {
-                            equals: category,
-                        },
-                    },
-                    {
-                        property: 'isActive',
-                        checkbox: {
-                            equals: true,
-                        },
-                    },
-                ],
-            },
+            database_id: databaseId,
         });
 
-        const products: Product[] = response.results
-            .map((product) => parseProduct(product as PageObjectResponse))
-            .filter((product) => validateProduct(product));
+        cache.set(cachePath, response!);
 
-        cache.set(cachePath, products!);
-
-        return products;
+        return response!;
     } catch (err) {
-        console.error('Fetch productsByCategory from notion failed: ', err);
+        console.error(`Fetch ${database} details from notion failed: `, err);
         throw err;
     }
+};
+
+export const getAllCategories = async (): Promise<any> => {
+    const categoryResponse: any = await getDatabaseDetails(Database.Category);
+
+    const subCategoryResponse: any = await getDatabaseDetails(
+        Database.SubCategory,
+    );
+
+    const filters = subCategoryParser(subCategoryResponse);
+
+    const { categories, allCategories } = categoryParser(
+        categoryResponse,
+        filters,
+    );
+
+    return { categories, filters }!;
 };
 
 export const getProduct = async (productUrl: string): Promise<Product> => {
@@ -128,50 +125,173 @@ export const getProduct = async (productUrl: string): Promise<Product> => {
     }
 };
 
-export const getDatabaseDetails = async (database: Database) => {
-    const databaseId = databaseIds[database];
-    if (!databaseId || !secret || !DATABASE_DETAILS_CACHE_PATH) {
+export const getProductsByCategory = async (
+    category: string,
+): Promise<Product[]> => {
+    if (!productDatabaseId || !secret) {
         console.error("Can't find notion env variable");
-        throw new Error('Notion credentials missing');
+        return [];
     }
-    const cachePath = `${DATABASE_DETAILS_CACHE_PATH}-${databaseId}`;
+    const cachePath = `${PRODUCTS_CACHE_PATH}_${category}`;
 
-    let details = cache.get(cachePath);
+    let products = cache.get(cachePath) as Product[];
 
-    if (details) {
-        console.log(`using cache to get ${database} database details `);
-        return details;
+    if (products) {
+        console.log('using cache to get products list');
+        return products;
     }
-
-    console.log(`Can't find a cache for ${database} DatabaseDetails API`);
+    console.log("Can't find a cache for getProductsByCategory API: ", category);
 
     try {
         const response = await notion.databases.query({
-            database_id: databaseId,
+            database_id: productDatabaseId,
+            filter: {
+                and: [
+                    {
+                        property: 'CategoryRollup',
+                        rollup: {
+                            any: {
+                                rich_text: {
+                                    equals: category,
+                                },
+                            },
+                        },
+                    },
+                    {
+                        property: 'isActive',
+                        checkbox: {
+                            equals: true,
+                        },
+                    },
+                ],
+            },
         });
 
-        cache.set(cachePath, response!);
+        const products: Product[] = response.results
+            .map((product) => parseProduct(product as PageObjectResponse))
+            .filter((product) => validateProduct(product));
 
-        return response!;
+        cache.set(cachePath, products!);
+
+        return products;
     } catch (err) {
-        console.error(`Fetch ${database} details from notion failed: `, err);
+        console.error('Fetch productsByCategory from notion failed: ', err);
         throw err;
     }
 };
 
-export const getAllCategories = async (): Promise<any> => {
-    const categoryResponse: any = await getDatabaseDetails(Database.Category);
+export const getProductsBySubCategory = async (
+    subCategory: string,
+): Promise<Product[]> => {
+    if (!productDatabaseId || !secret) {
+        console.error("Can't find notion env variable");
+        return [];
+    }
+    const cachePath = `${PRODUCTS_CACHE_PATH}_${subCategory}`;
 
-    const subCategoryResponse: any = await getDatabaseDetails(
-        Database.SubCategory,
+    let products = cache.get(cachePath) as Product[];
+
+    if (products) {
+        console.log('using cache to get products list');
+        return products;
+    }
+    console.log(
+        "Can't find a cache for getProductsBySubCategory API: ",
+        subCategory,
     );
 
-    const filters = subCategoryParser(subCategoryResponse);
+    try {
+        const response = await notion.databases.query({
+            database_id: productDatabaseId,
+            filter: {
+                and: [
+                    {
+                        property: 'SubCategoryRollup',
+                        rollup: {
+                            any: {
+                                rich_text: {
+                                    equals: subCategory,
+                                },
+                            },
+                        },
+                    },
+                    {
+                        property: 'isActive',
+                        checkbox: {
+                            equals: true,
+                        },
+                    },
+                ],
+            },
+        });
 
-    const { categories, allCategories } = categoryParser(
-        categoryResponse,
-        filters,
-    );
+        const products: Product[] = response.results
+            .map((product) => parseProduct(product as PageObjectResponse))
+            .filter((product) => validateProduct(product));
 
-    return { categories, filters }!;
+        cache.set(cachePath, products!);
+
+        return products;
+    } catch (err) {
+        console.error(
+            'Fetch getProductsBySubCategory from notion failed: ',
+            err,
+        );
+        throw err;
+    }
+};
+
+export const getProductsByFilter = async (
+    filter: string,
+): Promise<Product[]> => {
+    if (!productDatabaseId || !secret) {
+        console.error("Can't find notion env variable");
+        return [];
+    }
+    const cachePath = `${PRODUCTS_CACHE_PATH}_${filter}`;
+
+    let products = cache.get(cachePath) as Product[];
+
+    if (products) {
+        console.log('using cache to get products list');
+        return products;
+    }
+    console.log("Can't find a cache for getProductsByFilter API: ", filter);
+
+    try {
+        const response = await notion.databases.query({
+            database_id: productDatabaseId,
+            filter: {
+                and: [
+                    {
+                        property: 'FilterRollup',
+                        rollup: {
+                            any: {
+                                rich_text: {
+                                    equals: filter,
+                                },
+                            },
+                        },
+                    },
+                    {
+                        property: 'isActive',
+                        checkbox: {
+                            equals: true,
+                        },
+                    },
+                ],
+            },
+        });
+
+        const products: Product[] = response.results
+            .map((product) => parseProduct(product as PageObjectResponse))
+            .filter((product) => validateProduct(product));
+
+        cache.set(cachePath, products!);
+
+        return products;
+    } catch (err) {
+        console.error('Fetch getProductsByFilter from notion failed: ', err);
+        throw err;
+    }
 };
