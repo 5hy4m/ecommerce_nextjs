@@ -1,18 +1,19 @@
 import React from 'react';
-import { Card, Col, Container } from 'react-bootstrap';
+import { Card, Col, Container, Breadcrumb } from 'react-bootstrap';
 import styles from './ProductListing.module.css';
 import Link from 'next/link';
 import { IKImage } from 'imagekitio-react';
+import BreadCrumbs from './BreadCrumbs';
 
 interface Props {
-    listing: string;
     products: any;
 }
 
-function ProductListing({ listing, products }: Props) {
+function ProductListing({ products }: Props) {
     return (
         <Container>
-            <h1 className={styles.h1}>{listing}</h1>
+            <BreadCrumbs />
+
             <Col className={styles.cards_layout}>
                 {products.map((product: any, i: number) => (
                     <Link

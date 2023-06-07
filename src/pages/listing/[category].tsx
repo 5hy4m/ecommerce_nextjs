@@ -23,7 +23,7 @@ export default function Category({
         <main>
             <Header categories={categories} filters={filters} />
 
-            <ProductListing listing={category} products={products} />
+            <ProductListing products={products} />
 
             <Footer />
         </main>

@@ -73,12 +73,11 @@ export const CustomMenu = React.forwardRef(
                         const hasFilters = filters[subCategory].length > 0;
                         return (
                             <div key={subCategory + i}>
-                                <Dropdown.Item className={styles.columnHeader}>
-                                    <Link
-                                        href={`/listing/${category}/${subCategory}`}
-                                    >
-                                        {subCategory}
-                                    </Link>
+                                <Dropdown.Item
+                                    href={`/listing/${category}/${subCategory}`}
+                                    className={styles.columnHeader}
+                                >
+                                    {subCategory}
                                 </Dropdown.Item>
 
                                 {hasFilters ? (

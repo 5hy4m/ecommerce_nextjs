@@ -26,7 +26,7 @@ export default function Filter({
         <main>
             <Header categories={categories} filters={filters} />
 
-            <ProductListing listing={filter} products={products} />
+            <ProductListing products={products} />
 
             <Footer />
         </main>

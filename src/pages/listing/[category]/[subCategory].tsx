@@ -26,7 +26,7 @@ export default function SubCategory({
         <main>
             <Header categories={categories} filters={filters} />
 
-            <ProductListing listing={subCategory} products={products} />
+            <ProductListing products={products} />
 
             <Footer />
         </main>

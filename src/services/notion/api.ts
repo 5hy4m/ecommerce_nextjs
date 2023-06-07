@@ -33,7 +33,7 @@ export const getDatabaseDetails = async (database: Database) => {
         console.error("Can't find notion env variable");
         throw new Error('Notion credentials missing');
     }
-    const cachePath = `${DATABASE_DETAILS_CACHE_PATH}-${databaseId}`;
+    const cachePath = `${DATABASE_DETAILS_CACHE_PATH}-${database}`;
 
     let details = cache.get(cachePath);
 
