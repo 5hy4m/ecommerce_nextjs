@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Col, Container, Breadcrumb } from 'react-bootstrap';
+import { Card, Col, Container } from 'react-bootstrap';
 import styles from './ProductListing.module.css';
 import Link from 'next/link';
 import { IKImage } from 'imagekitio-react';
@@ -11,7 +11,7 @@ interface Props {
 
 function ProductListing({ products }: Props) {
     return (
-        <Container>
+        <Container className={styles.container}>
             <BreadCrumbs />
 
             <Col className={styles.cards_layout}>
