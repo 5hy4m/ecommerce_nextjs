@@ -25,3 +25,7 @@
 .subAccordion > div > h2 > button {
     padding-left: 30px;
 }
+
+.noFilters {
+    padding: 10px 10px 10px 30px !important;
+}

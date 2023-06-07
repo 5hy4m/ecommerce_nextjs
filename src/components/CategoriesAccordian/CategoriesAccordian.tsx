@@ -16,22 +16,40 @@ export function CategoriesAccordian() {
                         <Accordion
                             className={`${styles.accordion} ${styles.subAccordion}`}
                         >
-                            {subCategories.map((subCategory, i) => (
-                                <Accordion.Item
-                                    key={subCategory + i}
-                                    eventKey={`subCategories-${i}`}
-                                >
-                                    <Accordion.Header>
-                                        {subCategory}
-                                    </Accordion.Header>
+                            {subCategories.map((subCategory, i) => {
+                                const hasFilters =
+                                    filters[subCategory].length > 0;
 
-                                    {filters[subCategory].map((filter, i) => (
-                                        <Accordion.Body key={`${filter}-i`}>
-                                            {filter}
-                                        </Accordion.Body>
-                                    ))}
-                                </Accordion.Item>
-                            ))}
+                                return (
+                                    <Accordion.Item
+                                        key={subCategory + i}
+                                        eventKey={`subCategories-${i}`}
+                                    >
+                                        {hasFilters ? (
+                                            <Accordion.Header>
+                                                {subCategory}
+                                            </Accordion.Header>
+                                        ) : (
+                                            <Accordion.Item
+                                                className={styles.noFilters}
+                                                eventKey={`subCategory-${i}`}
+                                            >
+                                                {subCategory}
+                                            </Accordion.Item>
+                                        )}
+
+                                        {filters[subCategory].map(
+                                            (filter, i) => (
+                                                <Accordion.Body
+                                                    key={`${filter}-i`}
+                                                >
+                                                    {filter}
+                                                </Accordion.Body>
+                                            ),
+                                        )}
+                                    </Accordion.Item>
+                                );
+                            })}
                         </Accordion>
                     </Accordion.Body>
                 </Accordion.Item>
