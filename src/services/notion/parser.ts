@@ -76,28 +76,9 @@ export const parseProduct = ({ properties }: PageObjectResponse): Product => {
     return parsedProduct;
 };
 
-export const getAllCategories = async (): Promise<any> => {
+export function categoryParser(categoryResponse: any, filters: any) {
     let categories = {} as any;
     let allCategories = {} as any;
-    let filters = {} as any;
-
-    const categoryResponse: any = await getDatabaseDetails(Database.Category);
-
-    const subCategoryResponse: any = await getDatabaseDetails(
-        Database.SubCategory,
-    );
-
-    subCategoryResponse.results?.forEach((result: any) => {
-        const key = result.properties.Name.title[0]?.plain_text;
-        if (!key) return;
-
-        filters[key] = [];
-
-        result.properties.Rollup.rollup.array.map((prop: any) => {
-            const value = prop.title[0].plain_text;
-            filters[key].push(value);
-        });
-    });
 
     categoryResponse.results?.forEach((result: any) => {
         const key = result.properties.Name.title[0]?.plain_text;
@@ -112,6 +93,22 @@ export const getAllCategories = async (): Promise<any> => {
             allCategories[key].push({ [value]: filters[value] });
         });
     });
+    return { categories, allCategories };
+}
 
-    return { categories, filters }!;
-};
+export function subCategoryParser(subCategoryResponse: any) {
+    let filters = {} as any;
+
+    subCategoryResponse.results?.forEach((result: any) => {
+        const key = result.properties.Name.title[0]?.plain_text;
+        if (!key) return;
+
+        filters[key] = [];
+
+        result.properties.Rollup.rollup.array.map((prop: any) => {
+            const value = prop.title[0].plain_text;
+            filters[key].push(value);
+        });
+    });
+    return filters;
+}

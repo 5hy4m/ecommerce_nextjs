@@ -1,10 +1,9 @@
 import Container from 'react-bootstrap/Container';
 import styles from './Product.module.css';
-import Image from 'next/image';
 import {
-    getCategories,
     getProductsByCategory,
     getProduct,
+    getAllCategories,
 } from '../../services/notion';
 import { ProductType } from '../../services/notion';
 import { Dispatch, SetStateAction, useState } from 'react';
@@ -21,6 +20,7 @@ import {
 import { CallIcon } from '@/components/Icons';
 import { clsx } from 'clsx';
 import { IKImage } from 'imagekitio-react';
+import { Categories, Filters } from '..';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
 const contactNumber = process.env.NEXT_PUBLIC_CONTACT_NUMBER;
@@ -28,7 +28,8 @@ const contactNumber = process.env.NEXT_PUBLIC_CONTACT_NUMBER;
 type ProductProps = {
     product: ProductType;
     url: string;
-    categories: string[];
+    categories: Categories;
+    filters: Filters;
 };
 
 type SecondaryImagesProps = {
@@ -242,7 +243,11 @@ const StockPriceContainer = ({ product, type }: StockPriceContainerProps) => {
     );
 };
 
-export default function Product({ product, categories }: ProductProps) {
+export default function Product({
+    product,
+    categories,
+    filters,
+}: ProductProps) {
     const { asPath } = useRouter();
 
     const handleShareButton = () => {
@@ -252,7 +257,7 @@ export default function Product({ product, categories }: ProductProps) {
 
     return (
         <main>
-            <Header categories={categories} />
+            <Header categories={categories} filters={filters} />
 
             <Container className={styles.container}>
                 <section className={styles.images_section}>
@@ -298,26 +303,26 @@ export async function getStaticProps(props: any) {
         params: { product },
     } = props;
 
-    console.time('[Product] getCategories');
-    const categories = await getCategories();
-    console.timeEnd('[Product] getCategories');
+    console.time('[Product] getAllCategories');
+    const { categories, filters } = await getAllCategories();
+    console.timeEnd('[Product] getAllCategories');
 
     console.time('[Product] getProduct');
     const productObject = await getProduct(product);
     console.timeEnd('[Product] getProduct');
 
     return {
-        props: { product: productObject, categories },
+        props: { product: productObject, categories, filters },
     };
 }
 
 export async function getStaticPaths() {
-    console.time('[Product] getCategories');
-    const categories: string[] = await getCategories();
-    console.timeEnd('[Product] getCategories');
+    console.time('[Product] getAllCategories');
+    const { categories, filters } = await getAllCategories();
+    console.timeEnd('[Product] getAllCategories');
 
-    const productPromises = categories.map((category) =>
-        getProductsByCategory(category),
+    const productPromises = Object.keys(categories).map((name: string) =>
+        getProductsByCategory(name),
     );
 
     console.time('[Product] getAllProducts');

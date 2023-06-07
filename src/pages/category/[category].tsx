@@ -1,4 +1,4 @@
-import { getCategories, getProductsByCategory } from '@/services/notion';
+import { getAllCategories, getProductsByCategory } from '@/services/notion';
 import { ProductType } from '@/services/notion';
 import Link from 'next/link';
 import React from 'react';
@@ -9,21 +9,24 @@ import Col from 'react-bootstrap/Col';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { IKImage } from 'imagekitio-react';
+import { Categories, Filters } from '..';
 
 type CategoryProps = {
     category: string;
     products: ProductType[];
-    categories: string[];
+    categories: Categories;
+    filters: Filters;
 };
 
 export default function Category({
     category,
     products,
     categories,
+    filters,
 }: CategoryProps) {
     return (
         <main>
-            <Header />
+            <Header categories={categories} filters={filters} />
             <Container>
                 <h1 className={styles.h1}>{category}</h1>
                 <Col className={styles.cards_layout}>
@@ -80,7 +83,7 @@ export async function getStaticProps(props: { params: CategoryProps }) {
     } = props;
 
     console.time('[Category] getCategories');
-    const categories = await getCategories();
+    const { categories, filters } = await getAllCategories();
     console.timeEnd('[Category] getCategories');
 
     console.time('getProductsByCategory');
@@ -88,16 +91,16 @@ export async function getStaticProps(props: { params: CategoryProps }) {
     console.timeEnd('getProductsByCategory');
 
     return {
-        props: { category, products, categories },
+        props: { category, products, categories, filters },
     };
 }
 
 export async function getStaticPaths() {
     console.time('[Category] getCategories');
-    const categories = await getCategories();
+    const { categories, filters } = await getAllCategories();
     console.timeEnd('[Category] getCategories');
 
-    const paths = categories.map((name) => ({
+    const paths = Object.keys(categories).map((name: string) => ({
         params: {
             category: name,
         },

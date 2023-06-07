@@ -1,10 +1,12 @@
 import { Client } from '@notionhq/client';
-import {
-    GetDatabaseResponse,
-    PageObjectResponse,
-} from '@notionhq/client/build/src/api-endpoints';
+import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import { cache } from '../cache';
-import { parseProduct, Product } from './parser';
+import {
+    categoryParser,
+    parseProduct,
+    Product,
+    subCategoryParser,
+} from './parser';
 import { validateProduct } from './validator';
 import { Database, DatabaseIds } from './types';
 
@@ -155,4 +157,21 @@ export const getDatabaseDetails = async (database: Database) => {
         console.error(`Fetch ${database} details from notion failed: `, err);
         throw err;
     }
+};
+
+export const getAllCategories = async (): Promise<any> => {
+    const categoryResponse: any = await getDatabaseDetails(Database.Category);
+
+    const subCategoryResponse: any = await getDatabaseDetails(
+        Database.SubCategory,
+    );
+
+    const filters = subCategoryParser(subCategoryResponse);
+
+    const { categories, allCategories } = categoryParser(
+        categoryResponse,
+        filters,
+    );
+
+    return { categories, filters }!;
 };

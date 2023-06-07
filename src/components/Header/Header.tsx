@@ -9,14 +9,21 @@ import { useGlobalContext } from '@/hooks/useGlobalContext';
 import { DropTabs } from '@/components/DropTabs';
 import { useEffect, useRef } from 'react';
 import { CategoriesAccordian } from '../CategoriesAccordian';
+import { Categories, Filters } from '@/pages';
 
-type HeaderProps = {};
+type HeaderProps = {
+    categories: Categories;
+    filters: Filters;
+};
 
-export const Header = ({}: HeaderProps) => {
-    const { showHeader, setShowHeader } = useGlobalContext();
+export const Header = ({ categories, filters }: HeaderProps) => {
     const isMobileView = useRef(false);
+    const { showHeader, setShowHeader, setCategories, setFilters } =
+        useGlobalContext();
 
     useEffect(() => {
+        setCategories(categories);
+        setFilters(filters);
         isMobileView.current = window.innerWidth <= 575;
     }, []);
 

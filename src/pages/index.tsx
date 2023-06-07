@@ -4,7 +4,7 @@ import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { CategorySection } from '../components/Home/CategorySection';
 import { TrustSection } from '../components/Home/TrustSection';
-import { getAllCategories } from '@/services/notion/parser';
+import { getAllCategories } from '@/services/notion';
 import { useGlobalContext } from '@/hooks/useGlobalContext';
 import { useEffect } from 'react';
 
@@ -17,13 +17,6 @@ type HomeProps = {
 };
 
 export default function Index({ categories, filters }: HomeProps) {
-    const { setCategories, setFilters } = useGlobalContext();
-
-    useEffect(() => {
-        setCategories(categories);
-        setFilters(filters);
-    }, []);
-
     return (
         <>
             <Head>
@@ -36,7 +29,7 @@ export default function Index({ categories, filters }: HomeProps) {
                 <link rel='icon' href='/favicon.ico' />
             </Head>
             <main>
-                <Header />
+                <Header categories={categories} filters={filters} />
                 <div className={styles.homepage}>
                     <section className={styles.introduction}>
                         <b>
