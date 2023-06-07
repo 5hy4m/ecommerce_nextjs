@@ -2,6 +2,7 @@ import { useGlobalContext } from '@/hooks/useGlobalContext';
 import React from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import styles from './CategoriesAccordian.module.css';
+import Link from 'next/link';
 
 export function CategoriesAccordian() {
     const { categories, filters } = useGlobalContext();
@@ -10,7 +11,14 @@ export function CategoriesAccordian() {
         <Accordion className={styles.accordion}>
             {Object.entries(categories).map(([category, subCategories], i) => (
                 <Accordion.Item key={category + i} eventKey={`category-${i}`}>
-                    <Accordion.Header>{category}</Accordion.Header>
+                    <Accordion.Header>
+                        <Link
+                            className={styles.link}
+                            href={`/listing/${category}`}
+                        >
+                            {category}
+                        </Link>
+                    </Accordion.Header>
 
                     <Accordion.Body className={styles.accordionBody}>
                         <Accordion
@@ -27,14 +35,24 @@ export function CategoriesAccordian() {
                                     >
                                         {hasFilters ? (
                                             <Accordion.Header>
-                                                {subCategory}
+                                                <Link
+                                                    className={styles.link}
+                                                    href={`/listing/${category}/${subCategory}`}
+                                                >
+                                                    {subCategory}
+                                                </Link>
                                             </Accordion.Header>
                                         ) : (
                                             <Accordion.Item
                                                 className={styles.noFilters}
                                                 eventKey={`subCategory-${i}`}
                                             >
-                                                {subCategory}
+                                                <Link
+                                                    className={styles.link}
+                                                    href={`/listing/${category}/${subCategory}`}
+                                                >
+                                                    {subCategory}
+                                                </Link>
                                             </Accordion.Item>
                                         )}
 
@@ -43,7 +61,14 @@ export function CategoriesAccordian() {
                                                 <Accordion.Body
                                                     key={`${filter}-i`}
                                                 >
-                                                    {filter}
+                                                    <Link
+                                                        style={{
+                                                            color: 'white',
+                                                        }}
+                                                        href={`/listing/${category}/${subCategory}/${filter}`}
+                                                    >
+                                                        {filter}
+                                                    </Link>
                                                 </Accordion.Body>
                                             ),
                                         )}

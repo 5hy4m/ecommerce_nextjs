@@ -22,6 +22,7 @@ export const Header = ({ categories, filters }: HeaderProps) => {
         useGlobalContext();
 
     useEffect(() => {
+        setShowHeader(false);
         setCategories(categories);
         setFilters(filters);
         isMobileView.current = window.innerWidth <= 575;
