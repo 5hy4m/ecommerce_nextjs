@@ -40,7 +40,7 @@ export const CustomToggle = React.forwardRef(
 export const CustomMenu = React.forwardRef(
     (
         {
-            children: subCategories,
+            children: { category, subCategories },
             style,
             className,
             'aria-labelledby': labeledBy,
@@ -74,7 +74,9 @@ export const CustomMenu = React.forwardRef(
                         return (
                             <div key={subCategory + i}>
                                 <Dropdown.Item className={styles.columnHeader}>
-                                    <Link href={`/subcategory/${subCategory}`}>
+                                    <Link
+                                        href={`/listing/${category}/${subCategory}`}
+                                    >
                                         {subCategory}
                                     </Link>
                                 </Dropdown.Item>
@@ -87,7 +89,7 @@ export const CustomMenu = React.forwardRef(
                                                 return (
                                                     <Dropdown.Item
                                                         key={filter + i}
-                                                        href='#/action-2'
+                                                        href={`/listing/${category}/${subCategory}/${filter}`}
                                                     >
                                                         {filter}
                                                     </Dropdown.Item>
@@ -125,7 +127,7 @@ function DropDowns({ category, subCategories, idx }: Props) {
             </Dropdown.Toggle>
 
             <Dropdown.Menu show={show} as={CustomMenu} align={'end'}>
-                {subCategories}
+                {{ category, subCategories } as any}
             </Dropdown.Menu>
         </Dropdown>
     );
