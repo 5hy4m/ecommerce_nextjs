@@ -26,7 +26,7 @@ export const Header = ({ categories, filters }: HeaderProps) => {
         setCategories(categories);
         setFilters(filters);
         isMobileView.current = window.innerWidth <= 575;
-    }, []);
+    }, [categories, filters, setCategories, setFilters, setShowHeader]);
 
     return (
         <Navbar id='header' bg='dark' expand={'sm'} className={styles.navbar}>
