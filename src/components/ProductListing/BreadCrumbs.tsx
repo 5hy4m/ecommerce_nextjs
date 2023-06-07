@@ -1,6 +1,6 @@
 import React from 'react';
 import { Breadcrumb } from 'react-bootstrap';
-import styles from './ProductListing.module.css';
+import styles from './BreadCrumbs.module.css';
 import { useRouter } from 'next/router';
 
 function BreadCrumbs() {
