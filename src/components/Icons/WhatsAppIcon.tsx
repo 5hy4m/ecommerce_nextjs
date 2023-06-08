@@ -18,9 +18,9 @@ export const WhatsAppIcon = ({ height, width }: IconProps) => {
                 x2='512.001'
                 y2='1025.023'
             >
-                <stop offset='0' stop-color='#61fd7d' />
+                <stop offset='0' stopColor='#61fd7d' />
 
-                <stop offset='1' stop-color='#2bb826' />
+                <stop offset='1' stopColor='#2bb826' />
             </linearGradient>
 
             <use overflow='visible' fill='url(#b)' />
