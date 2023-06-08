@@ -13,7 +13,7 @@
 }
 
 .navbar {
-    height: 100px;
+    height: var(--header-height);
     margin-bottom: var(--margin-divider);
 }
 
@@ -24,7 +24,7 @@
     font-size: 1.5rem;
 }
 
-.categoryContainer > a {
+.categoryContainer > div > div > a {
     padding-left: 10px;
     padding-right: 10px;
     width: fit-content;
@@ -32,7 +32,7 @@
     text-decoration: none;
 }
 
-.categoryContainer > a:hover {
+.categoryContainer > div > div > a:hover {
     font-weight: 1000;
     color: orange;
 }
@@ -46,6 +46,9 @@
     .categoryContainer {
         flex-direction: column;
     }
+    .offCanvasBody {
+        padding: 0;
+    }
 }
 
 @media only screen and (max-width: 767px) {
@@ -57,7 +60,6 @@
         right: 15px;
         height: 30px;
         width: 30px;
-        top: 25px;
     }
 
     .categoryContainer > a {

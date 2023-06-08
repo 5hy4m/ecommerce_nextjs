@@ -70,3 +70,40 @@ export const parseProduct = ({ properties }: PageObjectResponse): Product => {
 
     return parsedProduct;
 };
+
+export function categoryParser(categoryResponse: any, filters: any) {
+    let categories = {} as any;
+    let allCategories = {} as any;
+
+    categoryResponse.results?.forEach((result: any) => {
+        const key = result.properties.Name.title[0]?.plain_text;
+        if (!key) return;
+
+        categories[key] = [];
+        allCategories[key] = [];
+
+        result.properties.Rollup.rollup.array.map((prop: any) => {
+            const value = prop.title[0].plain_text;
+            categories[key].push(value);
+            allCategories[key].push({ [value]: filters[value] });
+        });
+    });
+    return { categories, allCategories };
+}
+
+export function subCategoryParser(subCategoryResponse: any) {
+    let filters = {} as any;
+
+    subCategoryResponse.results?.forEach((result: any) => {
+        const key = result.properties.Name.title[0]?.plain_text;
+        if (!key) return;
+
+        filters[key] = [];
+
+        result.properties.Rollup.rollup.array.map((prop: any) => {
+            const value = prop.title[0].plain_text;
+            filters[key].push(value);
+        });
+    });
+    return filters;
+}

@@ -1,17 +1,32 @@
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Link from 'next/link';
 import Nav from 'react-bootstrap/Nav';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { CategoryIcon } from '@/components/Icons';
 import styles from './Header.module.css';
 import { useGlobalContext } from '@/hooks/useGlobalContext';
+import { DropTabs } from '@/components/DropTabs';
+import { useEffect, useRef } from 'react';
+import { CategoriesAccordian } from '../CategoriesAccordian';
+import { Categories, Filters } from '@/pages';
 
-type HeaderProps = { categories: string[] };
+type HeaderProps = {
+    categories: Categories;
+    filters: Filters;
+};
 
-export const Header = ({ categories }: HeaderProps) => {
-    const { showHeader, setShowHeader } = useGlobalContext();
+export const Header = ({ categories, filters }: HeaderProps) => {
+    const isMobileView = useRef(false);
+    const { showHeader, setShowHeader, setCategories, setFilters } =
+        useGlobalContext();
+
+    useEffect(() => {
+        setShowHeader(false);
+        setCategories(categories);
+        setFilters(filters);
+        isMobileView.current = window.innerWidth <= 575;
+    }, [categories, filters, setCategories, setFilters, setShowHeader]);
 
     return (
         <Navbar id='header' bg='dark' expand={'sm'} className={styles.navbar}>
@@ -45,22 +60,18 @@ export const Header = ({ categories }: HeaderProps) => {
                         </Offcanvas.Title>
                     </Offcanvas.Header>
 
-                    <Offcanvas.Body>
+                    <Offcanvas.Body className={styles.offCanvasBody}>
                         <Nav className='me-auto'>
                             <Row
-                                onClick={() => setShowHeader(false)}
                                 className={`${styles.categoryContainer} ${
                                     showHeader ? styles.flex_col : ''
                                 }`}
                             >
-                                {categories.map((name: string, i) => (
-                                    <Link
-                                        href={`/category/${name}`}
-                                        key={`Categories_${i}`}
-                                    >
-                                        <u>{name}</u>
-                                    </Link>
-                                ))}
+                                {isMobileView.current ? (
+                                    <CategoriesAccordian />
+                                ) : (
+                                    <DropTabs />
+                                )}
                             </Row>
                         </Nav>
                     </Offcanvas.Body>

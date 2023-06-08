@@ -1,16 +1,22 @@
 import Head from 'next/head';
 import styles from './Home.module.css';
-import { getCategories } from '../services/notion';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { CategorySection } from '../components/Home/CategorySection';
 import { TrustSection } from '../components/Home/TrustSection';
+import { getAllCategories } from '@/services/notion';
+import { useGlobalContext } from '@/hooks/useGlobalContext';
+import { useEffect } from 'react';
+
+export type Categories = { [category: string]: string[] };
+export type Filters = { [filter: string]: string[] };
 
 type HomeProps = {
-    categories: string[];
+    categories: Categories;
+    filters: Filters;
 };
 
-export default function Index({ categories }: HomeProps) {
+export default function Index({ categories, filters }: HomeProps) {
     return (
         <>
             <Head>
@@ -23,7 +29,7 @@ export default function Index({ categories }: HomeProps) {
                 <link rel='icon' href='/favicon.ico' />
             </Head>
             <main>
-                <Header categories={categories} />
+                <Header categories={categories} filters={filters} />
                 <div className={styles.homepage}>
                     <section className={styles.introduction}>
                         <b>
@@ -59,11 +65,11 @@ export default function Index({ categories }: HomeProps) {
 }
 
 export async function getStaticProps() {
-    console.time('[Category] getCategories');
-    const categories = await getCategories();
-    console.timeEnd('[Category] getCategories');
+    console.time('[Category] getAllCategories');
+    const { categories, filters } = await getAllCategories();
+    console.timeEnd('[Category] getAllCategories');
 
     return {
-        props: { categories },
+        props: { categories, filters },
     };
 }

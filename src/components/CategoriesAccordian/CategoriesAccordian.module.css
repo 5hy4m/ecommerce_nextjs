@@ -1,0 +1,35 @@
+.accordion {
+    padding: 0;
+    border: solid 1px black;
+}
+
+.accordion > div {
+    background: #212529;
+    color: white;
+    border: none;
+}
+
+.accordionBody {
+    padding: 0;
+}
+
+.subAccordion > div > div {
+    padding: 0;
+    padding-left: 25px;
+}
+
+.subAccordion {
+    padding-left: 5px;
+}
+
+.subAccordion > div > h2 > button {
+    padding-left: 30px;
+}
+
+.noFilters {
+    padding: 10px 10px 10px 30px !important;
+}
+
+.link {
+    color: black;
+}
