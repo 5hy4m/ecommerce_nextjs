@@ -7,7 +7,7 @@ import {
     Product,
     subCategoryParser,
 } from './parser';
-import { validateProduct } from './validator';
+import { commonProductFilters } from './validator';
 import { Database, DatabaseIds } from './types';
 
 const PRODUCT_CACHE_PATH = process.env.PRODUCT_CACHE_PATH;
@@ -89,25 +89,17 @@ export const getProduct = async (productUrl: string): Promise<Product> => {
     }
     console.log("Can't find a cache for getProduct API");
 
+    const ProductFilters: any = getProductFilters({
+        property: 'URL',
+        rich_text: {
+            equals: productUrl,
+        },
+    });
+
     try {
         const response = await notion.databases.query({
             database_id: productDatabaseId,
-            filter: {
-                and: [
-                    {
-                        property: 'URL',
-                        rich_text: {
-                            equals: productUrl,
-                        },
-                    },
-                    {
-                        property: 'isActive',
-                        checkbox: {
-                            equals: true,
-                        },
-                    },
-                ],
-            },
+            filter: ProductFilters,
         });
 
         // If response.results has more than one element then There is a duplication in Notion Table
@@ -142,34 +134,26 @@ export const getProductsByCategory = async (
     }
     console.log("Can't find a cache for getProductsByCategory API: ", category);
 
+    const ProductFilters: any = getProductFilters({
+        property: 'CategoryRollup',
+        rollup: {
+            any: {
+                rich_text: {
+                    equals: category,
+                },
+            },
+        },
+    });
+
     try {
         const response = await notion.databases.query({
             database_id: productDatabaseId,
-            filter: {
-                and: [
-                    {
-                        property: 'CategoryRollup',
-                        rollup: {
-                            any: {
-                                rich_text: {
-                                    equals: category,
-                                },
-                            },
-                        },
-                    },
-                    {
-                        property: 'isActive',
-                        checkbox: {
-                            equals: true,
-                        },
-                    },
-                ],
-            },
+            filter: ProductFilters,
         });
 
-        const products: Product[] = response.results
-            .map((product) => parseProduct(product as PageObjectResponse))
-            .filter((product) => validateProduct(product));
+        const products: Product[] = response.results.map((product) =>
+            parseProduct(product as PageObjectResponse),
+        );
 
         cache.set(cachePath, products!);
 
@@ -200,34 +184,26 @@ export const getProductsBySubCategory = async (
         subCategory,
     );
 
+    const SubCategoryFilters: any = getProductFilters({
+        property: 'SubCategoryRollup',
+        rollup: {
+            any: {
+                rich_text: {
+                    equals: subCategory,
+                },
+            },
+        },
+    });
+
     try {
         const response = await notion.databases.query({
             database_id: productDatabaseId,
-            filter: {
-                and: [
-                    {
-                        property: 'SubCategoryRollup',
-                        rollup: {
-                            any: {
-                                rich_text: {
-                                    equals: subCategory,
-                                },
-                            },
-                        },
-                    },
-                    {
-                        property: 'isActive',
-                        checkbox: {
-                            equals: true,
-                        },
-                    },
-                ],
-            },
+            filter: SubCategoryFilters,
         });
 
-        const products: Product[] = response.results
-            .map((product) => parseProduct(product as PageObjectResponse))
-            .filter((product) => validateProduct(product));
+        const products: Product[] = response.results.map((product) =>
+            parseProduct(product as PageObjectResponse),
+        );
 
         cache.set(cachePath, products!);
 
@@ -258,34 +234,26 @@ export const getProductsByFilter = async (
     }
     console.log("Can't find a cache for getProductsByFilter API: ", filter);
 
+    const ProductFilters: any = getProductFilters({
+        property: 'FilterRollup',
+        rollup: {
+            any: {
+                rich_text: {
+                    equals: filter,
+                },
+            },
+        },
+    });
+
     try {
         const response = await notion.databases.query({
             database_id: productDatabaseId,
-            filter: {
-                and: [
-                    {
-                        property: 'FilterRollup',
-                        rollup: {
-                            any: {
-                                rich_text: {
-                                    equals: filter,
-                                },
-                            },
-                        },
-                    },
-                    {
-                        property: 'isActive',
-                        checkbox: {
-                            equals: true,
-                        },
-                    },
-                ],
-            },
+            filter: ProductFilters,
         });
 
-        const products: Product[] = response.results
-            .map((product) => parseProduct(product as PageObjectResponse))
-            .filter((product) => validateProduct(product));
+        const products: Product[] = response.results.map((product) =>
+            parseProduct(product as PageObjectResponse),
+        );
 
         cache.set(cachePath, products!);
 
@@ -295,3 +263,10 @@ export const getProductsByFilter = async (
         throw err;
     }
 };
+
+function getProductFilters(filter: any): any {
+    return {
+        ...commonProductFilters,
+        and: [...commonProductFilters.and, filter],
+    };
+}
