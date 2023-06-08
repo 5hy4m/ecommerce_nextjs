@@ -1,9 +1,28 @@
-import { Product } from './types';
-
-export const validateProduct = (product: Product): boolean => {
-    return (
-        product.name != '' &&
-        product.rupees != null &&
-        product.imageUrls.length != 0
-    );
+export const commonProductFilters = {
+    and: [
+        {
+            property: 'isActive',
+            checkbox: {
+                equals: true,
+            },
+        },
+        {
+            property: 'Image Urls',
+            files: {
+                is_not_empty: true,
+            },
+        },
+        {
+            property: 'Name',
+            title: {
+                is_not_empty: true,
+            },
+        },
+        {
+            property: 'Rupees',
+            number: {
+                is_not_empty: true,
+            },
+        },
+    ],
 };
