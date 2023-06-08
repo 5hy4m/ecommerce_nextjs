@@ -1,9 +1,4 @@
-import {
-    GetDatabaseResponse,
-    PageObjectResponse,
-} from '@notionhq/client/build/src/api-endpoints';
-import { getDatabaseDetails } from './api';
-import { Database } from './types';
+import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 type PropertyMapper = {
     [key in string]: string;
