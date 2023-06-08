@@ -7,7 +7,7 @@ function BreadCrumbs() {
     const router = useRouter();
     const breadCrumbs = Object.values(router.query);
 
-    const { category, subCategory }: any = breadCrumbs;
+    const { category, subCategory }: any = router.query;
 
     const breadCrumbItemProps: any[] = [];
 
@@ -15,12 +15,14 @@ function BreadCrumbs() {
         breadCrumbItemProps.push({ active: true });
     }
     if (breadCrumbs.length === 2) {
-        breadCrumbItemProps.push({ href: `/${category}` });
+        breadCrumbItemProps.push({ href: `/listing/${category}` });
         breadCrumbItemProps.push({ active: true });
     }
     if (breadCrumbs.length === 3) {
-        breadCrumbItemProps.push({ href: `/${category}` });
-        breadCrumbItemProps.push({ href: `/${category}/${subCategory}` });
+        breadCrumbItemProps.push({ href: `/listing/${category}` });
+        breadCrumbItemProps.push({
+            href: `/listing/${category}/${subCategory}`,
+        });
         breadCrumbItemProps.push({ active: true });
     }
 
