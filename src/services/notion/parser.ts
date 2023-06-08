@@ -10,7 +10,6 @@ export type Product = {
     undefined: boolean;
     imageUrls: string[];
     stock: number;
-    category: string;
     rupees: number;
     name: string;
     isActive: boolean;
@@ -18,7 +17,6 @@ export type Product = {
 
 const propertyMapper: PropertyMapper = {
     Stock: 'stock',
-    Category: 'category',
     Rupees: 'rupees',
     Name: 'name',
     Description: 'description',
@@ -41,11 +39,6 @@ export const parseProduct = ({ properties }: PageObjectResponse): Product => {
 
         if (name === 'isActive') {
             parsedProduct[propName] = content;
-            continue;
-        }
-
-        if (name === 'Category') {
-            parsedProduct[propName] = content.name;
             continue;
         }
 
