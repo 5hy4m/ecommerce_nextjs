@@ -10,6 +10,8 @@ import { DropTabs } from '@/components/DropTabs';
 import { useEffect, useRef } from 'react';
 import { CategoriesAccordian } from '../CategoriesAccordian';
 import { Categories, Filters } from '@/pages';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 type HeaderProps = {
     categories: Categories;
@@ -17,6 +19,9 @@ type HeaderProps = {
 };
 
 export const Header = ({ categories, filters }: HeaderProps) => {
+    const router = useRouter();
+    const isHomePage = router.route === '/';
+
     const isMobileView = useRef(false);
     const { showHeader, setShowHeader, setCategories, setFilters } =
         useGlobalContext();
@@ -32,6 +37,14 @@ export const Header = ({ categories, filters }: HeaderProps) => {
         <Navbar id='header' bg='dark' expand={'sm'} className={styles.navbar}>
             <Container className={styles.container} fluid>
                 <Navbar.Brand href='/' className={styles.logo}>
+                    {!isHomePage && (
+                        <Image
+                            width={60}
+                            height={50}
+                            src='/logos/1x_logo.png'
+                            alt=''
+                        />
+                    )}{' '}
                     Uniq Goods
                 </Navbar.Brand>
 
