@@ -6,19 +6,21 @@ import Link from 'next/link';
 export default function CategorySection() {
     const { setShowHeader } = useGlobalContext();
 
+    const categoryRedirection = () =>
+        window?.innerWidth < 575 ? setShowHeader(true) : window.scrollTo(0, 0);
+
     return (
         <section className={styles.category_section}>
             <div className={styles.videogames}>
                 <div className={styles.font}>Video games</div>
                 <a
-                    href='#header'
-                    onClick={() => setShowHeader(true)}
+                    onClick={() => categoryRedirection()}
                     className={styles.anchor}
                 >
                     View all categories
                 </a>
                 <Link
-                    href={'/category/VideoGames'}
+                    href={'/listing/VideoGames'}
                     className={styles.image_container}
                 >
                     <IKImage
@@ -48,14 +50,13 @@ export default function CategorySection() {
                 />
                 <div className={styles.font}>Toys</div>
                 <a
-                    href='#header'
-                    onClick={() => setShowHeader(true)}
+                    onClick={() => categoryRedirection()}
                     className={styles.anchor}
                 >
                     View all categories
                 </a>
                 <Link
-                    href={'/category/Toys'}
+                    href={'/listing/Toys'}
                     className={styles.toy_image_container}
                 >
                     <IKImage

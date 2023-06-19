@@ -5,8 +5,7 @@ import { Header } from '@/components/Header';
 import { CategorySection } from '../components/Home/CategorySection';
 import { TrustSection } from '../components/Home/TrustSection';
 import { getAllCategories } from '@/services/notion';
-import { useGlobalContext } from '@/hooks/useGlobalContext';
-import { useEffect } from 'react';
+import Image from 'next/image';
 
 export type Categories = { [category: string]: string[] };
 export type Filters = { [filter: string]: string[] };
@@ -32,6 +31,12 @@ export default function Index({ categories, filters }: HomeProps) {
                 <Header categories={categories} filters={filters} />
                 <div className={styles.homepage}>
                     <section className={styles.introduction}>
+                        <Image
+                            width={150}
+                            height={110}
+                            src='/logos/3x_logo.png'
+                            alt='Logo'
+                        />
                         <b>
                             We sell
                             <br />
