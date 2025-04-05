@@ -14,6 +14,9 @@ const nextConfig = {
             },
         ],
     },
+    serverRuntimeConfig: {
+        runtime: process.env.RUNTIME,
+    },
 };
 
 module.exports = nextConfig;
