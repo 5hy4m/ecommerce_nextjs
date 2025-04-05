@@ -4,7 +4,6 @@ import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { CategorySection } from '../components/Home/CategorySection';
 import { TrustSection } from '../components/Home/TrustSection';
-import { getAllCategories } from '@/services/notion';
 import Image from 'next/image';
 
 export type Categories = { [category: string]: string[] };
@@ -70,11 +69,11 @@ export default function Index({ categories, filters }: HomeProps) {
 }
 
 export async function getStaticProps() {
-    console.time('[Category] getAllCategories');
-    const { categories, filters } = await getAllCategories();
-    console.timeEnd('[Category] getAllCategories');
+    // console.time('[Category] getAllCategories');
+    // const { categories, filters } = await getAllCategories();
+    // console.timeEnd('[Category] getAllCategories');
 
     return {
-        props: { categories, filters },
+        props: {},
     };
 }

@@ -27,246 +27,246 @@ const databaseIds: DatabaseIds = {
     [Database.SubCategory]: subCategoryDatabaseId!,
 };
 
-export const getDatabaseDetails = async (database: Database) => {
-    const databaseId = databaseIds[database];
-    if (!databaseId || !secret || !DATABASE_DETAILS_CACHE_PATH) {
-        console.error("Can't find notion env variable");
-        throw new Error('Notion credentials missing');
-    }
-    const cachePath = `${DATABASE_DETAILS_CACHE_PATH}-${database}`;
+// export const getDatabaseDetails = async (database: Database) => {
+//     const databaseId = databaseIds[database];
+//     if (!databaseId || !secret || !DATABASE_DETAILS_CACHE_PATH) {
+//         console.error("Can't find notion env variable");
+//         throw new Error('Notion credentials missing');
+//     }
+//     const cachePath = `${DATABASE_DETAILS_CACHE_PATH}-${database}`;
 
-    let details = cache.get(cachePath);
+//     let details = cache.get(cachePath);
 
-    if (details) {
-        console.log(`using cache to get ${database} database details `);
-        return details;
-    }
+//     if (details) {
+//         console.log(`using cache to get ${database} database details `);
+//         return details;
+//     }
 
-    console.log(`Can't find a cache for ${database} DatabaseDetails API`);
+//     console.log(`Can't find a cache for ${database} DatabaseDetails API`);
 
-    try {
-        const response = await notion.databases.query({
-            database_id: databaseId,
-        });
+//     try {
+//         const response = await notion.databases.query({
+//             database_id: databaseId,
+//         });
 
-        cache.set(cachePath, response!);
+//         cache.set(cachePath, response!);
 
-        return response!;
-    } catch (err) {
-        console.error(`Fetch ${database} details from notion failed: `, err);
-        throw err;
-    }
-};
+//         return response!;
+//     } catch (err) {
+//         console.error(`Fetch ${database} details from notion failed: `, err);
+//         throw err;
+//     }
+// };
 
-export const getAllCategories = async (): Promise<any> => {
-    const categoryResponse: any = await getDatabaseDetails(Database.Category);
+// export const getAllCategories = async (): Promise<any> => {
+//     const categoryResponse: any = await getDatabaseDetails(Database.Category);
 
-    const subCategoryResponse: any = await getDatabaseDetails(
-        Database.SubCategory,
-    );
+//     const subCategoryResponse: any = await getDatabaseDetails(
+//         Database.SubCategory,
+//     );
 
-    const filters = subCategoryParser(subCategoryResponse);
+//     const filters = subCategoryParser(subCategoryResponse);
 
-    const { categories, allCategories } = categoryParser(
-        categoryResponse,
-        filters,
-    );
+//     const { categories, allCategories } = categoryParser(
+//         categoryResponse,
+//         filters,
+//     );
 
-    return { categories, filters }!;
-};
+//     return { categories, filters }!;
+// };
 
-export const getProduct = async (productUrl: string): Promise<Product> => {
-    if (!productDatabaseId || !secret) {
-        console.error("Can't find notion env variable");
-        return {} as Product;
-    }
-    const cachePath = `${PRODUCT_CACHE_PATH}_${productUrl}`;
-    let product = cache.get(cachePath) as Product;
+// export const getProduct = async (productUrl: string): Promise<Product> => {
+//     if (!productDatabaseId || !secret) {
+//         console.error("Can't find notion env variable");
+//         return {} as Product;
+//     }
+//     const cachePath = `${PRODUCT_CACHE_PATH}_${productUrl}`;
+//     let product = cache.get(cachePath) as Product;
 
-    if (product) {
-        console.log('using cache to get product');
-        return product;
-    }
-    console.log("Can't find a cache for getProduct API");
+//     if (product) {
+//         console.log('using cache to get product');
+//         return product;
+//     }
+//     console.log("Can't find a cache for getProduct API");
 
-    const ProductFilters: any = getProductFilters({
-        property: 'URL',
-        rich_text: {
-            equals: productUrl,
-        },
-    });
+//     const ProductFilters: any = getProductFilters({
+//         property: 'URL',
+//         rich_text: {
+//             equals: productUrl,
+//         },
+//     });
 
-    try {
-        const response = await notion.databases.query({
-            database_id: productDatabaseId,
-            filter: ProductFilters,
-        });
+//     try {
+//         const response = await notion.databases.query({
+//             database_id: productDatabaseId,
+//             filter: ProductFilters,
+//         });
 
-        // If response.results has more than one element then There is a duplication in Notion Table
-        if (response.results.length > 1)
-            console.warn('Duplicates found in Notion Table');
+//         // If response.results has more than one element then There is a duplication in Notion Table
+//         if (response.results.length > 1)
+//             console.warn('Duplicates found in Notion Table');
 
-        const product = parseProduct(response.results[0] as PageObjectResponse);
+//         const product = parseProduct(response.results[0] as PageObjectResponse);
 
-        cache.set(cachePath, product!);
+//         cache.set(cachePath, product!);
 
-        return product;
-    } catch (err) {
-        console.error('Fetch product from notion failed: ', err);
-        throw err;
-    }
-};
+//         return product;
+//     } catch (err) {
+//         console.error('Fetch product from notion failed: ', err);
+//         throw err;
+//     }
+// };
 
-export const getProductsByCategory = async (
-    category: string,
-): Promise<Product[]> => {
-    if (!productDatabaseId || !secret) {
-        console.error("Can't find notion env variable");
-        return [];
-    }
-    const cachePath = `${PRODUCTS_CACHE_PATH}_${category}`;
+// export const getProductsByCategory = async (
+//     category: string,
+// ): Promise<Product[]> => {
+//     if (!productDatabaseId || !secret) {
+//         console.error("Can't find notion env variable");
+//         return [];
+//     }
+//     const cachePath = `${PRODUCTS_CACHE_PATH}_${category}`;
 
-    let products = cache.get(cachePath) as Product[];
+//     let products = cache.get(cachePath) as Product[];
 
-    if (products) {
-        console.log('using cache to get products list');
-        return products;
-    }
-    console.log("Can't find a cache for getProductsByCategory API: ", category);
+//     if (products) {
+//         console.log('using cache to get products list');
+//         return products;
+//     }
+//     console.log("Can't find a cache for getProductsByCategory API: ", category);
 
-    const ProductFilters: any = getProductFilters({
-        property: 'CategoryRollup',
-        rollup: {
-            any: {
-                rich_text: {
-                    equals: category,
-                },
-            },
-        },
-    });
+//     const ProductFilters: any = getProductFilters({
+//         property: 'CategoryRollup',
+//         rollup: {
+//             any: {
+//                 rich_text: {
+//                     equals: category,
+//                 },
+//             },
+//         },
+//     });
 
-    try {
-        const response = await notion.databases.query({
-            database_id: productDatabaseId,
-            filter: ProductFilters,
-        });
+//     try {
+//         const response = await notion.databases.query({
+//             database_id: productDatabaseId,
+//             filter: ProductFilters,
+//         });
 
-        const products: Product[] = response.results.map((product) =>
-            parseProduct(product as PageObjectResponse),
-        );
+//         const products: Product[] = response.results.map((product) =>
+//             parseProduct(product as PageObjectResponse),
+//         );
 
-        cache.set(cachePath, products!);
+//         cache.set(cachePath, products!);
 
-        return products;
-    } catch (err) {
-        console.error('Fetch productsByCategory from notion failed: ', err);
-        throw err;
-    }
-};
+//         return products;
+//     } catch (err) {
+//         console.error('Fetch productsByCategory from notion failed: ', err);
+//         throw err;
+//     }
+// };
 
-export const getProductsBySubCategory = async (
-    subCategory: string,
-): Promise<Product[]> => {
-    if (!productDatabaseId || !secret) {
-        console.error("Can't find notion env variable");
-        return [];
-    }
-    const cachePath = `${PRODUCTS_CACHE_PATH}_${subCategory}`;
+// export const getProductsBySubCategory = async (
+//     subCategory: string,
+// ): Promise<Product[]> => {
+//     if (!productDatabaseId || !secret) {
+//         console.error("Can't find notion env variable");
+//         return [];
+//     }
+//     const cachePath = `${PRODUCTS_CACHE_PATH}_${subCategory}`;
 
-    let products = cache.get(cachePath) as Product[];
+//     let products = cache.get(cachePath) as Product[];
 
-    if (products) {
-        console.log('using cache to get products list');
-        return products;
-    }
-    console.log(
-        "Can't find a cache for getProductsBySubCategory API: ",
-        subCategory,
-    );
+//     if (products) {
+//         console.log('using cache to get products list');
+//         return products;
+//     }
+//     console.log(
+//         "Can't find a cache for getProductsBySubCategory API: ",
+//         subCategory,
+//     );
 
-    const SubCategoryFilters: any = getProductFilters({
-        property: 'SubCategoryRollup',
-        rollup: {
-            any: {
-                rich_text: {
-                    equals: subCategory,
-                },
-            },
-        },
-    });
+//     const SubCategoryFilters: any = getProductFilters({
+//         property: 'SubCategoryRollup',
+//         rollup: {
+//             any: {
+//                 rich_text: {
+//                     equals: subCategory,
+//                 },
+//             },
+//         },
+//     });
 
-    try {
-        const response = await notion.databases.query({
-            database_id: productDatabaseId,
-            filter: SubCategoryFilters,
-        });
+//     try {
+//         const response = await notion.databases.query({
+//             database_id: productDatabaseId,
+//             filter: SubCategoryFilters,
+//         });
 
-        const products: Product[] = response.results.map((product) =>
-            parseProduct(product as PageObjectResponse),
-        );
+//         const products: Product[] = response.results.map((product) =>
+//             parseProduct(product as PageObjectResponse),
+//         );
 
-        cache.set(cachePath, products!);
+//         cache.set(cachePath, products!);
 
-        return products;
-    } catch (err) {
-        console.error(
-            'Fetch getProductsBySubCategory from notion failed: ',
-            err,
-        );
-        throw err;
-    }
-};
+//         return products;
+//     } catch (err) {
+//         console.error(
+//             'Fetch getProductsBySubCategory from notion failed: ',
+//             err,
+//         );
+//         throw err;
+//     }
+// };
 
-export const getProductsByFilter = async (
-    filter: string,
-): Promise<Product[]> => {
-    if (!productDatabaseId || !secret) {
-        console.error("Can't find notion env variable");
-        return [];
-    }
-    const cachePath = `${PRODUCTS_CACHE_PATH}_${filter}`;
+// export const getProductsByFilter = async (
+//     filter: string,
+// ): Promise<Product[]> => {
+//     if (!productDatabaseId || !secret) {
+//         console.error("Can't find notion env variable");
+//         return [];
+//     }
+//     const cachePath = `${PRODUCTS_CACHE_PATH}_${filter}`;
 
-    let products = cache.get(cachePath) as Product[];
+//     let products = cache.get(cachePath) as Product[];
 
-    if (products) {
-        console.log('using cache to get products list');
-        return products;
-    }
-    console.log("Can't find a cache for getProductsByFilter API: ", filter);
+//     if (products) {
+//         console.log('using cache to get products list');
+//         return products;
+//     }
+//     console.log("Can't find a cache for getProductsByFilter API: ", filter);
 
-    const ProductFilters: any = getProductFilters({
-        property: 'FilterRollup',
-        rollup: {
-            any: {
-                rich_text: {
-                    equals: filter,
-                },
-            },
-        },
-    });
+//     const ProductFilters: any = getProductFilters({
+//         property: 'FilterRollup',
+//         rollup: {
+//             any: {
+//                 rich_text: {
+//                     equals: filter,
+//                 },
+//             },
+//         },
+//     });
 
-    try {
-        const response = await notion.databases.query({
-            database_id: productDatabaseId,
-            filter: ProductFilters,
-        });
+//     try {
+//         const response = await notion.databases.query({
+//             database_id: productDatabaseId,
+//             filter: ProductFilters,
+//         });
 
-        const products: Product[] = response.results.map((product) =>
-            parseProduct(product as PageObjectResponse),
-        );
+//         const products: Product[] = response.results.map((product) =>
+//             parseProduct(product as PageObjectResponse),
+//         );
 
-        cache.set(cachePath, products!);
+//         cache.set(cachePath, products!);
 
-        return products;
-    } catch (err) {
-        console.error('Fetch getProductsByFilter from notion failed: ', err);
-        throw err;
-    }
-};
+//         return products;
+//     } catch (err) {
+//         console.error('Fetch getProductsByFilter from notion failed: ', err);
+//         throw err;
+//     }
+// };
 
-function getProductFilters(filter: any): any {
-    return {
-        ...commonProductFilters,
-        and: [...commonProductFilters.and, filter],
-    };
-}
+// function getProductFilters(filter: any): any {
+//     return {
+//         ...commonProductFilters,
+//         and: [...commonProductFilters.and, filter],
+//     };
+// }

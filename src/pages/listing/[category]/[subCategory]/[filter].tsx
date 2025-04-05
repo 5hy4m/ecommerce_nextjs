@@ -1,8 +1,4 @@
-import {
-    getAllCategories,
-    getProductsByFilter,
-    ProductType,
-} from '@/services/notion';
+import { ProductType } from '@/services/notion';
 import React from 'react';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
@@ -34,45 +30,45 @@ export default function Filter({
 }
 
 export async function getStaticProps(props: { params: FilterProps }) {
-    const {
-        params: { filter },
-    } = props;
+    // const {
+    //     params: { filter },
+    // } = props;
 
-    console.time('[Filter] getAllCategories');
-    const { categories, filters } = await getAllCategories();
-    console.timeEnd('[Filter] getAllCategories');
+    // console.time('[Filter] getAllCategories');
+    // const { categories, filters } = await getAllCategories();
+    // console.timeEnd('[Filter] getAllCategories');
 
-    console.time('getProductsByFilter');
-    const products = await getProductsByFilter(filter);
-    console.timeEnd('getProductsByFilter');
+    // console.time('getProductsByFilter');
+    // const products = await getProductsByFilter(filter);
+    // console.timeEnd('getProductsByFilter');
 
     return {
-        props: { filter, products, categories, filters },
+        props: {},
     };
 }
 
 export async function getStaticPaths() {
     const paths: any = [];
 
-    console.time('[Filter] getAllCategories');
-    const { categories, filters } = await getAllCategories();
-    console.timeEnd('[Filter] getAllCategories');
+    // console.time('[Filter] getAllCategories');
+    // const { categories, filters } = await getAllCategories();
+    // console.timeEnd('[Filter] getAllCategories');
 
-    Object.entries(categories).map((category: any) => {
-        const [categoryName, subCategories] = category;
+    // Object.entries(categories).map((category: any) => {
+    //     const [categoryName, subCategories] = category;
 
-        subCategories.map((subCategory: string) => {
-            filters[subCategory].map((name: string) =>
-                paths.push({
-                    params: {
-                        category: categoryName,
-                        subCategory,
-                        filter: name,
-                    },
-                }),
-            );
-        });
-    });
+    //     subCategories.map((subCategory: string) => {
+    //         filters[subCategory].map((name: string) =>
+    //             paths.push({
+    //                 params: {
+    //                     category: categoryName,
+    //                     subCategory,
+    //                     filter: name,
+    //                 },
+    //             }),
+    //         );
+    //     });
+    // });
 
     return {
         paths: paths,

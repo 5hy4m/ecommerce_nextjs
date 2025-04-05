@@ -1,10 +1,5 @@
 import Container from 'react-bootstrap/Container';
 import styles from './Product.module.css';
-import {
-    getProductsByCategory,
-    getProduct,
-    getAllCategories,
-} from '../../services/notion';
 import { ProductType } from '../../services/notion';
 import { Dispatch, SetStateAction, useState } from 'react';
 import Button from 'react-bootstrap/Button';
@@ -299,45 +294,45 @@ export default function Product({
 }
 
 export async function getStaticProps(props: any) {
-    const {
-        params: { product },
-    } = props;
+    // const {
+    //     params: { product },
+    // } = props;
 
-    console.time('[Product] getAllCategories');
-    const { categories, filters } = await getAllCategories();
-    console.timeEnd('[Product] getAllCategories');
+    // console.time('[Product] getAllCategories');
+    // const { categories, filters } = await getAllCategories();
+    // console.timeEnd('[Product] getAllCategories');
 
-    console.time('[Product] getProduct');
-    const productObject = await getProduct(product);
-    console.timeEnd('[Product] getProduct');
+    // console.time('[Product] getProduct');
+    // const productObject = await getProduct(product);
+    // console.timeEnd('[Product] getProduct');
 
     return {
-        props: { product: productObject, categories, filters },
+        props: {},
     };
 }
 
 export async function getStaticPaths() {
-    console.time('[Product] getAllCategories');
-    const { categories, filters } = await getAllCategories();
-    console.timeEnd('[Product] getAllCategories');
+    // console.time('[Product] getAllCategories');
+    // const { categories, filters } = await getAllCategories();
+    // console.timeEnd('[Product] getAllCategories');
 
-    const productPromises = Object.keys(categories).map((name: string) =>
-        getProductsByCategory(name),
-    );
+    // const productPromises = Object.keys(categories).map((name: string) =>
+    //     getProductsByCategory(name),
+    // );
 
-    console.time('[Product] getAllProducts');
-    const settledPromises: any = await Promise.allSettled(productPromises);
-    console.timeEnd('[Product] getAllProducts');
+    // console.time('[Product] getAllProducts');
+    // const settledPromises: any = await Promise.allSettled(productPromises);
+    // console.timeEnd('[Product] getAllProducts');
 
-    let products = [] as any;
-    settledPromises.forEach((promise: any) => {
-        promise.value.forEach((product: any) => {
-            products = [...products, { params: { product: product.url } }];
-        });
-    });
+    // let products = [] as any;
+    // settledPromises.forEach((promise: any) => {
+    //     promise.value.forEach((product: any) => {
+    //         products = [...products, { params: { product: product.url } }];
+    //     });
+    // });
 
     return {
-        paths: products,
+        paths: [],
         fallback: false,
     };
 }
