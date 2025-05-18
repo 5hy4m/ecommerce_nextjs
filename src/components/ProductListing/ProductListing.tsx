@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, Col, Container } from 'react-bootstrap';
 import styles from './ProductListing.module.css';
 import Link from 'next/link';
-import { IKImage } from 'imagekitio-react';
 import BreadCrumbs from './BreadCrumbs';
 
 interface Props {
@@ -23,23 +22,13 @@ function ProductListing({ products }: Props) {
                         <div className={styles.card_container}>
                             <Card className={styles.card}>
                                 <div className={styles.img_container}>
-                                    <IKImage
+                                    <img
                                         loading='lazy'
                                         className={
                                             styles.card_img + ' card-img'
                                         }
-                                        transformation={[
-                                            {
-                                                quality: '10',
-                                            },
-                                        ]}
                                         src={product.imageUrls[0]}
                                         alt={product.name}
-                                        lqip={{
-                                            active: true,
-                                            quality: 10,
-                                            blur: 50,
-                                        }}
                                     />
                                 </div>
                                 <Card.Body className={styles.card_body}>

@@ -19,7 +19,6 @@ import {
 } from '@/components/Icons';
 import { CallIcon } from '@/components/Icons';
 import { clsx } from 'clsx';
-import { IKImage } from 'imagekitio-react';
 import { Categories, Filters } from '..';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
@@ -101,16 +100,7 @@ const SecondaryImages = ({
             key={`${i}_secondaryImages`}
             onClick={(e) => handleOnSelect(e)}
         >
-            <IKImage
-                id={`${i}`}
-                src={image}
-                alt={productName}
-                lqip={{
-                    active: true,
-                    quality: 10,
-                    blur: 50,
-                }}
-            />
+            <img id={`${i}`} src={image} alt={productName} />
         </div>
     ));
 
@@ -141,15 +131,10 @@ const ImageSelector = ({ product }: ImageSelector) => {
             {showOverlay && (
                 <div className={styles.zoom_overlay}>
                     <div className={styles.zoomed_image_container}>
-                        <IKImage
+                        <img
                             className={styles.card_img + ' card-img'}
                             src={images[selectedIndex]}
                             alt={product.name}
-                            lqip={{
-                                active: true,
-                                quality: 10,
-                                blur: 50,
-                            }}
                         />
 
                         <CloseButton handler={setOverlay} />
@@ -165,15 +150,10 @@ const ImageSelector = ({ product }: ImageSelector) => {
                 </div>
             )}
             <div className={styles.primary_image_container}>
-                <IKImage
+                <img
                     onClick={() => setOverlay(true)}
                     src={images[selectedIndex]}
                     alt={name}
-                    lqip={{
-                        active: true,
-                        quality: 10,
-                        blur: 50,
-                    }}
                 />
 
                 {showArrows ? (

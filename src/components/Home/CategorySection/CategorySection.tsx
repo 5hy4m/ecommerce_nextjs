@@ -1,6 +1,5 @@
 import styles from './CategorySection.module.css';
 import { useGlobalContext } from '@/hooks/useGlobalContext';
-import { IKImage } from 'imagekitio-react';
 import Link from 'next/link';
 
 export default function CategorySection() {
@@ -23,31 +22,11 @@ export default function CategorySection() {
                     href={'/listing/VideoGames'}
                     className={styles.image_container}
                 >
-                    <IKImage
-                        src='https://ik.imagekit.io/Hello/Video_Games_Image_fKv1-SGTPi'
-                        transformation={[
-                            {
-                                height: '900',
-                                width: '900',
-                            },
-                        ]}
-                        lqip={{
-                            active: true,
-                            quality: 10,
-                            blur: 50,
-                        }}
-                    />
+                    <img src='https://ik.imagekit.io/Hello/Video_Games_Image_fKv1-SGTPi' />
                 </Link>
             </div>
             <div className={styles.toys}>
-                <IKImage
-                    src='https://ik.imagekit.io/Hello/foreground_removed.jpg'
-                    lqip={{
-                        active: true,
-                        quality: 10,
-                        blur: 50,
-                    }}
-                />
+                <img src='https://ik.imagekit.io/Hello/foreground_removed.jpg' />
                 <div className={styles.font}>Toys</div>
                 <a
                     onClick={() => categoryRedirection()}
@@ -59,20 +38,7 @@ export default function CategorySection() {
                     href={'/listing/Toys'}
                     className={styles.toy_image_container}
                 >
-                    <IKImage
-                        src='https://ik.imagekit.io/Hello/fullscreen_barbie_Background_Removed.png'
-                        transformation={[
-                            {
-                                height: '900',
-                                width: '900',
-                            },
-                        ]}
-                        lqip={{
-                            active: true,
-                            quality: 10,
-                            blur: 50,
-                        }}
-                    />
+                    <img src='https://ik.imagekit.io/Hello/fullscreen_barbie_Background_Removed.png' />
                 </Link>
             </div>
         </section>
