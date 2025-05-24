@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './AdminDashboard.module.css';
 import ImageUpload from '@/components/FileUpload/ImageUpload';
-import { useAuth0 } from '@auth0/auth0-react';
+// import { useAuth0 } from '@auth0/auth0-react';
 
 export default function AdminDashboard() {
-    const { getAccessTokenSilently } = useAuth0();
+    // const { getAccessTokenSilently } = useAuth0();
 
     return (
         <div className={styles.container}>
