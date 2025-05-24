@@ -1,0 +1,149 @@
+.container {
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.dropzone {
+    border: 2px dashed rgb(253, 94, 9);
+    border-radius: 8px;
+    padding: 2rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fff;
+    touch-action: none; /* Prevents scrolling while dragging on mobile */
+}
+
+@media (min-width: 768px) {
+    .dropzone {
+        padding: 2rem;
+    }
+}
+
+.dropzone:hover,
+.dropzoneDragActive {
+    border-color: rgb(255, 126, 54);
+    background: rgba(253, 94, 9, 0.05);
+}
+
+.dropzoneText {
+    color: rgb(253, 94, 9);
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+@media (min-width: 768px) {
+    .dropzoneText {
+        font-size: 1.1rem;
+        margin: 1rem 0;
+    }
+}
+
+.dropzoneSubText {
+    color: #666;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    font-weight: normal;
+}
+
+@media (min-width: 768px) {
+    .dropzoneSubText {
+        font-size: 0.9rem;
+    }
+}
+
+.errorText {
+    color: #ff4444;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+}
+
+@media (min-width: 768px) {
+    .errorText {
+        font-size: 0.9rem;
+    }
+}
+
+.previewGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+@media (min-width: 480px) {
+    .previewGrid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .previewGrid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .previewGrid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
+
+.previewItem {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    touch-action: none; /* Prevents scrolling while touching preview on mobile */
+}
+
+.previewImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.removeButton {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 28px; /* Slightly larger for touch targets */
+    height: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(253, 94, 9);
+    transition: all 0.3s ease;
+    font-size: 18px;
+    line-height: 1;
+    -webkit-tap-highlight-color: transparent; /* Removes tap highlight on mobile */
+}
+
+@media (min-width: 768px) {
+    .removeButton {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.removeButton:hover {
+    background: rgb(253, 94, 9);
+    color: white;
+}
+
+/* Active states for touch devices */
+@media (hover: none) {
+    .removeButton:active {
+        background: rgb(253, 94, 9);
+        color: white;
+    }
+}

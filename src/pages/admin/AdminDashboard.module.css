@@ -1,0 +1,115 @@
+.container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fff5f0 0%, #fff 100%);
+    font-family: sans-serif;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.header {
+    background: linear-gradient(
+        90deg,
+        rgb(253, 94, 9) 0%,
+        rgb(255, 126, 54) 100%
+    );
+    color: #fff;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(253, 94, 9, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+@media (min-width: 768px) {
+    .header {
+        padding: 1rem 2rem;
+    }
+}
+
+.headerTitle {
+    letter-spacing: 2px;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .headerTitle {
+        font-size: 2rem;
+    }
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 70px);
+}
+
+@media (min-width: 768px) {
+    .layout {
+        flex-direction: row;
+    }
+}
+
+.sidebar {
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #ffe4d6;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(253, 94, 9, 0.04);
+    transition: transform 0.3s ease;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        width: 220px;
+        height: calc(100vh - 70px);
+        position: sticky;
+        top: 70px;
+        border-right: 1px solid #ffe4d6;
+        border-bottom: none;
+        padding: 2rem 1rem;
+    }
+}
+
+.uploadText {
+    color: rgb(253, 94, 9);
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .uploadText {
+        font-size: 1.1rem;
+        padding: 0;
+    }
+}
+
+.main {
+    flex: 1;
+    padding: 1rem;
+    background: #fff;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+    .main {
+        padding: 2rem;
+        background: transparent;
+        overflow-x: auto;
+    }
+}
+
+.welcomeTitle {
+    color: rgb(253, 94, 9);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+    .welcomeTitle {
+        font-size: 2rem;
+    }
+}
