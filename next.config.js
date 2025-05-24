@@ -16,6 +16,16 @@ const nextConfig = {
             },
         ],
     },
+    async redirects() {
+        return [
+            {
+                source: '/admin/relogin',
+                destination:
+                    'https://dev-lhn0nvvpalisbbnw.us.auth0.com/authorize',
+                permanent: true,
+            },
+        ];
+    },
 };
 
 module.exports = nextConfig;
