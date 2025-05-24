@@ -13,6 +13,7 @@
         "resetCache": ""
     },
     "dependencies": {
+        "@auth0/auth0-react": "^2.3.0",
         "@next/font": "13.1.6",
         "@notionhq/client": "^2.2.3",
         "@svgr/webpack": "^6.5.1",
